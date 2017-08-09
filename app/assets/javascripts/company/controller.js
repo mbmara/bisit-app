@@ -4,26 +4,32 @@
 		.module('admDashboard')
 		.controller('companyController',companyController);
 
-		companyController.$inject = ['Notification'];
+		companyController.$inject = ['Notification','CompanyFactory'];
 
-		function companyController(Notification){
+		function companyController(Notification,CompanyFactory){
             var company = this;
             
             company.addtag = addtag;
             company.removeTag = removeTag;
             company.create = create;
             
-            company.data={
-                name: "Getz Clinical Ltd",
-                unit_number:'RN 1',
-                floor:41,
-                website:'www.getzclinical.com',
-                description:'Health Care Solution',
-                tags:["Health","Bio Medical","Analytics"]
-            }
+            company.collections = [];
+            CompanyFactory.getList( function(res){
+                company.collections = res.data;
+            });
+            // company.data={
+            //     name: "Getz Clinical Ltd",
+            //     unit_number:'RN 1',
+            //     floor:41,
+            //     website:'www.getzclinical.com',
+            //     description:'Health Care Solution',
+            //     tags:["Health","Bio Medical","Analytics"]
+            // }
 
-            function create(company){
-                console.log( company );
+            function create(data){
+                CompanyFactory.create( data, function(res){
+                    console.log(res);
+                });
             }
             function removeTag(index){
                 company.data.tags.splice(index,1);

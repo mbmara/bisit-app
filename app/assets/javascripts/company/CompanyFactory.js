@@ -15,7 +15,7 @@
             function getList(k){
                 Server.get('company/list').then(k,Server.error);
             }
-            function create( user,k){
+            function create( company , k ){
                 Server.post('company/create',{company:company}).then(k,Server.error)
             }
 

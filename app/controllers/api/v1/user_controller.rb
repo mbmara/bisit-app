@@ -9,8 +9,9 @@ class Api::V1::UserController < ApplicationController
       user = User.new
       user.email = user_params[:email]
 
-      if !user_params[:password] === user_params[:password1]
-        json_response false,"Password not match"
+      unless user_params[:password] === user_params[:password1]
+        json_response false,{password:'Confirmation Incorrect'}
+        return false
       end
       user.password = user_params[:password]
       user.user_type = :admin
@@ -27,8 +28,8 @@ class Api::V1::UserController < ApplicationController
           raise ActiveRecord::Rollback
         end
       else
-        raise ActiveRecord::Rollback
         json_response false,user.errors
+        raise ActiveRecord::Rollback
       end
     end
   end

@@ -11,7 +11,7 @@
             
             f.showError = function( obj ){
                 angular.forEach(obj, function(data,key){
-                    notify({duration:5000,message:data+" "+key,position:'right',classes:'alert-error'});
+                    notify({duration:5000,message:key+" "+data,position:'right',classes:'alert-error'});
                 })
               
             }

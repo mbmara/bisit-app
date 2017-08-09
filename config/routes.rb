@@ -3,6 +3,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'user/create', to: 'user#create'
       get 'user/list', to: 'user#index'
+
+      post 'company/create', to: 'company#create'
+      get 'company/list', to: 'company#index'
     end
   end
   
