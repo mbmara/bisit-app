@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 	angular
-		.module('admDashboard',['ui.router','templates'])
+		.module('admDashboard',['ui.router','templates','ngStorage'])
 		.config(['$stateProvider','$urlRouterProvider','$locationProvider',routes]);
 
 		function routes($stateProvider, $urlRouterProvider, $locationProvider){

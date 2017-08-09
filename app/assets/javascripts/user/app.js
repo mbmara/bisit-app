@@ -10,7 +10,7 @@
 	   	 	$stateProvider
 	   	 	.state("index.user",{
 	          	url:"user",
-	          	//controller:'indexController',
+	          	controller:'userController',
 	          	templateUrl:"user/view.html",
 	         	controllerAs:'user'
 	      	})
