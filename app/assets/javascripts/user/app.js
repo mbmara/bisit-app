@@ -16,7 +16,6 @@
 	      	})
 	      	.state("index.user.create",{
 	          	url:"/create",
-	          	//controller:'indexController',
 	          	templateUrl:"user/create.html",
 	         	controllerAs:'user'
 	      	})

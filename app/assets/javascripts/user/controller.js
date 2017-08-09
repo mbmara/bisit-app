@@ -4,11 +4,14 @@
 		.module('admDashboard')
 		.controller('userController',userController);
 
-		userController.$inject = ['UserFactory'];
+		userController.$inject = ['UserFactory','Notification'];
 
-		function userController(UserFactory){
-            	var user = this;
-            
+		function userController(UserFactory,Notification){
+			var user = this;
+			user.collections = [];
+            UserFactory.getList( function(res){
+				user.collections = res.data;
+			});
 			user.create = create;
 
 			user.data={
@@ -19,10 +22,15 @@
 				password:"123123",
 				password1:"123123"
 			}
-
+			
 			function create(userdata){
 				UserFactory.create(userdata, function(res){
 					console.log(res);
+					if(res.data.status){
+						Notification.showSuccess("New user created");
+					}else{
+						Notification.showError(res.data.payload);
+					}
 				});
 			}
 

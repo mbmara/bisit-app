@@ -1,0 +1,83 @@
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Company Information</h5>
+        <div class="ibox-tools">
+            <a ui-sref="index.company" class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+    	<form ng-submit="company.create(company.data)">
+            <div class="row">
+                <div class="col-md-12">
+	        		<div class="form-group">
+	        			<label>Company Name</label>
+	        			<input type="text" class="form-control" ng-model="company.data.name" />
+	        		</div>
+	        	</div>
+            </div>
+	        <div class="row">
+	        	<div class="col-md-4">
+	        		<div class="form-group">
+	        			<label>Unit No.</label>
+	        			<input type="text" class="form-control" ng-model="company.data.unit_number" />
+	        		</div>
+	        	</div>
+	        	<div class="col-md-4">
+	        		<div class="form-group">
+	        			<label>Floor Number</label>
+	        			<input type="number" class="form-control" ng-model="company.data.floor" required/>
+	        		</div>
+	        	</div>
+	        	<div class="col-md-4">
+	        		<div class="form-group">
+	        			<label>website</label>
+	        			<input type="text" class="form-control" ng-model="company.data.website"/>
+	        		</div>
+	        	</div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="col-md-12">
+	        		<div class="form-group">
+                        <label for="">Company Description</label>
+	        			<textarea class="form-control" cols="30" rows="10" ng-model="company.data.description"></textarea>
+	        		</div>
+	        	</div>
+            </div>
+            <div class="row">
+	        	<div class="col-md-12">
+	        		<div class="form-group">
+						<label for="">Tags</label>
+						<div class="row">
+							<div class="col-md-5">
+								<div class="input-group span4">
+									<input type="text" class="form-control input-sm" ng-model="company.temp.tag" placeholder="Tags">
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-sm btn-info" ng-click="company.addtag(company.temp.tag)">
+											Add Tags
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<ul class="tag-list" style="padding: 0">
+							<li ng-repeat="a in company.data.tags track by $index"><a ng-click="company.removeTag($index)"><i class="fa fa-tag"></i>{{a}}</a></li>
+						</ul>
+						
+                    </div>
+                                                        
+				</div>
+	        </div>       
+	        <div class="row">
+	        	<div class="col-md-12">
+	        		<div class="form-group">
+						<div class="space-20"></div>
+	        			<button type="submit" class="btn btn-primary">Save</button>
+	        		</div>
+	        	</div>
+	        </div>
+        </form>
+    </div>
+</div>

@@ -1,5 +1,9 @@
 class Api::V1::UserController < ApplicationController
   
+  def index
+    @users = User.all.order id: :desc
+  end
+
   def create
     ActiveRecord::Base.transaction do
       user = User.new
@@ -19,8 +23,8 @@ class Api::V1::UserController < ApplicationController
         if profile.save
           json_response true,"Create Success"
         else
-          raise ActiveRecord::Rollback
           json_response false,profile.errors
+          raise ActiveRecord::Rollback
         end
       else
         raise ActiveRecord::Rollback

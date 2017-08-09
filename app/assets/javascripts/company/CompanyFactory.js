@@ -2,21 +2,21 @@
 	'use strict';
 	angular
 		.module('admDashboard')
-        .factory('UserFactory',UserFactory);
+        .factory('CompanyFactory',CompanyFactory);
 
-        UserFactory.$inject = ['Server'];
+        CompanyFactory.$inject = ['Server'];
 
-        function UserFactory( Server ){
+        function CompanyFactory( Server ){
             var f = {};
 
             f.create = create;
             f.getList = getList;
 
             function getList(k){
-                Server.get('user/list').then(k,Server.error);
+                Server.get('company/list').then(k,Server.error);
             }
             function create( user,k){
-                Server.post('user/create',{user:user}).then(k,Server.error)
+                Server.post('company/create',{company:company}).then(k,Server.error)
             }
 
             return f;
