@@ -4,7 +4,8 @@
             <div class="ibox">
                 <div class="ibox-content mailbox-content">
                     <div class="file-manager">
-                        <a class="btn btn-block btn-primary compose-mail" ui-sref="index.company.create">Register New Company</a>
+                        <a ng-if="company.mode=='view'" class="btn btn-block btn-primary compose-mail" ui-sref="index.company.create">Register New Company</a>
+                        <a ng-if="company.mode=='create'" class="btn btn-block btn-primary compose-mail" ui-sref="index.company">All Company</a>
                         <div class="space-25"></div>
                         <h5>status</h5>
                         <ul class="category-list" style="padding: 0">
@@ -45,14 +46,14 @@
                             <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
 
                         </div>
-                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> Refresh</button>
+                        <button ng-click="company.loadCompany()" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> Refresh</button>
                         
                     </div>
                 </div>
                 <div class="mail-box">
     				<table class="table table-hover table-mail">
     	                <tbody>
-    	               		<tr class="read" ng-repeat="com in company.collections">
+    	               		<tr ui-sref="index.company.detail" class="read" ng-repeat="com in company.collections">
     		                    <td>{{com.id}}</td>
     		                    <td class="mail-contact"><a href="mail_detail.html">{{com.name}}</a></td>
     		                    <td class="mail-subject"><a href="mail_detail.html">{{com.created_at | date:'MMMM dd, yyyy hh:mm:ss a'}}</a></td>

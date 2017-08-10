@@ -3,6 +3,9 @@ class Api::V1::CompanyController < ApplicationController
 
     def index
         @companies = Company.all.order id: :desc
+
+
+        #company.tags.distinct(:content)
     end
     def create
         ActiveRecord::Base.transaction do

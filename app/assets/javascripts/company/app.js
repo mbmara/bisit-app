@@ -11,14 +11,21 @@
 	   	 	.state("index.company",{
 	          	url:"companies",
 	          	controller:'companyController',
-	          	templateUrl:"company/view.html",
+	          	templateUrl:"company/index/view.html",
 	         	controllerAs:'company'
 	      	})
 	      	.state("index.company.create",{
 	          	url:"/create",
-	          	controller:'companyController',
-	          	templateUrl:"company/create.html",
-	         	controllerAs:'company'
-	      	})
+	          	controller:'companyCreateController',
+	          	templateUrl:"company/create/view.html",
+	         	controllerAs:'company_create'
+			})
+			.state("index.company.detail",{
+	          	url:"/detail",
+	          	//controller:'companyController',
+	          	templateUrl:"company/preview/view.html",
+	         	//controllerAs:'company'
+			})
+					  
 		}
 })();

@@ -20,34 +20,14 @@
                     IN+
                 </div> -->
             </li>
-            <li>
-                <a>
+            <li ng-class="($ctrl.active == a.url) ? 'active':''" ng-repeat="a in $ctrl.menus.list">
+                <a ui-sref="{{a.route}}">
                     <i class="fa fa-th-large"></i> 
-                    <span class="nav-label">Dashboards</span> 
+                    <span class="nav-label">{{a.Label}}</span> 
                     <span class="fa arrow"></span>
                 </a>
             </li>
-            <li>
-                <a ui-sref="index.company">
-                    <i class="fa fa-th-large"></i> 
-                    <span class="nav-label">Companies</span> 
-                    <span class="fa arrow"></span>
-                </a>
-            </li>
-            <li class="active">
-                <a ui-sref="index.user">
-                    <i class="fa fa-th-large"></i> 
-                    <span class="nav-label">User</span> 
-                    <span class="fa arrow"></span>
-                </a>
-            </li>
-            <li>
-                <a ui-sref="index.visitors">
-                    <i class="fa fa-th-large"></i> 
-                    <span class="nav-label">Visitors</span> 
-                    <span class="fa arrow"></span>
-                </a>
-            </li>
+           
             
         </ul>
 

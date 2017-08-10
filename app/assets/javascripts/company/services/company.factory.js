@@ -11,7 +11,7 @@
 
             f.create = create;
             f.getList = getList;
-
+            f.mode = "view";
             function getList(k){
                 Server.get('company/list').then(k,Server.error);
             }

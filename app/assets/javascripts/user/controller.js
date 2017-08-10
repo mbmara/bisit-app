@@ -9,9 +9,9 @@
 		function userController(UserFactory,Notification){
 			var user = this;
 			user.collections = [];
-            UserFactory.getList( function(res){
-				user.collections = res.data;
-			});
+			loadUser();
+
+			user.loadUser = loadUser;
 			user.create = create;
 
 			user.data={
@@ -31,6 +31,11 @@
 					}else{
 						Notification.showError(res.data.payload);
 					}
+				});
+			}
+			function  loadUser(){
+				 UserFactory.getList( function(res){
+					user.collections = res.data;
 				});
 			}
 
