@@ -21,10 +21,10 @@
 	         	controllerAs:'company_create'
 			})
 			.state("index.company.detail",{
-	          	url:"/detail",
-	          	//controller:'companyController',
+	          	url:"/detail/:id",
+	          	controller:'companyPreviewController',
 	          	templateUrl:"company/preview/view.html",
-	         	//controllerAs:'company'
+	         	controllerAs:'company_view'
 			})
 					  
 		}

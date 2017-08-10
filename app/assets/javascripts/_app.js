@@ -14,6 +14,7 @@
 	          	controller:'indexController',
 	          	templateUrl:"index/view.html",
 	         	controllerAs:'index'
-	      	})
+			})
+			
 		}
 })();

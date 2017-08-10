@@ -4,8 +4,8 @@
             <div class="ibox">
                 <div class="ibox-content mailbox-content">
                     <div class="file-manager">
-                        <a ng-if="company.mode=='view'" class="btn btn-block btn-primary compose-mail" ui-sref="index.company.create">Register New Company</a>
-                        <a ng-if="company.mode=='create'" class="btn btn-block btn-primary compose-mail" ui-sref="index.company">All Company</a>
+                        <a ng-if="company.mode=='view'" class="btn btn-block btn-primary compose-mail" ng-click="company.newCompany()">Register New Company</a>
+                        <a ng-if="company.mode=='create' || company.mode=='detail'" class="btn btn-block btn-primary compose-mail" ng-click="company.list()">All Company</a>
                         <div class="space-25"></div>
                         <h5>status</h5>
                         <ul class="category-list" style="padding: 0">
@@ -17,6 +17,7 @@
                             <li><a href=""><i class="fa fa-tag"></i> Health</a></li>
                             <li><a href=""><i class="fa fa-tag"></i> Information Technology</a></li>
                             <li><a href=""><i class="fa fa-tag"></i> Education</a></li>
+                         
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -39,6 +40,7 @@
                     </form>
                     <h2>
                         Companies ({{company.collections.length}})
+                        
                     </h2>
                     <div class="mail-tools tooltip-demo m-t-md">
                         <div class="btn-group pull-right">
@@ -53,7 +55,7 @@
                 <div class="mail-box">
     				<table class="table table-hover table-mail">
     	                <tbody>
-    	               		<tr ui-sref="index.company.detail" class="read" ng-repeat="com in company.collections">
+    	               		<tr ui-sref="index.company.detail({id:com.id})" class="read" ng-repeat="com in company.collections">
     		                    <td>{{com.id}}</td>
     		                    <td class="mail-contact"><a href="mail_detail.html">{{com.name}}</a></td>
     		                    <td class="mail-subject"><a href="mail_detail.html">{{com.created_at | date:'MMMM dd, yyyy hh:mm:ss a'}}</a></td>

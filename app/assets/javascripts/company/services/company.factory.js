@@ -11,7 +11,15 @@
 
             f.create = create;
             f.getList = getList;
-            f.mode = "view";
+            f.getDetail  = getDetail;
+            f.addStaff = addStaff;
+
+            function addStaff(staff, k ){
+                Server.post('company/addstaff',{staff:staff}).then(k, Server.error);
+            }
+            function getDetail(id,k){
+                Server.get('company/detail/'+id).then(k,Server.error);
+            }
             function getList(k){
                 Server.get('company/list').then(k,Server.error);
             }

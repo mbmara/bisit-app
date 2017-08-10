@@ -6,13 +6,13 @@
 
 		function routes($stateProvider){
 			
-
-	   	 	$stateProvider
-	   	 	.state("index.visitors",{
-	          	url:"visitors",
-	          	controller:'visitorController',
-	          	templateUrl:"visitor/view.html"
-	      	})
+			$stateProvider
+				.state("visitor",{
+					url:"/visitor",
+					controller:'visitorController',
+					templateUrl:"visitor/view.html",
+					controllerAs:'visitMain'
+				})
 	      
 		}
 })();

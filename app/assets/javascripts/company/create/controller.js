@@ -11,6 +11,8 @@
             company_create.data={
                 tags:[]
             }
+            
+           
             company_create.addtag = addtag;
             company_create.removeTag = removeTag;
             company_create.create = create;
@@ -21,7 +23,7 @@
                 });
             }
             function removeTag(index){
-                company.data.tags.splice(index,1);
+                company_create.data.tags.splice(index,1);
             }
             function addtag(tag){
                 if(tag=="" || typeof tag=='undefined'){

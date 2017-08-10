@@ -6,6 +6,9 @@ Rails.application.routes.draw do
 
       post 'company/create', to: 'company#create'
       get 'company/list', to: 'company#index'
+      get 'company/detail/:id', to: 'company#detail'
+      post 'company/addstaff', to: 'company#addstaff'
+      
     end
   end
   

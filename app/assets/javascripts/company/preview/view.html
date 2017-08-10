@@ -1,92 +1,128 @@
 <div class="wrapper wrapper-content animated fadeInRight">
-
-
-            <div class="row m-b-lg m-t-lg">
-                <div class="col-md-6">
-                     <div class="profile-image">
-                        <img src="images/profile_small.jpg" class="img-circle circle-border m-b-md" alt="profile">
-                    </div>
-                    <div class="profile-info">
-                        <div class="">
-                            <div>
-                                <h2 class="no-margins">
-                                    Getz Clinical
-                                </h2>
-                                <small>
-                                    There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have suffered alteration in some form Ipsum available.
-                                </small>
-                            </div>
-                        </div>
+    <div class="row m-b-lg m-t-lg">
+        <div class="col-md-6">
+                <div class="profile-image">
+                <img src="images/profile_small.jpg" class="img-circle circle-border m-b-md" alt="profile">
+            </div>
+            <div class="profile-info">
+                <div class="">
+                    <div>
+                        <h2 class="no-margins">
+                            {{company_view.data.name}}
+                        </h2>
+                        <small>
+                            {{company_view.data.description || "No description available"}}
+                        </small>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <table class="table small m-b-xs">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <table class="table small m-b-xs">
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>1</strong> Visit's Today
+                        </td>
+                        <td>
+                            <strong>22</strong> Staff
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>61</strong> Total Visitors
+                        </td>
+                        <td>
+                            <strong>54</strong> Blocked Visitor
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Staff</h5>
+                    <a data-toggle="modal" data-target="#createStaff" class="btn btn-primary btn-xs pull-right" >Add Staff</a>
+                </div>
+                <div class="ibox-content mail-box">
+                    <table class="table table-hover table-mail">
                         <tbody>
-                            <tr>
-                                <td>
-                                    <strong>1</strong> Visit's Today
-                                </td>
-                                <td>
-                                    <strong>22</strong> Staff
-                                </td>
+                            <tr class="read">
+                                <td>1</td>
+                                <td class="mail-contact"><a>sample</a></td>
+                                <td class="mail-subject"><a>asas</a></td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <strong>61</strong> Total Visitors
-                                </td>
-                                <td>
-                                    <strong>54</strong> Blocked Visitor
-                                </td>
+                            <tr class="read">
+                                <td>1</td>
+                                <td class="mail-contact"><a>sample</a></td>
+                                <td class="mail-subject"><a>asas</a></td>
                             </tr>
+                            <!-- <tr class="read">
+                                <td class="mail-ontact"><a href="mail_detail.html">Facebook</a> <span class="label label-warning pull-right">Clients</span> </td>
+                                <td class="mail-subject"><a href="mail_detail.html">Many desktop publishing packages and web page editors.</a></td>
+                                <td class=""></td>
+                                <td class="text-right mail-date">Jan 16</td>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
-               
-
-
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h5>Staff</h5>
-                            <a class="btn btn-primary btn-xs pull-right">Add Staff</a>
-                        </div>
-                        <div class="ibox-content mail-box">
-                            <table class="table table-hover table-mail">
-                                <tbody>
-                                    <tr class="read">
-                                        <td>1</td>
-                                        <td class="mail-contact"><a>sample</a></td>
-                                        <td class="mail-subject"><a>asas</a></td>
-                                    </tr>
-                                    <tr class="read">
-                                        <td>1</td>
-                                        <td class="mail-contact"><a>sample</a></td>
-                                        <td class="mail-subject"><a>asas</a></td>
-                                    </tr>
-                                    <!-- <tr class="read">
-                                        <td class="mail-ontact"><a href="mail_detail.html">Facebook</a> <span class="label label-warning pull-right">Clients</span> </td>
-                                        <td class="mail-subject"><a href="mail_detail.html">Many desktop publishing packages and web page editors.</a></td>
-                                        <td class=""></td>
-                                        <td class="text-right mail-date">Jan 16</td>
-                                    </tr> -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h5>Visitors Activity</h5>
-                        </div>
-                        <div class="ibox-content">
-                            asas
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
+        <div class="col-md-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Visitors Activity</h5>
+                </div>
+                <div class="ibox-content">
+                    asas
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="createStaff" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <form ng-submit="company_view.addStaff(company_view.staff)">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Staff Information</h4>
+      </div>
+      <div class="modal-body">
+          
+            <div class="form-group">
+      			<label class="control-label">Position:</label>
+      			<input type="text" ng-model="company_view.staff.position" class="form-control"></input>
+            </div>
+            <div class="form-group">
+      			<label class="control-label">First Name:</label>
+      			<input type="text" ng-model="company_view.staff.fname" class="form-control"></input>
+              </div>
+            <div class="form-group">
+      			<label class="control-label">Last Name:</label>
+      			<input type="text" ng-model="company_view.staff.lname" class="form-control"></input>
+              </div>
+            <div class="form-group">
+      			<label class="control-label">Middle Name:</label>
+      			<input type="text" ng-model="company_view.staff.mname" class="form-control"></input>
+      		</div>
+      		<div class="form-group">
+      			<label class="control-label">Contact Number:</label>
+      			<input type="text" ng-model="company_view.staff.contact" class="form-control"></input>
+      		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

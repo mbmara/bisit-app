@@ -10,12 +10,11 @@
             var f = {};
             
             f.menu={
-                active:"null",
                 list:[
                     {Label:"Dashboard",route:"index",url:"index"},
                     {Label:"Companies",route:"index.company",url:"company"},
                     {Label:"User",route:"index.user",url:"user"},
-                    {Label:"Visitors",route:"index.visitors",url:"visitors"},
+                    {Label:"Visitors",route:"visitor",url:"visitors"},
                 ]
             }
             
