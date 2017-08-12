@@ -1,20 +1,30 @@
 class Api::V1::CompanyController < ApplicationController
 
 
+    def getStaff
+        @staffs = Company.find(params[:id]).staffs
+    end
     def addstaff
-        comStaff = Company.find(staff_params[:company_id]).staffs.new
-        comStaff.position = staff_params[:position]
-        
-        if comStaff.save
-            prof = comStaff.build_profile
-            prof.fname = staff_params[:fname]
-            prof.lname = staff_params[:lname]
-            prof.mname = staff_params[:mname]
-            prof.mobile = staff_params[:contact]
-            prof.save
-            json_response true,"created"
+        ActiveRecord::Base.transaction do
+            comStaff = Company.find(staff_params[:company_id]).staffs.new
+            comStaff.position = staff_params[:position]
+            
+            if comStaff.save
+                prof = comStaff.build_profile
+                prof.user_id = 0
+                prof.fname = staff_params[:fname]
+                prof.lname = staff_params[:lname]
+                prof.mname = staff_params[:mname]
+                prof.mobile = staff_params[:contact]
+                
+                if prof.save
+                    json_response true,"New Staff Added"
+                else
+                    json_response false,prof.errors
+                    raise ActiveRecord::Rollback
+                end
+            end
         end
-        
     end
     def detail
         @company = Company.find params[:id]

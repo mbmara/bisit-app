@@ -8,7 +8,9 @@ Rails.application.routes.draw do
       get 'company/list', to: 'company#index'
       get 'company/detail/:id', to: 'company#detail'
       post 'company/addstaff', to: 'company#addstaff'
-      
+      post 'company/staff', to: 'company#getStaff'
+
+      post 'identification/create', to: 'identification#create'
     end
   end
   

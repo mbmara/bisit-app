@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810113803) do
+ActiveRecord::Schema.define(version: 20170812070443) do
 
-  create_table "companies", force: :cascade do |t|
+  create_table "companies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "floor"
     t.string "unit_number"
@@ -22,30 +22,39 @@ ActiveRecord::Schema.define(version: 20170810113803) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "profiles", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "staff_id"
+  create_table "identifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "code"
+    t.boolean "in_use", default: false
+    t.boolean "status", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "staff_id"
     t.string "fname"
     t.string "lname"
     t.string "mname"
     t.string "mobile"
+    t.boolean "block", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["staff_id"], name: "index_profiles_on_staff_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
-  create_table "staffs", force: :cascade do |t|
-    t.integer "company_id"
+  create_table "staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "company_id"
     t.string "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_staffs_on_company_id"
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.integer "company_id"
-    t.integer "user_id"
+  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "company_id"
+    t.bigint "user_id"
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -53,7 +62,7 @@ ActiveRecord::Schema.define(version: 20170810113803) do
     t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email"
     t.string "password"
     t.integer "user_type"

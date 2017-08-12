@@ -13,7 +13,11 @@
             f.getList = getList;
             f.getDetail  = getDetail;
             f.addStaff = addStaff;
+            f.getStaff = getStaff;
 
+            function getStaff(id,k){
+                Server.post('company/staff',{id:id}).then(k,Server.error)
+            }
             function addStaff(staff, k ){
                 Server.post('company/addstaff',{staff:staff}).then(k, Server.error);
             }

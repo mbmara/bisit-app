@@ -1,6 +1,6 @@
 .camera_wrapper{
-	height:225px;
-	width:300px;
+	height:300px;
+	width:400px;
 	background:green;
 	margin:20px auto;
 }
@@ -9,4 +9,10 @@
 	height: 450px;
 	background: #ccc;
 	margin:auto;
+}
+#canvass{
+	height:300px;
+	width:400px;
+	position: absolute;
+	background: #000;
 }
