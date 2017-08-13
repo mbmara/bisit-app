@@ -57,6 +57,26 @@
             <h4>QR Scanner</h4>
             <video style="width: 400px !important" id="preview"></video>
             <h3>{{visitMain.qrresult}}</h3>
+            
+            <input 
+                type="text" 
+                style="color:#000;padding:30px;font-size:30px;width:400px;margin:auto" 
+                ng-model="visitMain.data.identifiction_code"
+                class="form-control" required>
+            <br>
+            <div class="form-group">
+                <button 
+                    class="btn btn-danger" 
+                    style="padding:20px;font-size:20px;width:200px" 
+                    ng-click="visitMain.back(3)">back
+                </button>
+                <button 
+                    class="btn btn-primary" 
+                    style="padding:20px;font-size:20px;width:200px" 
+                    ng-click="visitMain.loginVisitor()">Login Visitor
+                </button>
+            </div>
+            
         </div>
         
     </div>

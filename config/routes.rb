@@ -11,6 +11,9 @@ Rails.application.routes.draw do
       post 'company/staff', to: 'company#getStaff'
 
       post 'identification/create', to: 'identification#create'
+      get 'identification/all', to: 'identification#index'
+
+      post 'visitor/login', to: 'visitor#login'
     end
   end
   

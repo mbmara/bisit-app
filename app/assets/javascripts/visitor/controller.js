@@ -4,15 +4,18 @@
 		.module('admDashboard')
 		.controller('visitorController',visitorController);
 
-		visitorController.$inject = ['$interval','CompanyFactory','$timeout'];
+		visitorController.$inject = ['$interval','CompanyFactory','$timeout','Scanner','$scope','visitorFactory'];
 
-		function visitorController( $interval,CompanyFactory, $timeout){
+		function visitorController( $interval,CompanyFactory, $timeout, Scanner, $scope,visitorFactory){
 			var visitMain = this;
 
 			visitMain.step = 2;
 			visitMain.companies = [];
 			visitMain.staffs = [];
 			visitMain.getCompanyStaff = getCompanyStaff;
+			visitMain.loginVisitor = loginVisitor;
+
+
 			CompanyFactory.getList( function(res){
 				visitMain.companies = res.data;
 			});
@@ -20,6 +23,13 @@
 				visitMain.clock = Date.now();
 			},1000)
 
+
+			function loginVisitor(){
+				visitorFactory.login( visitMain.data, function(res){
+					console.log(res);
+				});
+
+			}
 			function getCompanyStaff( id ){
 				CompanyFactory.getStaff(id, function(res){
 					visitMain.staffs = res.data;
@@ -40,30 +50,32 @@
 				
 			}
 			visitMain.back = function(step){
+				
+	   			if(step==3){
+	   				visitMain.loadCamera();
+	   			}
 				if(step==2){
 					stream_data.getTracks()[0].stop();
+					if(Scanner.running){
+		            	Scanner.instance.stop();
+		            }
 				}
 				visitMain.step = step;
 			}
 			visitMain.scanQRCode = function(){
+				visitMain.data.visitor_img = canvas.toDataURL();
+				
 				stream_data.getTracks()[0].stop();
 				visitMain.step = 4;	
 				visitMain.qrresult = "";
 				$timeout( function(){
-					let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-					scanner.addListener('scan', function (content) {
-						visitMain.qrresult = content;
-						console.log(content);
+					Scanner.init( new Instascan.Scanner({ video: document.getElementById('preview') }) );
+				
+					Scanner.instance.addListener('scan', function (content) {
+						visitMain.data.identifiction_code = content;
+						$scope.$apply();
 					});
-					Instascan.Camera.getCameras().then(function (cameras) {
-					if (cameras.length > 0) {
-						scanner.start(cameras[0]);
-					} else {
-						console.error('No cameras found.');
-					}
-					}).catch(function (e) {
-						console.error(e);
-					});
+					
 				},1000)
 			}
 			visitMain.loadCamera = function(){

@@ -1,0 +1,1 @@
+json.array! @ids, :id, :code, :status, :in_use, :created_at

@@ -13,6 +13,7 @@
 			identificationCreate.data={
 				serial:""
 			};
+			
 			identificationCreate.newSerial = function(){
 				IdentificationFactory.create(identificationCreate.data, function(res){
 					if(res.data.status){
