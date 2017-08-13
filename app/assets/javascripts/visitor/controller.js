@@ -4,12 +4,12 @@
 		.module('admDashboard')
 		.controller('visitorController',visitorController);
 
-		visitorController.$inject = ['$interval','CompanyFactory','$timeout','Scanner','$scope','visitorFactory'];
+		visitorController.$inject = ['$interval','CompanyFactory','$timeout','Scanner','$scope','visitorFactory','$state'];
 
-		function visitorController( $interval,CompanyFactory, $timeout, Scanner, $scope,visitorFactory){
+		function visitorController( $interval,CompanyFactory, $timeout, Scanner, $scope,visitorFactory,$state){
 			var visitMain = this;
 
-			visitMain.step = 2;
+			visitMain.step = 1;
 			visitMain.companies = [];
 			visitMain.staffs = [];
 			visitMain.getCompanyStaff = getCompanyStaff;
@@ -26,7 +26,8 @@
 
 			function loginVisitor(){
 				visitorFactory.login( visitMain.data, function(res){
-					console.log(res);
+					alert(res.data.payload);
+					$state.go('visitor');
 				});
 
 			}
