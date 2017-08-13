@@ -4,9 +4,9 @@
 		.module('admDashboard')
 		.controller('companyCreateController',companyCreateController);
 
-		companyCreateController.$inject = ['Notification','CompanyFactory'];
+		companyCreateController.$inject = ['Notification','CompanyFactory','$state'];
 
-		function companyCreateController(Notification,CompanyFactory){
+		function companyCreateController(Notification,CompanyFactory,$state){
             var company_create = this;
             company_create.data={
                 tags:[]
@@ -19,7 +19,7 @@
 
             function create(data){
                 CompanyFactory.create( data, function(res){
-                    console.log(res);
+                    $state.go("index.company",{},{reload:true});
                 });
             }
             function removeTag(index){

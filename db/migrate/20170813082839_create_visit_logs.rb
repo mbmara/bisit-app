@@ -8,7 +8,7 @@ class CreateVisitLogs < ActiveRecord::Migration[5.1]
     	t.belongs_to :identification, index:true
     	t.datetime :time_in 
     	t.datetime :time_out
-      	t.timestamps
+      t.timestamps
     end
   end
 end

@@ -4,9 +4,9 @@
 		.module('admDashboard')
 		.controller('userController',userController);
 
-		userController.$inject = ['UserFactory','Notification'];
+		userController.$inject = ['UserFactory','Notification','$state'];
 
-		function userController(UserFactory,Notification){
+		function userController(UserFactory,Notification,$state){
 			var user = this;
 			user.collections = [];
 			loadUser();
@@ -25,9 +25,10 @@
 			
 			function create(userdata){
 				UserFactory.create(userdata, function(res){
-					console.log(res);
+					
 					if(res.data.status){
 						Notification.showSuccess("New user created");
+						$state.go("index.user",{},{reload:true});
 					}else{
 						Notification.showError(res.data.payload);
 					}

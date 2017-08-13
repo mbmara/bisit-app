@@ -29,11 +29,11 @@ class Api::V1::CompanyController < ApplicationController
     def detail
         @company = Company.find params[:id]
 
-        if @company.present?
-            json_response true,@company
-        else
-            json_response false,{Company:' does not exist'}
-        end
+        # if @company.present?
+        #     json_response true,@company
+        # else
+        #     json_response false,{Company:' does not exist'}
+        # end
 
     end
     def index

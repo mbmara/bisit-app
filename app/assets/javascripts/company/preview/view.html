@@ -22,15 +22,15 @@
                 <tbody>
                     <tr>
                         <td>
-                            <strong>1</strong> Visit's Today
+                            <strong>{{company_view.data.visitors.length}}</strong> Visit's Today
                         </td>
                         <td>
-                            <strong>22</strong> Staff
+                            <strong>{{company_view.data.staffs.length}}</strong> Staff
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <strong>61</strong> Total Visitors
+                            <strong>{{company_view.data.visitors.length}}</strong> Total Visitors
                         </td>
                         <td>
                             <strong>54</strong> Blocked Visitor
@@ -53,15 +53,21 @@
                 <div class="ibox-content mail-box">
                     <table class="table table-hover table-mail">
                         <tbody>
-                            <tr class="read">
-                                <td>1</td>
-                                <td class="mail-contact"><a>sample</a></td>
-                                <td class="mail-subject"><a>asas</a></td>
+                            <tr class="unread" >
+                                <td class="mail-subject">Name</td>
+                                <td class="mail-contact">Position</td>
+                                <td class="mail-contact">Contact</td>
                             </tr>
-                            <tr class="read">
-                                <td>1</td>
-                                <td class="mail-contact"><a>sample</a></td>
-                                <td class="mail-subject"><a>asas</a></td>
+                            <tr class="read" ng-repeat="a in company_view.data.staffs">
+                                
+                                <td class="mail-subject">{{a.name}}</td>
+                                <td class="mail-contact">
+                                    {{a.name}}
+                                </td>
+                                <td class="mail-contact">
+                                    {{a.contact}}
+                                </td>
+                                
                             </tr>
                             <!-- <tr class="read">
                                 <td class="mail-ontact"><a href="mail_detail.html">Facebook</a> <span class="label label-warning pull-right">Clients</span> </td>
@@ -80,7 +86,30 @@
                     <h5>Visitors Activity</h5>
                 </div>
                 <div class="ibox-content">
-                    asas
+                    <table class="table table-hover table-mail">
+                        <tbody>
+                            <tr class="unread" >
+                                <td class="mail-subject">Name</td>
+                                <td class="mail-contact">Time In</td>
+                                <td class="mail-contact">Time Out</td>
+                                <td class="mail-contact">Duration</td>
+                            </tr>
+                            <tr class="read" ng-repeat="a in company_view.data.visitors">
+                                
+                                <td class="mail-subject">{{a.name}}</td>
+                                <td class="mail-contact">
+                                    {{a.time_in}}
+                                </td>
+                                <td class="mail-contact">
+                                    {{a.time_in}}
+                                </td>
+                                <td class="mail-contact">
+                                    {{a.time_in}}
+                                </td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
