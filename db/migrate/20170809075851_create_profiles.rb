@@ -3,6 +3,7 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
     create_table :profiles do |t|
       t.belongs_to :user, index: true
       t.belongs_to :staff, index:true
+      t.belongs_to :visitor, index:true
       t.string :fname
       t.string :lname
       t.string :mname

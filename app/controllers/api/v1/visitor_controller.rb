@@ -1,17 +1,22 @@
 class Api::V1::VisitorController < ApplicationController
 
 	require 'base64'
+	require 'chikka'
 
 	def login
+		
+		data = visitor_params[:visitor_img]
+		image_data = Base64.decode64(data['data:image/png;base64,'.length .. -1])
 
-		file_name = "myfilename.png"
-		File.open("public/#{file_name}", 'wb') do |file|
-		    file.write( Base64.decode64(visitor_params[:visitor_img]))
+		File.open("#{Rails.root}/public/somefilename.png", 'wb') do |f|
+		  f.write image_data
 		end
 
+		client = Chikka::Client.new(client_id:'8797a590b66cd3300345f0ba75834c756c9cffd764a467637886a5cee92ae044', secret_key:'8797a590b66cd3300345f0ba75834c756c9cffd764a467637886a5cee92ae044', shortcode:'292906528')
+		client.send_message(message:'This is a test', mobile_number:'639959801216')
+		
 		json_response true,visitor_params
 
-		
 	end
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170812070443) do
+ActiveRecord::Schema.define(version: 20170813083446) do
 
   create_table "companies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20170812070443) do
   create_table "profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
     t.bigint "staff_id"
+    t.bigint "visitor_id"
     t.string "fname"
     t.string "lname"
     t.string "mname"
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 20170812070443) do
     t.datetime "updated_at", null: false
     t.index ["staff_id"], name: "index_profiles_on_staff_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
+    t.index ["visitor_id"], name: "index_profiles_on_visitor_id"
   end
 
   create_table "staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -68,6 +70,30 @@ ActiveRecord::Schema.define(version: 20170812070443) do
     t.integer "user_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "visit_logs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "company_id"
+    t.bigint "staff_id"
+    t.bigint "user_id"
+    t.bigint "visitor_id"
+    t.bigint "identification_id"
+    t.datetime "time_in"
+    t.datetime "time_out"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_visit_logs_on_company_id"
+    t.index ["identification_id"], name: "index_visit_logs_on_identification_id"
+    t.index ["staff_id"], name: "index_visit_logs_on_staff_id"
+    t.index ["user_id"], name: "index_visit_logs_on_user_id"
+    t.index ["visitor_id"], name: "index_visit_logs_on_visitor_id"
+  end
+
+  create_table "visitors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_visitors_on_status"
   end
 
 end
