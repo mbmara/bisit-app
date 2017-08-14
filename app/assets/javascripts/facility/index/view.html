@@ -1,0 +1,59 @@
+<div class="wrapper wrapper-content">
+    <div class="row">
+   		<div class="col-md-12">
+   			<div class="mail-box-header">
+
+                    <div class="form-group pull-right">
+                    	<a data-toggle="modal" data-target="#createFacility" class="btn btn-primary btn-xs pull-right" >Add Facility</a>
+                    </div>
+                    <h2>
+                        Facilities / Building
+                    </h2>
+                    <div class="mail-tools tooltip-demo m-t-md">
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
+                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+
+                        </div>
+                        <button ng-click="company.loadCompany()" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> Refresh</button>
+                        
+                    </div>
+                </div>
+                <div class="mail-box">
+    				<table class="table table-hover table-mail">
+    	                <tbody>
+    	               		<tr class="read" ng-repeat="a in facility.lists">
+    		                    <td>{{a.id}}</td>
+    		                    <td class="mail-contact"><a href="mail_detail.html">{{a.name}}</a></td>
+    		                    <td class="mail-subject"><a href="mail_detail.html">{{a.created_at | date:'MMMM dd, yyyy hh:mm:ss a'}}</a></td>
+    		                </tr>
+    	                </tbody>
+                    </table>
+                </div>
+   		</div>
+   	</div>
+</div>
+<div class="modal fade" id="createFacility" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <form ng-submit="facility.addFacility(facility.data)">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Facility Information</h4>
+      </div>
+      <div class="modal-body">
+          
+            <div class="form-group">
+                <label class="control-label">Name:</label>
+                <input type="text" ng-model="facility.data.name" class="form-control"></input>
+            </div>
+            
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

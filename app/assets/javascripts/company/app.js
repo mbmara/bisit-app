@@ -14,12 +14,6 @@
 	          	templateUrl:"company/index/view.html",
 	         	controllerAs:'company'
 	      	})
-	      	.state("index.company.create",{
-	          	url:"/create",
-	          	controller:'companyCreateController',
-	          	templateUrl:"company/create/view.html",
-	         	controllerAs:'company_create'
-			})
 			.state("index.company.detail",{
 	          	url:"/detail/:id",
 	          	controller:'companyPreviewController',

@@ -4,8 +4,8 @@
             <div class="ibox">
                 <div class="ibox-content mailbox-content">
                     <div class="file-manager">
-                        <a ng-if="company.mode=='view'" class="btn btn-block btn-primary compose-mail" ng-click="company.newCompany()">Register New Company</a>
-                        <a ng-if="company.mode=='create' || company.mode=='detail'" class="btn btn-block btn-primary compose-mail" ng-click="company.list()">All Company</a>
+                        <a class="btn btn-block btn-primary" data-toggle="modal" data-target="#createCompany">Register New Company</a>
+                       
                         <div class="space-25"></div>
                         <h5>status</h5>
                         <ul class="category-list" style="padding: 0">
@@ -72,4 +72,97 @@
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade" id="createCompany" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <form ng-submit="company.create(company.data)">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Company Information</h4>
+      </div>
+      <form ng-submit="company.create(company.data)">
+      <div class="modal-body">
+          
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <select class="form-control" ng-model="company.data.facility_id" ng-options="a.id as a.name for a in company.facilities">
+                            <option>-Select Facility-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" class="form-control" ng-model="company.data.name" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Unit No.</label>
+                        <input type="text" class="form-control" ng-model="company.data.unit_number" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Floor Number</label>
+                        <input type="number" class="form-control" ng-model="company.data.floor" required/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>website</label>
+                        <input type="text" class="form-control" ng-model="company.data.website"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="">Company Description</label>
+                        <textarea class="form-control" cols="30" rows="4" ng-model="company.data.description"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="">Tags</label>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="input-group span4">
+                                    <input type="text" class="form-control input-sm" ng-model="company.temp.tag" placeholder="Tags">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-info" ng-click="company.addtag(company.temp.tag)">
+                                            Add Tags
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="tag-list" style="padding: 0">
+                            <li ng-repeat="a in company.data.tags track by $index"><a ng-click="company_create.removeTag($index)"><i class="fa fa-tag"></i>{{a}}</a></li>
+                        </ul>
+                        
+                    </div>
+                                                        
+                </div>
+            </div>       
+            
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+      </form> 
+    </form>
+    </div>
+  </div>
 </div>

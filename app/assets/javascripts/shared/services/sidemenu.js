@@ -12,6 +12,7 @@
             f.menu={
                 list:[
                     {Label:"Dashboard",route:"index",url:"index"},
+                    {Label:"Facilities",route:"index.facility",url:"facility"},
                     {Label:"Companies",route:"index.company",url:"company"},
                     {Label:"User",route:"index.user",url:"user"},
                     {Label:"Visitors",route:"visitor",url:"visitors"},

@@ -14,6 +14,9 @@ Rails.application.routes.draw do
       get 'identification/all', to: 'identification#index'
 
       post 'visitor/login', to: 'visitor#login'
+
+      post 'facility/create', to: 'facility#create'
+      get 'facility/all', to: 'facility#index'
     end
   end
   

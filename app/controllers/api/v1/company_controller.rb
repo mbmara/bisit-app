@@ -42,7 +42,8 @@ class Api::V1::CompanyController < ApplicationController
     end
     def create
         ActiveRecord::Base.transaction do
-            company = Company.new
+            fac = Facility.find company_params[:facility_id]
+            company = fac.companies.new
             company.name = company_params[:name]
             company.unit_number = company_params[:unit_number]
             company.floor = company_params[:floor]
@@ -67,6 +68,6 @@ class Api::V1::CompanyController < ApplicationController
         params.require(:staff).permit( :position, :fname, :lname, :mname , :contact, :company_id )
     end
     def company_params
-        params.require(:company).permit(:name, :floor, :unit_number, :website, {tags:[]}, :description)
+        params.require(:company).permit(:name, :floor, :unit_number, :website, {tags:[]}, :description, :facility_id)
     end
 end
