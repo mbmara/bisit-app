@@ -15,6 +15,12 @@
 	          	templateUrl:"index/view.html",
 	         	controllerAs:'index'
 			})
+			.state("login",{
+	          	url:"/login",
+	          	controller:'loginController',
+	          	templateUrl:"login/view.html",
+	         	controllerAs:'login'
+			})
 			
 		}
 })();

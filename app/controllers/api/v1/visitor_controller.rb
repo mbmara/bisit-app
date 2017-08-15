@@ -37,8 +37,8 @@ class Api::V1::VisitorController < ApplicationController
 			#compose message
 			sms_body = "Hi Staff #{staff.lname} #{staff.fname} Visitor #{profile.fullname} is arriving"
 			
-			#client = Chikka::Client.new(client_id:'8797a590b66cd3300345f0ba75834c756c9cffd764a467637886a5cee92ae044', secret_key:'5e8ebdf79c587e9d547b972b5d99f080a70bf1d0119845f6afab642361dfcc50', shortcode:'292906528')
-			#client.send_message(message:sms_body, mobile_number:staff.mobile)
+			client = Chikka::Client.new(client_id:'8797a590b66cd3300345f0ba75834c756c9cffd764a467637886a5cee92ae044', secret_key:'5e8ebdf79c587e9d547b972b5d99f080a70bf1d0119845f6afab642361dfcc50', shortcode:'292906528')
+			client.send_message(message:sms_body, mobile_number:staff.mobile)
 			
 			json_response true,"visitor is now login"
 		end

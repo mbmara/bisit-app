@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814102934) do
+ActiveRecord::Schema.define(version: 20170815124554) do
 
   create_table "companies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "facility_id"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 20170814102934) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "facility_contents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "facility_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facility_id"], name: "index_facility_contents_on_facility_id"
+    t.index ["user_id"], name: "index_facility_contents_on_user_id"
   end
 
   create_table "identifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -72,12 +81,22 @@ ActiveRecord::Schema.define(version: 20170814102934) do
     t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "email"
-    t.string "password"
-    t.integer "user_type"
+  create_table "user_roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "email"
+    t.bigint "facility_id", default: 0
+    t.bigint "user_role_id"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facility_id"], name: "index_users_on_facility_id"
+    t.index ["user_role_id"], name: "index_users_on_user_role_id"
   end
 
   create_table "visit_logs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

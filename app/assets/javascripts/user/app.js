@@ -11,7 +11,7 @@
 	   	 	.state("index.user",{
 	          	url:"user",
 	          	controller:'userController',
-	          	templateUrl:"user/view.html",
+	          	templateUrl:"user/index/view.html",
 	         	controllerAs:'user'
 	      	})
 	      	.state("index.user.create",{

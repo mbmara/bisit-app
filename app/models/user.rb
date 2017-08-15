@@ -1,5 +1,11 @@
 class User < ApplicationRecord
     has_one :profile
+    belongs_to :user_role
+    has_many :facility_contents
+    has_many :facilities, :through => :facility_contents 
     validates_presence_of :email, :password
-    enum user_type:[:admin, :receptionist, :user]
+
+    def super_admin?
+    	user_role_id==1
+    end
 end
