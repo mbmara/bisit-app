@@ -4,6 +4,9 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
+gem 'jwt'
+# CORS
+gem 'rack-cors', :require => 'rack/cors'
 gem 'chikka'
 gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 gem 'angular-rails-templates'

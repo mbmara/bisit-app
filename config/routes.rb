@@ -4,6 +4,9 @@ Rails.application.routes.draw do
       post 'user/create', to: 'user#create'
       get 'user/list', to: 'user#index'
       get 'user/roles', to: 'user#roles'
+      post 'user/login', to: 'user#login'
+      post 'user/authenticate', to:'user#authenticate'
+      post 'user/logout', to:'user#logout'
 
       post 'company/create', to: 'company#create'
       get 'company/list', to: 'company#index'
@@ -20,7 +23,7 @@ Rails.application.routes.draw do
       get 'facility/all', to: 'facility#index'
     end
   end
-  
+
 	root to: 'application#angular'
   	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

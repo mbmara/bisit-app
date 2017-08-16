@@ -12,7 +12,19 @@
             f.create = create;
             f.getList = getList;
             f.roles = roles;
+						f.login = login;
+						f.authenticate = authenticate;
+						f.logout = logout;
 
+						function logout(k){
+							Server.post('user/logout').then(k,Server.error);
+						}
+						function authenticate(){
+							return Server.post('user/authenticate');
+						}
+						function login( user, k ){
+							Server.post('user/login',{user:user}).then(k , Server.error);
+						}
             function roles( k ){
                 Server.get('user/roles').then(k , Server.error)
             }

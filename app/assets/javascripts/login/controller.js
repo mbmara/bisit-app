@@ -4,15 +4,22 @@
 		.module('admDashboard')
 		.controller('loginController',loginController);
 
-		loginController.$inject = ['UserFactory','Notification','$state'];
+		loginController.$inject = ['UserFactory','Notification','$state','Server'];
 
-		function loginController(UserFactory,Notification,$state){
+		function loginController(UserFactory,Notification,$state, Server){
 			var login = this;
-			
+
 			login.user = user;
 
 			function user(credentials){
-				console.log( credentials );
-			}	
+				UserFactory.login( credentials, function(res){
+					if(res.data.status){
+						Server.setToken(res.data.payload);
+						$state.go("index",{},{reload:true});
+					}else{
+						Notification.showError(res.data.payload);
+					}
+				});
+			}
 		}
 })();
