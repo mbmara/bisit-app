@@ -9,7 +9,7 @@
 
 				vm.logout = function(){
 					UserFactory.logout( function(res){
-						$state.go("login	");
+						$state.go("login");
 					});
 				}
 			}],

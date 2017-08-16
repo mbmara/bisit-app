@@ -20,7 +20,7 @@
 				},
 				//error
 				function(){
-
+					$state.go("login");
 				}
 			)
 		}
