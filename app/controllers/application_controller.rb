@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def authorize_request
     @header = request.headers['Authorization']
-    if @header === 0
+    if @header == 0
       json_response false,"Invalid Token"
       return false
     end

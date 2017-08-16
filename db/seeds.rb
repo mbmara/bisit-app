@@ -3,3 +3,25 @@ UserRole.create([
 	{name:"Admin"},
 	{name:"Receptionist"}
 ])
+Policy.create([
+	{
+		name:"Facility",
+	},
+	{
+		name:"Company",
+	},
+	{
+		name:"User",
+	},
+	{
+		name:"Visitor",
+	},
+	{
+		name:"Identification",
+	},
+])
+User.create({
+		email:'tearhear18@gmail.com',
+		password:'4297F44B13955235245',
+		user_role_id:1
+})
