@@ -21,17 +21,19 @@
 							company.addtag = addtag;
 							company.removeTag = removeTag;
 							company.create = create;
+							company.search = search;
 
 							company.edit = edit;
 							company.update = update;
 
-							FacilityFactory.getAll( function(res){
-	                company.facilities = res.data;
-
-	            });
 							loadCompany();
 						});
 
+						function search(str){
+							CompanyFactory.search( str, function(res){
+								company.collections = res.data.companies;
+							})
+						}
 						function update(){
 							CompanyFactory.update(company.data, function(res){
 								$('#createCompany').modal('hide');

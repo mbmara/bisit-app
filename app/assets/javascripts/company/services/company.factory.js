@@ -16,7 +16,11 @@
             f.getStaff = getStaff;
 						f.remove = remove;
 						f.update = update;
+						f.search = search;
 
+						function search( str,k ){
+							Server.post('company/search',{search:str}).then( k, Server.error);
+						}
 						function update(data, k){
 							Server.post('company/update',{company:data}).then( k , Server.error);
 						}

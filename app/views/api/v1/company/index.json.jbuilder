@@ -12,7 +12,6 @@ if @current_user.super_admin?
   end
 else
   json.facilities @current_user.facilities do |fac|
-
     json.extract! fac, :id, :name
     json.count fac.companies.count
   end
