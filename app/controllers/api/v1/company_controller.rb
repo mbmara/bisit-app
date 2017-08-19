@@ -79,25 +79,25 @@ class Api::V1::CompanyController < ApplicationController
     end
     def create
         ActiveRecord::Base.transaction do
-            facilities = @current_user.facilities
+            if @current_user.super_admin?
+              company = Company.new;
+              company.facility_id = company_params[:facility_id]
+            else
+              facilities = @current_user.facilities
 
-            if !facilities.present?
-              json_response false,{Account:" does not belongs to any facilities"}
-              return false
+              if !facilities.present?
+                json_response false,{Account:" does not belongs to any facilities"}
+                return false
+              end
+              fac = Facility.find facilities[0][:id]
+              company = fac.companies.new
             end
-            # if facilities.size > 1 && company_params[:facility_id].blank?
-            #   json_response false,{Account:" does not belongs to any facilities"}
-            #   return false
-            # end
 
             if !@current_user_permission[0][:pcreate]
               json_response false,{Account: "is not allowed to create"}
               return false
             end
 
-            fac = Facility.find facilities[0][:id]
-
-            company = fac.companies.new
             company.name = company_params[:name]
             company.unit_number = company_params[:unit_number]
             company.floor = company_params[:floor]
@@ -122,6 +122,6 @@ class Api::V1::CompanyController < ApplicationController
         params.require(:staff).permit( :position, :fname, :lname, :mname , :contact, :company_id )
     end
     def company_params
-        params.require(:company).permit(:id,:name, :floor, :unit_number, :website, {tags:[]}, :description, :facility_id)
+        params.require(:company).permit(:id,:name, :floor, :unit_number, :website,:description, :facility_id)
     end
 end
