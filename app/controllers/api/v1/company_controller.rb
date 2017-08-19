@@ -32,6 +32,7 @@ class Api::V1::CompanyController < ApplicationController
       end
       if @current_user.super_admin?
         Company.destroy params[:id]
+        json_response true,"deleted"
       else
         @current_user.facilities[0].companies.delete params[:id]
         json_response true,"deleted"

@@ -51,6 +51,7 @@
 						}
 						function remove(id,index){
 							CompanyFactory.remove( id , function(res){
+								console.log(res);
 								if(res.data.status){
 									company.collections.splice( index, 1);
 								}else{
@@ -70,6 +71,7 @@
 											CompanyFactory.getList( function(res){
 													company.collections = res.data.companies;
 													company.facilities = res.data.facilities;
+													company.data = {};
 	                        $('#createCompany').modal('hide');
 	                    });
 										}else{

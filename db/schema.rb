@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20170816143841) do
   create_table "companies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "facility_id"
     t.string "name"
-    t.string "floor"
+    t.integer "floor"
     t.string "unit_number"
     t.string "website"
     t.string "description"
