@@ -2,7 +2,7 @@
     <div class="ibox-title">
         <h5>ID Scanner</h5>
         <div class="ibox-tools">
-            <a ui-sref="index.company" class="close-link">
+            <a ui-sref="index.identification" class="close-link">
                 <i class="fa fa-times"></i>
             </a>
         </div>
@@ -11,12 +11,17 @@
     	<h4>QR Scanner</h4>
         <video style="width: 400px !important;background:green" id="preview"></video>
         <div class="form-group">
+          <select style="width: 400px !important;margin:auto" class="form-control" ng-model="identificationCreate.data.facility" ng-options="a.id as a.name for a in identificationCreate.facilities">
+            <option value="" selected hidden disabled>-Select Facility-</option>
+          </select>
+        </div>
+        <div class="form-group">
             <input ng-model="identificationCreate.data.serial" style="width: 400px !important;margin:auto" type="text" class="form-control">
         </div>
-        
+
         <div class="form-group">
-            <button class="btn btn-primary" ng-click="identificationCreate.newSerial(identificationCreate.data)">ADD CARD</button>    
+            <button class="btn btn-primary" ng-click="identificationCreate.newSerial(identificationCreate.data)">ADD CARD</button>
         </div>
-        
+
     </div>
 </div>

@@ -9,11 +9,15 @@
 		function identificationCreateController( $interval, $timeout, $scope,Scanner,IdentificationFactory,Notification){
 
 			var identificationCreate = this;
+			IdentificationFactory.getAll( function(res){
 
+				identificationCreate.facilities = res.data.facilities;
+
+			});
 			identificationCreate.data={
 				serial:""
 			};
-			
+
 			identificationCreate.newSerial = function(){
 				IdentificationFactory.create(identificationCreate.data, function(res){
 					if(res.data.status){
@@ -25,12 +29,12 @@
 			}
 			$timeout( function(){
 				Scanner.init( new Instascan.Scanner({ video: document.getElementById('preview') }) );
-				
+
 				Scanner.instance.addListener('scan', function (content) {
 					identificationCreate.data.serial = content;
 					$scope.$apply();
 				});
-				
+
 			},1000)
 		}
 })();

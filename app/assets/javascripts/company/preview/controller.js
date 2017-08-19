@@ -16,12 +16,12 @@
 			});
 			company_view.addStaff  = addStaff;
 
-
 			function addStaff(staff){
 				staff.company_id = id;
 				CompanyFactory.addStaff(staff , function(res){
 					CompanyFactory.getDetail( id , function(res){
 						company_view.data = res.data.payload;
+						company_view.staff = {};
 						$('#createStaff').modal('hide');
 					});
 

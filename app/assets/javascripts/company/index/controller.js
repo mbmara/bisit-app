@@ -69,6 +69,7 @@
 										if(res.data.status){
 											CompanyFactory.getList( function(res){
 													company.collections = res.data.companies;
+													company.facilities = res.data.facilities;
 	                        $('#createCompany').modal('hide');
 	                    });
 										}else{

@@ -40,11 +40,15 @@ ActiveRecord::Schema.define(version: 20170816143841) do
   end
 
   create_table "identifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "facility_id"
     t.string "code"
     t.boolean "in_use", default: false
     t.boolean "status", default: true
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["facility_id"], name: "index_identifications_on_facility_id"
+    t.index ["user_id"], name: "index_identifications_on_user_id"
   end
 
   create_table "policies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

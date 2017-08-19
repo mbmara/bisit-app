@@ -8,10 +8,13 @@
 
 		function userController(UserFactory,Notification,$state){
 			var user = this;
-			loadUser();
-
-			user.loadUser = loadUser;
-			user.create = create;
+			var state = $state.current.name.split(".")[1] || "index"
+			UserFactory.initialize(state, function(permission){
+				user.permission = permission;
+				loadUser();
+				user.loadUser = loadUser;
+				user.create = create;
+			});
 
 
 			function create(userdata){

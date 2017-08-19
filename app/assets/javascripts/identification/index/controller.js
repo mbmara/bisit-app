@@ -4,14 +4,25 @@
 		.module('admDashboard')
 		.controller('identificationController',identificationController);
 
-		identificationController.$inject = ['$interval','$timeout','$state','IdentificationFactory'];
+		identificationController.$inject = ['$interval','$timeout','$state','IdentificationFactory','FacilityFactory','UserFactory'];
 
-		function identificationController( $interval, $timeout, $state,IdentificationFactory){
+		function identificationController( $interval, $timeout, $state,IdentificationFactory,FacilityFactory, UserFactory){
 			var identification = this;
-			
-			IdentificationFactory.getAll( function(res){
-				identification.ids = res.data;
+			var state = $state.current.name.split(".")[1] || "index"
+			UserFactory.initialize(state, function(permission){
+				identification.reload = reload;
+				IdentificationFactory.getAll( function(res){
+					identification.ids = res.data.identifications;
+					identification.facilities = res.data.facilities;
+				});
 			});
+
+			function reload(){
+				IdentificationFactory.getAll( function(res){
+					identification.ids = res.data.identifications;
+					identification.facilities = res.data.facilities;
+				});
+			}
 			identification.addForm = function(){
 				$state.go("index.identification.create");
 			}
