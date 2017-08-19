@@ -9,7 +9,7 @@
 		function loginController(UserFactory,Notification,$state, Server){
 			var login = this;
 			login.data={
-				email:"tearhear18@gmail.com",
+				email:"philam_admin@yahoo.com",
 				password:"123123"
 			}
 			login.user = user;
@@ -18,7 +18,7 @@
 				UserFactory.login( credentials, function(res){
 					if(res.data.status){
 						Server.setToken(res.data.payload);
-						$state.go("index",{},{reload:true});
+						$state.go("index");
 					}else{
 						Notification.showError(res.data.payload);
 					}

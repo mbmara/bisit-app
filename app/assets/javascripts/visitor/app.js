@@ -5,7 +5,7 @@
 		.config(['$stateProvider',routes]);
 
 		function routes($stateProvider){
-			
+
 			$stateProvider
 				.state("visitor",{
 					url:"/visitor",
@@ -13,6 +13,6 @@
 					templateUrl:"visitor/view.html",
 					controllerAs:'visitMain'
 				})
-	      
+
 		}
 })();

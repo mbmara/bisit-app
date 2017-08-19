@@ -1,5 +1,7 @@
 class Api::V1::CompanyController < ApplicationController
 
+    before_action :authorize_request, except:[]
+    before_action only:[:create] {init_permission(3)}
 
     def getStaff
         @staffs = Company.find(params[:id]).staffs
@@ -8,7 +10,7 @@ class Api::V1::CompanyController < ApplicationController
         ActiveRecord::Base.transaction do
             comStaff = Company.find(staff_params[:company_id]).staffs.new
             comStaff.position = staff_params[:position]
-            
+
             if comStaff.save
                 prof = comStaff.build_profile
                 prof.user_id = 0
@@ -16,7 +18,7 @@ class Api::V1::CompanyController < ApplicationController
                 prof.lname = staff_params[:lname]
                 prof.mname = staff_params[:mname]
                 prof.mobile = staff_params[:contact]
-                
+
                 if prof.save
                     json_response true,"New Staff Added"
                 else
@@ -37,19 +39,45 @@ class Api::V1::CompanyController < ApplicationController
 
     end
     def index
-        @companies = Company.all.order id: :desc
-        #company.tags.distinct(:content)
+      # if @current_user.super_admin?
+      #   @companies = Company.all.order id: :desc
+      # else
+      #   @companies = []
+      #   @current_user.facilities.each do |fac|
+      #     @companies << fac.companies
+      #   end
+      #   p "----"
+      #   p @companies
+      # end
+
     end
     def create
         ActiveRecord::Base.transaction do
-            fac = Facility.find company_params[:facility_id]
+            facilities = @current_user.facilities
+
+            if !facilities.present?
+              json_response false,{Account:" does not belongs to any facilities"}
+              return false
+            end
+            # if facilities.size > 1 && company_params[:facility_id].blank?
+            #   json_response false,{Account:" does not belongs to any facilities"}
+            #   return false
+            # end
+
+            if !@current_user_permission[0][:pcreate]
+              json_response false,{Account: "is not allowed to create"}
+              return false
+            end
+
+            fac = Facility.find facilities[0][:id]
+
             company = fac.companies.new
             company.name = company_params[:name]
             company.unit_number = company_params[:unit_number]
             company.floor = company_params[:floor]
             company.website = company_params[:website]
             company.description = company_params[:description]
-            
+
             if company.save
                 company_params[:tags].each do |tag|
                     company.tags.create content:tag
@@ -62,7 +90,7 @@ class Api::V1::CompanyController < ApplicationController
         end
     end
 
-    private 
+    private
 
     def staff_params
         params.require(:staff).permit( :position, :fname, :lname, :mname , :contact, :company_id )

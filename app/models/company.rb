@@ -3,4 +3,5 @@ class Company < ApplicationRecord
     has_many :staffs
     has_many :tags
     has_many :visit_logs
+    belongs_to :facility
 end

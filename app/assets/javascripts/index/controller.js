@@ -5,24 +5,12 @@
 		.module('admDashboard')
 		.controller('indexController', indexController);
 
-		indexController.$inject=['UserFactory','$state'];
+		indexController.$inject=['UserFactory','$state','UserAuth'];
 
-		function indexController( UserFactory, $state){
+		function indexController( UserFactory, $state,UserAuth){
 			var index = this;
-			UserFactory.authenticate().then(
-				//success
-				function(res){
-					if(res.data.status){
+			
 
-					}else{
-						$state.go("login");
-					}
-				},
-				//error
-				function(){
-					$state.go("login");
-				}
-			)
 		}
 
 })()

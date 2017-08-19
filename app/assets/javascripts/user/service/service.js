@@ -15,7 +15,18 @@
 						f.login = login;
 						f.authenticate = authenticate;
 						f.logout = logout;
+						f.initialize = initialize;
 
+						function initialize(fn,callback){
+							angular.forEach(f.permission.objects, function(data){
+
+								//console.log(data);
+								if(fn===data.url){
+									callback(data);
+									return false;
+								}
+							})
+						}
 						function logout(k){
 							Server.post('user/logout').then(k,Server.error);
 						}

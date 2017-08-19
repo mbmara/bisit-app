@@ -13,7 +13,24 @@
 	          	url:"/",
 	          	controller:'indexController',
 	          	templateUrl:"index/view.html",
-	         	controllerAs:'index'
+	         	  controllerAs:'index',
+							resolve:{
+								UserAuth:['UserFactory','$state',function(UserFactory, $state ){
+									return UserFactory.authenticate().then( function(res){
+										if(res.data.status){
+												UserFactory.permission = res.data.permission;
+												UserFactory.access = res.data.permission.id;
+												return res.data;
+										}else{
+											$state.go('login');
+										}
+									},
+									function(){
+										$state.go('login');
+									}
+								);
+								}]
+							}
 			})
 			.state("login",{
 	          	url:"/login",
@@ -21,6 +38,10 @@
 	          	templateUrl:"login/view.html",
 	         	controllerAs:'login'
 			})
-			
+			.state("pagenotfound",{
+	          	url:"/pagenotfound",
+	          	templateUrl:"pagenotfound/view.html"
+			})
+
 		}
 })();

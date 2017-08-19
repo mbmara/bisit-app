@@ -49,13 +49,24 @@ ActiveRecord::Schema.define(version: 20170816143841) do
 
   create_table "policies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
+    t.string "route"
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "policy_contents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_role_id"
+    t.bigint "policy_id"
+    t.boolean "pcreate"
+    t.boolean "pread"
+    t.boolean "pupdate"
+    t.boolean "pdelete"
+    t.string "generated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["policy_id"], name: "index_policy_contents_on_policy_id"
+    t.index ["user_role_id"], name: "index_policy_contents_on_user_role_id"
   end
 
   create_table "profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

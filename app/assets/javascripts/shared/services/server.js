@@ -21,6 +21,7 @@
             };
             f.setToken = function( token ){
                 $localStorage.uuid = token;
+								$http.defaults.headers.common['Authorization'] = token;
             }
             f.token = function(){
                 return $localStorage.uuid;

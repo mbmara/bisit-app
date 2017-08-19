@@ -3,7 +3,7 @@ class Api::V1::UserController < ApplicationController
   before_action :authorize_request, except:[:login]
 
   def authenticate
-      json_response true,"ok"
+    @permission = @current_user.user_role
   end
   def logout
     @current_user.user_token.destroy
@@ -12,14 +12,15 @@ class Api::V1::UserController < ApplicationController
   def login
     @user = User.find_by_email login_params[:email]
     unless @user.present?
-      json_response false,"Invalid Account"
+      json_response false, {Invalid: "Account"}
       return false
     end
     unless @user.password === to_md5( login_params[:password] )
-      json_response false,"Invalid Account"
+      json_response false, {Invalid: "Account"}
       return false
     end
     token =  JsonWebToken.encode( id:@user.id)
+
     @user.build_user_token if  @user.user_token.nil?
     @user.user_token.generate_token(token)
     @user.save

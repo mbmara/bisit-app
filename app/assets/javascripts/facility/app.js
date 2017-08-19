@@ -5,14 +5,14 @@
 		.config(['$stateProvider',routes]);
 
 		function routes($stateProvider){
-			
+
 	   	 	$stateProvider
 	   	 	.state("index.facility",{
 	          	url:"facility",
 	          	controller:'facilityController',
 	          	templateUrl:"facility/index/view.html",
-	         	controllerAs:'facility'
-	      	})
-	      	
+	         	  controllerAs:'facility'
+	      })
+
 		}
 })();

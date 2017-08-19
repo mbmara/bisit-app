@@ -4,21 +4,26 @@
             <div class="ibox">
                 <div class="ibox-content mailbox-content">
                     <div class="file-manager">
-                        <a class="btn btn-block btn-primary" data-toggle="modal" data-target="#createCompany">Register New Company</a>
-                       
+                        <a ng-if="company.permission.pcreate" class="btn btn-block btn-primary" data-toggle="modal" data-target="#createCompany">Register New Company</a>
+
                         <div class="space-25"></div>
-                        <h5>status</h5>
-                        <ul class="category-list" style="padding: 0">
-                            <li><a href="#"> <i class="fa fa-circle text-navy"></i> Approved</a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-danger"></i> Pendings</a></li>
+                        <h5>FACILITIES</h5>
+                        <ul class="folder-list m-b-md" style="padding: 0">
+                            <li ng-repeat="adm in company.facilities">
+                                <a>
+                                    <i class="fa fa-building"></i> {{adm.name}}
+                                    <span class="label label-warning pull-right">{{adm.count}}</span>
+                                </a>
+                            </li>
+
                         </ul>
-                        <h5 class="tag-title">Tags</h5>
+                        <!-- <h5 class="tag-title">Tags</h5>
                         <ul class="tag-list" style="padding: 0">
                             <li><a href=""><i class="fa fa-tag"></i> Health</a></li>
                             <li><a href=""><i class="fa fa-tag"></i> Information Technology</a></li>
                             <li><a href=""><i class="fa fa-tag"></i> Education</a></li>
-                         
-                        </ul>
+
+                        </ul> -->
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -40,7 +45,7 @@
                     </form>
                     <h2>
                         Companies ({{company.collections.length}})
-                        
+
                     </h2>
                     <div class="mail-tools tooltip-demo m-t-md">
                         <div class="btn-group pull-right">
@@ -49,16 +54,31 @@
 
                         </div>
                         <button ng-click="company.loadCompany()" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> Refresh</button>
-                        
+
                     </div>
                 </div>
                 <div class="mail-box">
     				<table class="table table-hover table-mail">
     	                <tbody>
-    	               		<tr ui-sref="index.company.detail({id:com.id})" class="read" ng-repeat="com in company.collections">
+                        <tr class="unread" >
+    		                    <td>ID</td>
+    		                    <td class="mail-contact"><a href="mail_detail.html">Company</a></td>
+                            <td>Facility</td>
+    		                    <td class="mail-subject"><a href="mail_detail.html">Date Created</a></td>
+                            <td></td>
+    		                </tr>
+    	               		<tr class="read" ng-repeat="com in company.collections">
     		                    <td>{{com.id}}</td>
     		                    <td class="mail-contact"><a href="mail_detail.html">{{com.name}}</a></td>
+                            <td><small class="label label-primary">
+                                {{com.facility}}
+                            </small>
+                            </td>
     		                    <td class="mail-subject"><a href="mail_detail.html">{{com.created_at | date:'MMMM dd, yyyy hh:mm:ss a'}}</a></td>
+                            <td class="text-right">
+                              <button type="button" class="btn btn-primary btn-xs" ui-sref="index.company.detail({id:com.id})" >View</button>
+                              <button type="button" class="btn btn-danger btn-xs">Delete</button>
+                            </td>
     		                </tr>
     		                <!-- <tr class="read">
     		                    <td class="mail-ontact"><a href="mail_detail.html">Facebook</a> <span class="label label-warning pull-right">Clients</span> </td>
@@ -83,8 +103,7 @@
       </div>
       <form ng-submit="company.create(company.data)">
       <div class="modal-body">
-          
-            <div class="row">
+            <div class="row" ng-if="company.access_level==1">
                 <div class="col-md-12">
                     <div class="form-group">
                         <select class="form-control" ng-model="company.data.facility_id" ng-options="a.id as a.name for a in company.facilities">
@@ -149,19 +168,19 @@
                         <ul class="tag-list" style="padding: 0">
                             <li ng-repeat="a in company.data.tags track by $index"><a ng-click="company_create.removeTag($index)"><i class="fa fa-tag"></i>{{a}}</a></li>
                         </ul>
-                        
+
                     </div>
-                                                        
+
                 </div>
-            </div>       
-            
-        
+            </div>
+
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-success">Save</button>
       </div>
-      </form> 
+      </form>
     </form>
     </div>
   </div>
