@@ -5,6 +5,7 @@ class User < ApplicationRecord
     has_many :facility_contents
     has_many :facilities, :through => :facility_contents
     validates_presence_of :email, :password
+    validates :email , uniqueness:true
 
     def super_admin?
     	user_role_id==1
