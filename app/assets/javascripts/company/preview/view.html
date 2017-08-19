@@ -10,6 +10,8 @@
                         <h2 class="no-margins">
                             {{company_view.data.name}}
                         </h2>
+                        <small><b>{{company_view.data.website}}</b></small>
+                        <br>
                         <small>
                             {{company_view.data.description || "No description available"}}
                         </small>
@@ -39,7 +41,7 @@
                 </tbody>
             </table>
         </div>
-        
+
 
 
     </div>
@@ -59,7 +61,7 @@
                                 <td class="mail-contact">Contact</td>
                             </tr>
                             <tr class="read" ng-repeat="a in company_view.data.staffs">
-                                
+
                                 <td class="mail-subject">{{a.name}}</td>
                                 <td class="mail-contact">
                                     {{a.position}}
@@ -67,7 +69,7 @@
                                 <td class="mail-contact">
                                     {{a.contact}}
                                 </td>
-                                
+
                             </tr>
                             <!-- <tr class="read">
                                 <td class="mail-ontact"><a href="mail_detail.html">Facebook</a> <span class="label label-warning pull-right">Clients</span> </td>
@@ -95,7 +97,7 @@
                                 <td class="mail-contact">Duration</td>
                             </tr>
                             <tr class="read" ng-repeat="a in company_view.data.visitors">
-                                
+
                                 <td class="mail-subject">{{a.name}}</td>
                                 <td class="mail-contact">
                                     {{a.time_in}}
@@ -107,7 +109,7 @@
                                     {{a.time_in}}
                                 </td>
                             </tr>
-                           
+
                         </tbody>
                     </table>
                 </div>
@@ -125,7 +127,7 @@
         <h4 class="modal-title" id="myModalLabel">Staff Information</h4>
       </div>
       <div class="modal-body">
-          
+
             <div class="form-group">
       			<label class="control-label">Position:</label>
       			<input type="text" ng-model="company_view.staff.position" class="form-control"></input>

@@ -15,7 +15,11 @@
             f.addStaff = addStaff;
             f.getStaff = getStaff;
 						f.remove = remove;
+						f.update = update;
 
+						function update(data, k){
+							Server.post('company/update',{company:data}).then( k , Server.error);
+						}
 						function remove( id, k ){
 							Server.post('company/remove',{id:id}).then( k , Server.error);
 						}

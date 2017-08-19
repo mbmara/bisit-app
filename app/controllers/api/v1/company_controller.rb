@@ -1,8 +1,21 @@
 class Api::V1::CompanyController < ApplicationController
 
     before_action :authorize_request, except:[]
-    before_action only:[:create, :remove] {init_permission(3)}
+    before_action only:[:create, :remove, :update] {init_permission(3)}
 
+    def update
+      if !@current_user_permission[0][:pupdate]
+        json_response false,{Account: "is not allowed to delete"}
+        return false
+      end
+      if @current_user.super_admin?
+        company = Company.find(company_params[:id]).update company_params
+      else
+        company = @current_user.facilities[0].companies.where("id=?",company_params[:id]).update company_params
+      end
+
+      json_response true,"updated"
+    end
     def remove
       if !@current_user_permission[0][:pdelete]
         json_response false,{Account: "is not allowed to delete"}
@@ -10,10 +23,10 @@ class Api::V1::CompanyController < ApplicationController
       end
       if @current_user.super_admin?
         Company.destroy params[:id]
-      end
+      else
         @current_user.facilities[0].companies.delete params[:id]
         json_response true,"deleted"
-      else
+      end
     end
 
     def getStaff
@@ -92,9 +105,9 @@ class Api::V1::CompanyController < ApplicationController
             company.description = company_params[:description]
 
             if company.save
-                company_params[:tags].each do |tag|
-                    company.tags.create content:tag
-                end
+                # company_params[:tags].each do |tag|
+                #     company.tags.create content:tag
+                # end
                 json_response true,"ok"
             else
                 json_response false,company.errors
@@ -109,6 +122,6 @@ class Api::V1::CompanyController < ApplicationController
         params.require(:staff).permit( :position, :fname, :lname, :mname , :contact, :company_id )
     end
     def company_params
-        params.require(:company).permit(:name, :floor, :unit_number, :website, {tags:[]}, :description, :facility_id)
+        params.require(:company).permit(:id,:name, :floor, :unit_number, :website, {tags:[]}, :description, :facility_id)
     end
 end

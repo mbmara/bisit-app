@@ -8,11 +8,10 @@
 
 		function companyPreviewController(Notification,CompanyFactory,$state){
 			var company_view = this;
-			
+
 			var id = $state.params.id;
 
 			CompanyFactory.getDetail( id , function(res){
-				console.log(res);
 				company_view.data = res.data.payload;
 			});
 			company_view.addStaff  = addStaff;
@@ -25,7 +24,7 @@
 						company_view.data = res.data.payload;
 						$('#createStaff').modal('hide');
 					});
-					
+
 				});
 			}
 

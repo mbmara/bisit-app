@@ -9,6 +9,7 @@
 		function companyController(Notification,CompanyFactory,$state,FacilityFactory, UserFactory){
             var company = this;
 						var state = $state.current.name.split(".")[1] || "index"
+						company.mode ="create";
 
 						UserFactory.initialize(state, function(permission){
 							company.access_level = UserFactory.access;
@@ -21,6 +22,9 @@
 							company.removeTag = removeTag;
 							company.create = create;
 
+							company.edit = edit;
+							company.update = update;
+
 							FacilityFactory.getAll( function(res){
 	                company.facilities = res.data;
 
@@ -28,6 +32,21 @@
 							loadCompany();
 						});
 
+						function update(){
+							CompanyFactory.update(company.data, function(res){
+								$('#createCompany').modal('hide');
+								company.mode ="create";
+								loadCompany();
+							})
+						}
+						function edit(id){
+							company.mode ="edit";
+							CompanyFactory.getDetail(id, function(res){
+								company.data = res.data.payload;
+								$('#createCompany').modal('show');
+							});
+
+						}
 						function remove(id,index){
 							CompanyFactory.remove( id , function(res){
 								if(res.data.status){

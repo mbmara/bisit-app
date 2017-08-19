@@ -1,5 +1,5 @@
 json.payload do
-	json.extract! @company, :id, :name, :description
+	json.extract! @company, :id, :name, :description, :website, :floor, :unit_number
 	json.staffs @company.staffs do |cc|
 		json.extract! cc, :id, :position
 		json.name cc.profile.fullname
