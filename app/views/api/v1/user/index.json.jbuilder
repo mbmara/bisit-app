@@ -3,7 +3,7 @@ json.users @users do |user|
     json.role user.user_role.name
     json.facility user.facilities unless user.super_admin?
     json.facility [{name:"All Facilities"}] if user.super_admin?
-    json.name user.profile.fullname unless user.profile.nil?
+    json.name  user.profile.nil? ? "System Default" : user.profile.fullname
 end
 json.roles @roles, :id, :name
 json.facilities @facilities, :id , :name

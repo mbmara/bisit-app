@@ -18,6 +18,7 @@
 						f.initialize = initialize;
 
 						function initialize(fn,callback){
+						
 							angular.forEach(f.permission.objects, function(data){
 
 								//console.log(data);

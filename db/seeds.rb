@@ -28,8 +28,8 @@ Policy.create([
 	},
 	{
 		name:"Visitor",
-		route:"visitor",
-		url:"visitors"
+		route:"index.visitor",
+		url:"visitor"
 	},
 	{
 		name:"Identification",
