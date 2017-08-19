@@ -6,4 +6,5 @@
 //= require angular-ui-router
 //= require angular-notify
 //= require scanner/qrscanner.js
+//= require angular-timeago
 //= require_tree .

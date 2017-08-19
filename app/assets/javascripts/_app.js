@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 	angular
-		.module('admDashboard',['ui.router','templates','ngStorage','cgNotify'])
+		.module('admDashboard',['ui.router','templates','ngStorage','cgNotify','yaru22.angular-timeago'])
 		.config(['$stateProvider','$urlRouterProvider','$locationProvider',routes]);
 
 		function routes($stateProvider, $urlRouterProvider, $locationProvider){

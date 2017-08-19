@@ -15,31 +15,54 @@
         </div>
 
         <div ng-if="kiosk.step==2" >
-            <div class="form-group">
-                <!-- <p><b>First Name</b></p> -->
-                <input  style="padding:10px;font-size:25px" type="text" ng-model="kiosk.data.fname" placeholder="First Name">
+          <form ng-submit="kiosk.loadCamera()">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                    <!-- <p><b>First Name</b></p> -->
+                    <input  style="padding:10px;font-size:25px" type="text" ng-model="kiosk.data.fname" placeholder="First Name" required>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                    <!-- <p><b>First Name</b></p> -->
+                    <input  style="padding:10px;font-size:25px" type="text" ng-model="kiosk.data.lname" placeholder="Last Name" required>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                    <!-- <p><b>First Name</b></p> -->
+                    <input  style="padding:10px;font-size:25px" type="text" ng-model="kiosk.data.mname" placeholder="Middle Name" required>
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-                <!-- <p><b>Last Name</b></p> -->
-                <input  style="padding:10px;font-size:25px" type="text" ng-model="kiosk.data.lname" placeholder="Last Name">
-            </div>
-            <div class="form-group">
-                <!-- <p><b>Middle Name</b></p> -->
-                <input  style="padding:10px;font-size:25px" type="text" ng-model="kiosk.data.mname" placeholder="Middle Name">
-            </div>
-            <div class="form-group">
-                <select ng-change="kiosk.getCompanyStaff(kiosk.data.company)" style="padding:10px;font-size:25px;min-width:318px" ng-model="kiosk.data.company" ng-options="a.id as a.name for a in kiosk.companies">
+            <div class="row">
+              <div class="col-lg-4">
+                <select
+                  ng-change="kiosk.getCompanyStaff(kiosk.data.company)"
+                  style="padding:10px;font-size:25px;min-width:318px"
+                  ng-model="kiosk.data.company" ng-options="a.id as a.name for a in kiosk.companies"
+                  required>
                     <option value="" selected hidden disabled>-Select Company-</option>
                 </select>
-            </div>
-            <div class="form-group">
-                <select style="padding:10px;font-size:25px;min-width:318px" ng-model="kiosk.data.staff" ng-options="a.id as a.name for a in kiosk.staffs">
+              </div>
+              <div class="col-lg-4">
+                <select
+                  style="padding:10px;font-size:25px;min-width:318px"
+                  ng-model="kiosk.data.staff"
+                  ng-options="a.id as a.name for a in kiosk.staffs"
+                  required>
                     <option value="" hidden selected disabled>-Select Staff-</option>
                 </select>
-
+              </div>
+              <div class="col-lg-4">
+                <input  style="padding:10px;font-size:25px" type="text" ng-model="kiosk.data.purpose" placeholder="Purpose" required>
+              </div>
             </div>
+            <br>
             <a style="padding:20px;font-size:20px;min-width:159px" ng-click="kiosk.step = 1" class="btn btn-danger">Back</a>
-            <a style="padding:20px;font-size:20px;min-width:159px" ng-click="kiosk.loadCamera()" class="btn btn-primary">Next</a>
+            <button type="submit" style="padding:20px;font-size:20px;min-width:159px" class="btn btn-primary">Next</button>
+          </form>
         </div>
         <div ng-if="kiosk.step==3">
             <div class="camera_wrapper text-center">

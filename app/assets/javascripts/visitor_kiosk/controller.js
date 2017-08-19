@@ -4,12 +4,12 @@
 		.module('admDashboard')
 		.controller('kioskController',kioskController);
 
-		kioskController.$inject = ['$interval','CompanyFactory','$timeout','Scanner','$scope','visitorFactory','$state'];
+		kioskController.$inject = ['$interval','CompanyFactory','$timeout','Scanner','$scope','visitorFactory','$state','Notification'];
 
-		function kioskController( $interval,CompanyFactory, $timeout, Scanner, $scope,visitorFactory,$state){
+		function kioskController( $interval,CompanyFactory, $timeout, Scanner, $scope,visitorFactory,$state, Notification){
 			var kiosk = this;
 
-			kiosk.step = 1;
+			kiosk.step = 2;
 			kiosk.companies = [];
 			kiosk.staffs = [];
 			kiosk.getCompanyStaff = getCompanyStaff;
@@ -17,7 +17,7 @@
 
 
 			CompanyFactory.getList( function(res){
-				kiosk.companies = res.data;
+				kiosk.companies = res.data.companies;
 			});
 			kiosk.clock = Date.now();
 			$interval( function(){
@@ -27,13 +27,18 @@
 
 			function loginVisitor(){
 				visitorFactory.login( kiosk.data, function(res){
-					alert(res.data.payload);
-					$state.go('visitor');
+					if(res.data.status){
+						kiosk.step = 1;
+					}else{
+						Notification.showError(res.data.payload);
+					}
+
 				});
 
 			}
 			function getCompanyStaff( id ){
 				CompanyFactory.getStaff(id, function(res){
+					console.log(res);
 					kiosk.staffs = res.data;
 				})
 			}

@@ -6,7 +6,8 @@ class CreateVisitLogs < ActiveRecord::Migration[5.1]
     	t.belongs_to :user, index:true
     	t.belongs_to :visitor , index:true
     	t.belongs_to :identification, index:true
-    	t.datetime :time_in 
+      t.string :purpose
+    	t.datetime :time_in
     	t.datetime :time_out
       t.timestamps
     end

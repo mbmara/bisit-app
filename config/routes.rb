@@ -16,11 +16,13 @@ Rails.application.routes.draw do
       post 'company/remove', to: 'company#remove'
       post 'company/update', to: 'company#update'
       post 'company/search', to:'company#search'
-      
+
+
       post 'identification/create', to: 'identification#create'
       get 'identification/all', to: 'identification#index'
 
       post 'visitor/login', to: 'visitor#login'
+      get 'visitor/all', to: 'visitor#index'
 
       post 'facility/create', to: 'facility#create'
       get 'facility/all', to: 'facility#index'

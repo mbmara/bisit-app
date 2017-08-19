@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 20170816143841) do
     t.bigint "user_id"
     t.bigint "visitor_id"
     t.bigint "identification_id"
+    t.string "purpose"
     t.datetime "time_in"
     t.datetime "time_out"
     t.datetime "created_at", null: false

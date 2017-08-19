@@ -62,21 +62,19 @@
     	                <tbody>
                         <tr class="unread">
     		                    <td>Visitor Name</td>
-    		                    <td class="mail-contact">Purpose</td>
     		                    <td class="mail-contact">Company</td>
     		                    <td class="mail-contact">Purpose</td>
     		                    <td class="mail-contact">Contact Person</td>
     		                    <td class="mail-contact">Status</td>
     		                    <td class="mail-contact">Duration</td>
     		                </tr>
-                        <tr class="read">
-    		                    <td>Visitor Name</td>
-    		                    <td class="mail-contact">Purpose</td>
-    		                    <td class="mail-contact">Company</td>
-    		                    <td class="mail-contact">Purpose</td>
-    		                    <td class="mail-contact">Contact</td>
-    		                    <td class="mail-contact">Status</td>
-    		                    <td class="mail-contact">Duration</td>
+                        <tr class="read" ng-repeat="a in visitor.lists">
+    		                    <td>{{a.profile}}</td>
+    		                    <td class="mail-contact">{{a.company}}</td>
+    		                    <td class="mail-contact">{{a.purpose}}</td>
+    		                    <td class="mail-contact">{{a.staff}}</td>
+    		                    <td class="mail-contact">{{(a.time_out) ? 'Logout' : 'On Premise'}}</td>
+    		                    <td class="mail-contact">{{a.created_at | timeAgo}}</td>
     		                </tr>
 
     	                </tbody>

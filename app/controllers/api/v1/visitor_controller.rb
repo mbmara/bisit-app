@@ -1,10 +1,26 @@
 class Api::V1::VisitorController < ApplicationController
-
+	before_action :authorize_request, except:[]
+	#before_action only:[:create, :search, :remove, :update] {init_permission(3)}
 	require 'base64'
 	require 'chikka'
 
+	def index
+			@visitors = VisitLog.all
+	end
+
 	def login
 		ActiveRecord::Base.transaction do
+			#verify indentification
+			idz = @current_user.facilities[0].identifications.where("code = ?",visitor_params[:identifiction_code])
+
+			if !idz.present?
+				json_response false,{Invalid:" identification Code"	}
+				return false
+			end
+			if idz[0].in_use
+				json_response false,{Identification:" is in use! Please logout first"	}
+				return false
+			end
 			visit = Visitor.create
 
 			profile 	  = visit.build_profile
@@ -20,10 +36,13 @@ class Api::V1::VisitorController < ApplicationController
 	        log.staff_id 	= visitor_params[:staff]
 	        log.user_id 	= 1
 	        log.visitor_id 	= visit.id
+					log.purpose = visitor_params[:purpose]
 	        log.identification_id 	= visitor_params[:identifiction_code]
 
 	        log.save
+					idz[0].in_use = true
 
+					idz[0].save
 	       	data = visitor_params[:visitor_img]
 			image_data = Base64.decode64(data['data:image/png;base64,'.length .. -1])
 
@@ -52,6 +71,6 @@ class Api::V1::VisitorController < ApplicationController
 	private
 
 	def visitor_params
-		params.require(:visit).permit(:company, :fname, :lname, :mname, :staff, :identifiction_code, :visitor_img)
+		params.require(:visit).permit(:company, :fname, :lname, :mname, :staff, :identifiction_code, :visitor_img, :purpose)
 	end
 end

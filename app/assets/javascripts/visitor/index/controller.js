@@ -4,14 +4,16 @@
 		.module('admDashboard')
 		.controller('visitorController',visitorController);
 
-		visitorController.$inject = ['Notification','$state','UserFactory'];
+		visitorController.$inject = ['Notification','$state','UserFactory','visitorFactory'];
 
-		function visitorController(Notification,$state, UserFactory){
+		function visitorController(Notification,$state, UserFactory,visitorFactory){
             var visitor = this;
             var state = $state.current.name.split(".")[1] || "index"
 
 						UserFactory.initialize(state, function(permission){
-							console.log(permission);
+							visitorFactory.all( function(res){
+								visitor.lists = res.data;
+							});
 						});
 
 
