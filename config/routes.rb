@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       get 'company/detail/:id', to: 'company#detail'
       post 'company/addstaff', to: 'company#addstaff'
       post 'company/staff', to: 'company#getStaff'
-
+      post 'company/remove', to: 'company#remove'
       post 'identification/create', to: 'identification#create'
       get 'identification/all', to: 'identification#index'
 

@@ -1,7 +1,20 @@
 class Api::V1::CompanyController < ApplicationController
 
     before_action :authorize_request, except:[]
-    before_action only:[:create] {init_permission(3)}
+    before_action only:[:create, :remove] {init_permission(3)}
+
+    def remove
+      if !@current_user_permission[0][:pdelete]
+        json_response false,{Account: "is not allowed to delete"}
+        return false
+      end
+      if @current_user.super_admin?
+        Company.destroy params[:id]
+      end
+        @current_user.facilities[0].companies.delete params[:id]
+        json_response true,"deleted"
+      else
+    end
 
     def getStaff
         @staffs = Company.find(params[:id]).staffs

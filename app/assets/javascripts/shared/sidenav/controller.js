@@ -21,6 +21,5 @@
 						vm.name = UserFactory.profile;
 						vm.role = UserFactory.role;
 
-						console.log(UserFactory);
 		}
 })();

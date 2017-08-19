@@ -16,6 +16,10 @@
 	            company.collections = [];
 	            company.loadCompany= loadCompany;
 							company.permission = permission;
+							company.remove = remove;
+							company.addtag = addtag;
+							company.removeTag = removeTag;
+							company.create = create;
 
 							FacilityFactory.getAll( function(res){
 	                company.facilities = res.data;
@@ -24,14 +28,20 @@
 							loadCompany();
 						});
 
-
+						function remove(id,index){
+							CompanyFactory.remove( id , function(res){
+								if(res.data.status){
+									company.collections.splice( index, 1);
+								}else{
+									Notification.showError(res.data.payload);
+								}
+							});
+						}
             company.data={
                 tags:[]
             }
 
-            company.addtag = addtag;
-            company.removeTag = removeTag;
-            company.create = create;
+
 
             function create(data){
                 CompanyFactory.create( data, function(res){

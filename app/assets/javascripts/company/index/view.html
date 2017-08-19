@@ -74,10 +74,10 @@
                                 {{com.facility}}
                             </small>
                             </td>
-    		                    <td class="mail-subject"><a href="mail_detail.html">{{com.created_at | date:'MMMM dd, yyyy hh:mm:ss a'}}</a></td>
+    		                    <td class="mail-subject"><a>{{com.created_at | date:'MMMM dd, yyyy hh:mm:ss a'}}</a></td>
                             <td class="text-right">
                               <button type="button" class="btn btn-primary btn-xs" ui-sref="index.company.detail({id:com.id})" >View</button>
-                              <button type="button" class="btn btn-danger btn-xs">Delete</button>
+                              <button type="button" class="btn btn-danger btn-xs" ng-click="company.remove(com.id, $index)">Delete</button>
                             </td>
     		                </tr>
     		                <!-- <tr class="read">
@@ -106,8 +106,9 @@
             <div class="row" ng-if="company.access_level==1">
                 <div class="col-md-12">
                     <div class="form-group">
+                        <label>Facility</label>
                         <select class="form-control" ng-model="company.data.facility_id" ng-options="a.id as a.name for a in company.facilities">
-                            <option>-Select Facility-</option>
+                            <option value="" disabled hidden selected>-Select Facility-</option>
                         </select>
                     </div>
                 </div>

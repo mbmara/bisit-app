@@ -14,7 +14,11 @@
             f.getDetail  = getDetail;
             f.addStaff = addStaff;
             f.getStaff = getStaff;
+						f.remove = remove;
 
+						function remove( id, k ){
+							Server.post('company/remove',{id:id}).then( k , Server.error);
+						}
             function getStaff(id,k){
                 Server.post('company/staff',{id:id}).then(k,Server.error)
             }
