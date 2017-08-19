@@ -1,7 +1,7 @@
 class Api::V1::UserController < ApplicationController
 
   before_action :authorize_request, except:[:login]
-
+  before_action only:[:create] {init_permission(4)}
   def authenticate
     @permission = @current_user.user_role
   end
@@ -33,10 +33,19 @@ class Api::V1::UserController < ApplicationController
   end
   def index
     @users = User.all.order id: :desc
-    @roles = UserRole.all
-    @facilities = Facility.all
+    if @current_user.super_admin?
+      @roles = UserRole.all
+      @facilities = Facility.all
+    else
+      @roles = UserRole.where("id > ? ",1)
+      @facilities = @current_user.facilities
+    end
   end
   def create
+    if !@current_user_permission[0][:pcreate]
+      json_response false,{Account: "is not allowed to create"}
+      return false
+    end
     ActiveRecord::Base.transaction do
       user = User.new
       user.user_role_id = user_params[:role]
