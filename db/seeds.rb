@@ -1,7 +1,7 @@
 p "-- CREATING ROLES--"
 UserRole.create([
 	{name:"Super Admin"},
-	{name:"Admin"},
+	{name:"Building Admin"},
 	{name:"Receptionist"}
 ])
 p "-- CREATING POLICY--"

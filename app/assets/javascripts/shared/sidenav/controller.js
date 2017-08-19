@@ -18,5 +18,9 @@
 
             vm.active = $state.current.name.split(".")[1] || "index";
             vm.menus = UserFactory.permission.objects;
+						vm.name = UserFactory.profile;
+						vm.role = UserFactory.role;
+
+						console.log(UserFactory);
 		}
 })();

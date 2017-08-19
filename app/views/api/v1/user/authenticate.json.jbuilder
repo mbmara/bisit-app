@@ -1,4 +1,6 @@
 json.status true
+json.user_role @current_user.user_role, :name
+json.profile @current_user.profile.nil? ? "System Default" : @current_user.profile.fullname
 json.permission do
   json.extract! @permission, :id
 

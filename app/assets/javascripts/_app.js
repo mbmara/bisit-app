@@ -18,6 +18,8 @@
 								UserAuth:['UserFactory','$state',function(UserFactory, $state ){
 									return UserFactory.authenticate().then( function(res){
 										if(res.data.status){
+												UserFactory.role = res.data.user_role;
+												UserFactory.profile = res.data.profile;
 												UserFactory.permission = res.data.permission;
 												UserFactory.access = res.data.permission.id;
 												return res.data;
