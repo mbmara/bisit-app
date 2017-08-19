@@ -19,6 +19,7 @@
 					if(res.data.status){
 						UserFactory.getList( function(res){
 						 	$("#createUser").modal("hide");
+							user.data = res.data;
 							user.modal = {};
 						});
 

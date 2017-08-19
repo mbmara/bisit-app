@@ -7,7 +7,8 @@ class Api::V1::CompanyController < ApplicationController
       if @current_user.super_admin?
         @companies = Company.where("name like ?","%#{search_params[:search]}%")
       else
-        @current_user.facilities[0].companies.where("name like ?","%#{search_params[:search]}%")
+
+        @companies = @current_user.facilities[0].companies.where("name like ?","%#{search_params[:search]}%")
       end
     end
 
