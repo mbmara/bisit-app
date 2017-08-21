@@ -1,3 +1,4 @@
+
 class Api::V1::VisitorController < ApplicationController
 	before_action :authorize_request, except:[]
 	#before_action only:[:create, :search, :remove, :update] {init_permission(3)}
@@ -16,9 +17,9 @@ class Api::V1::VisitorController < ApplicationController
 		idz = Identification.find_by_code params[:code]
 
 		if idz.present?
-			idz.visit_log.last.logout
 			idz.in_use = false
 			idz.save
+			idz.visit_logs.last.logout
 			json_response true,"logout"
 		else
 			json_response false,{Code: "Invalid"}

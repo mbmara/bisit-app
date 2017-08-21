@@ -9,6 +9,8 @@
 		function kioskController( $interval,CompanyFactory, $timeout, Scanner, $scope,visitorFactory,$state, Notification, UserFactory){
 			var kiosk = this;
 
+			//initial data
+			kiosk.data={};
 			kiosk.step = 1;
 			kiosk.companies = [];
 			kiosk.staffs = [];
