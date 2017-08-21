@@ -60,14 +60,14 @@ class Api::V1::VisitorController < ApplicationController
 			if idz[0].facility_id != @current_user.facilities[0].id
 				json_response false,{Identification: "Does not belongs to this facility"}
 			end
-			visit = Visitor.new
-			visit.image = "#{Time.zone.now.to_i}.png"
-			visit.save
-			profile 	  = visit.build_profile
-			profile.fname = visitor_params[:fname]
+					visit = Visitor.new
+					visit.image = "#{Time.zone.now.to_i}.png"
+					visit.save
+					profile 	  = visit.build_profile
+					profile.fname = visitor_params[:fname]
 	        profile.lname = visitor_params[:lname]
 	        profile.mname = visitor_params[:mname]
-
+					profile.user_type = :visitor
 	        profile.save
 
 	        #create log
@@ -81,7 +81,6 @@ class Api::V1::VisitorController < ApplicationController
 					log.purpose = visitor_params[:purpose]
 	        log.identification_id 	= visitor_params[:identifiction_code]
 					log.state = :login
-					log.user_type = :visitor
 	        log.save
 					idz[0].in_use = true
 

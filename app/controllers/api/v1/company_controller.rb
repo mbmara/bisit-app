@@ -54,7 +54,7 @@ class Api::V1::CompanyController < ApplicationController
                 prof.lname = staff_params[:lname]
                 prof.mname = staff_params[:mname]
                 prof.mobile = staff_params[:contact]
-
+                prof.user_type = :staff
                 if prof.save
                     json_response true,"New Staff Added"
                 else

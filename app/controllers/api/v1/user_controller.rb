@@ -76,7 +76,7 @@ class Api::V1::UserController < ApplicationController
         profile.lname = user_params[:lname]
         profile.mname = user_params[:mname]
         profile.mobile = user_params[:contact]
-
+        profile.user_type = :user
         if profile.save
           json_response true,"Create Success"
         else
