@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20170816143841) do
     t.string "lname"
     t.string "mname"
     t.string "mobile"
+    t.integer "user_type"
     t.boolean "block", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -138,14 +139,17 @@ ActiveRecord::Schema.define(version: 20170816143841) do
     t.bigint "company_id"
     t.bigint "staff_id"
     t.bigint "user_id"
+    t.bigint "facility_id"
     t.bigint "visitor_id"
     t.bigint "identification_id"
     t.string "purpose"
     t.datetime "time_in"
     t.datetime "time_out"
+    t.integer "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_visit_logs_on_company_id"
+    t.index ["facility_id"], name: "index_visit_logs_on_facility_id"
     t.index ["identification_id"], name: "index_visit_logs_on_identification_id"
     t.index ["staff_id"], name: "index_visit_logs_on_staff_id"
     t.index ["user_id"], name: "index_visit_logs_on_user_id"

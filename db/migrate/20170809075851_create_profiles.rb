@@ -8,6 +8,7 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.string :lname
       t.string :mname
       t.string :mobile
+      t.integer :user_type
       t.boolean :block, default:false
       t.timestamps
     end

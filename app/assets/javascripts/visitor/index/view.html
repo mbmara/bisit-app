@@ -7,7 +7,7 @@
                   <h5>Total Visitors</h5>
               </div>
               <div class="ibox-content">
-                  <h1 class="no-margins">20</h1>
+                  <h1 class="no-margins">{{visitor.data.total_visitors_today | number}}</h1>
               </div>
           </div>
         </div>
@@ -18,7 +18,7 @@
                   <h5>Login In</h5>
               </div>
               <div class="ibox-content">
-                  <h1 class="no-margins">30</h1>
+                  <h1 class="no-margins">{{visitor.data.total_visitors_login_today | number}}</h1>
               </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
                   <h5>Log out</h5>
               </div>
               <div class="ibox-content">
-                  <h1 class="no-margins">10</h1>
+                  <h1 class="no-margins">{{visitor.data.total_visitors_logout_today | number}}</h1>
               </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
                   <h5>Total Visitors</h5>
               </div>
               <div class="ibox-content">
-                  <h1 class="no-margins">40 886,200</h1>
+                  <h1 class="no-margins">{{visitor.data.total_visitors | number}}</h1>
               </div>
           </div>
         </div>
@@ -62,14 +62,16 @@
     	                <tbody>
                         <tr class="unread">
     		                    <td>Visitor Name</td>
+                            <td>Facility</td>
     		                    <td class="mail-contact">Company</td>
     		                    <td class="mail-contact">Purpose</td>
     		                    <td class="mail-contact">Contact Person</td>
     		                    <td class="mail-contact">Status</td>
     		                    <td class="mail-contact">Duration</td>
     		                </tr>
-                        <tr ng-click="visitor.info(a.visitor_id)" class="read" ng-repeat="a in visitor.lists">
+                        <tr ng-click="visitor.info(a.visitor_id)" class="read" ng-repeat="a in visitor.data.visitors">
     		                    <td>{{a.profile}}</td>
+                            <td>{{a.facility}}</td>
     		                    <td class="mail-contact">{{a.company}}</td>
     		                    <td class="mail-contact">{{a.purpose}}</td>
     		                    <td class="mail-contact">{{a.staff}}</td>

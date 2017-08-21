@@ -20,7 +20,7 @@
 						}
 						UserFactory.initialize(state, function(permission){
 							visitorFactory.all( function(res){
-								visitor.lists = res.data;
+								visitor.data = res.data;
 							});
 						});
 

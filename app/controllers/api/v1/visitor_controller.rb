@@ -11,9 +11,7 @@ class Api::V1::VisitorController < ApplicationController
 	end
 
 	def logout
-		log_time = Time.zone.now
-		p "-----"
-		p params[:code]
+
 
 		idz = Identification.find_by_code params[:code]
 
@@ -29,7 +27,21 @@ class Api::V1::VisitorController < ApplicationController
 	end
 
 	def index
+		if @current_user.super_admin?
 			@visitors = VisitLog.all.order id: :desc
+			@total_visitors  =  VisitLog.count
+			@total_visitors_today = VisitLog.where("created_at BETWEEN ? AND ?",Date.today.beginning_of_day, Date.today.end_of_day).count
+			@total_visitors_login_today = VisitLog.where("state = ? AND created_at BETWEEN ? AND ?",0,Date.today.beginning_of_day, Date.today.end_of_day).count
+			@total_visitors_logout_today = VisitLog.where("state = ?  AND created_at BETWEEN ? AND ?",1,Date.today.beginning_of_day, Date.today.end_of_day).count
+
+		else
+			@visitors = @current_user.facilities[0].visit_logs.order id: :desc
+			@total_visitors  =   @current_user.facilities[0].visit_logs.count
+			@total_visitors_today =  @current_user.facilities[0].visit_logs.where("created_at BETWEEN ? AND ?",Date.today.beginning_of_day, Date.today.end_of_day).count
+			@total_visitors_login_today =  @current_user.facilities[0].visit_logs.where("state = ? AND created_at BETWEEN ? AND ?",0,Date.today.beginning_of_day, Date.today.end_of_day).count
+			@total_visitors_logout_today =  @current_user.facilities[0].visit_logs.where("state = ?  AND created_at BETWEEN ? AND ?",1,Date.today.beginning_of_day, Date.today.end_of_day).count
+
+		end
 	end
 
 	def login
@@ -44,6 +56,9 @@ class Api::V1::VisitorController < ApplicationController
 			if idz[0].in_use
 				json_response false,{ Identification:" is in use! Please logout first"	}
 				return false
+			end
+			if idz[0].facility_id != @current_user.facilities[0].id
+				json_response false,{Identification: "Does not belongs to this facility"}
 			end
 			visit = Visitor.new
 			visit.image = "#{Time.zone.now.to_i}.png"
@@ -60,10 +75,13 @@ class Api::V1::VisitorController < ApplicationController
 	        log.company_id 	= visitor_params[:company]
 	        log.staff_id 	= visitor_params[:staff]
 	        log.user_id 	= 1
+					log.facility_id = idz[0].facility_id
 	        log.visitor_id 	= visit.id
+					log.time_out = 0
 					log.purpose = visitor_params[:purpose]
 	        log.identification_id 	= visitor_params[:identifiction_code]
-
+					log.state = :login
+					log.user_type = :visitor
 	        log.save
 					idz[0].in_use = true
 
