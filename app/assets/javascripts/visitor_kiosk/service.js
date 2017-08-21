@@ -12,7 +12,11 @@
             f.login = login;
 						f.all = all;
 						f.logout = logout;
+						f.info = info;
 
+						function info(id, k){
+							Server.post('visitor/info',{id:id}).then( k , Server.error );
+						}
 						function logout( code , k ){
 							Server.post('visitor/logout',{code:code}).then( k , Server.error);
 						}

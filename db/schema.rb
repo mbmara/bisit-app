@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20170816143841) do
 
   create_table "visitors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.boolean "status"
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["status"], name: "index_visitors_on_status"

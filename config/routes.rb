@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       post 'visitor/logout', to: 'visitor#logout'
       post 'visitor/login', to: 'visitor#login'
       get 'visitor/all', to: 'visitor#index'
+      post 'visitor/info', to: 'visitor#info'
 
       post 'facility/create', to: 'facility#create'
       get 'facility/all', to: 'facility#index'

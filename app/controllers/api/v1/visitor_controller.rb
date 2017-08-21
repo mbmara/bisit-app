@@ -4,6 +4,12 @@ class Api::V1::VisitorController < ApplicationController
 	require 'base64'
 	require 'chikka'
 
+
+	def info
+		@vis = Visitor.find params[:id]
+
+	end
+
 	def logout
 		log_time = Time.zone.now
 		p "-----"
@@ -39,8 +45,9 @@ class Api::V1::VisitorController < ApplicationController
 				json_response false,{ Identification:" is in use! Please logout first"	}
 				return false
 			end
-			visit = Visitor.create
-
+			visit = Visitor.new
+			visit.image = "#{Time.zone.now.to_i}.png"
+			visit.save
 			profile 	  = visit.build_profile
 			profile.fname = visitor_params[:fname]
 	        profile.lname = visitor_params[:lname]
@@ -64,7 +71,7 @@ class Api::V1::VisitorController < ApplicationController
 	       	data = visitor_params[:visitor_img]
 			image_data = Base64.decode64(data['data:image/png;base64,'.length .. -1])
 
-			File.open("#{Rails.root}/public/visitor_#{visit.id}.png", 'wb') do |f|
+			File.open("#{Rails.root}/public/secret_upload/#{visit.image}", 'wb') do |f|
 			  f.write image_data
 			end
 

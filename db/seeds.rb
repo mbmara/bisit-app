@@ -61,8 +61,9 @@ PolicyContent.create([
 		{user_role_id:2,policy_id:1,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
 		{user_role_id:2,policy_id:3,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
 		{user_role_id:2,policy_id:4,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
+		{user_role_id:2,policy_id:5,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
+		{user_role_id:2,policy_id:6,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
 		{user_role_id:2,policy_id:7,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
-
 		#{user_role_id:3,policy_id:1,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
 		#{user_role_id:3,policy_id:5,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
 		#{user_role_id:3,policy_id:6,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
