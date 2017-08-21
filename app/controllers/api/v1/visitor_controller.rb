@@ -4,8 +4,26 @@ class Api::V1::VisitorController < ApplicationController
 	require 'base64'
 	require 'chikka'
 
+	def logout
+		log_time = Time.zone.now
+		p "-----"
+		p params[:code]
+
+		idz = Identification.find_by_code params[:code]
+
+		if idz.present?
+			idz.visit_log.last.logout
+			idz.in_use = false
+			idz.save
+			json_response true,"logout"
+		else
+			json_response false,{Code: "Invalid"}
+		end
+
+	end
+
 	def index
-			@visitors = VisitLog.all
+			@visitors = VisitLog.all.order id: :desc
 	end
 
 	def login
@@ -18,7 +36,7 @@ class Api::V1::VisitorController < ApplicationController
 				return false
 			end
 			if idz[0].in_use
-				json_response false,{Identification:" is in use! Please logout first"	}
+				json_response false,{ Identification:" is in use! Please logout first"	}
 				return false
 			end
 			visit = Visitor.create

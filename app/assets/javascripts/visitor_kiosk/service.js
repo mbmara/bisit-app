@@ -11,7 +11,11 @@
 
             f.login = login;
 						f.all = all;
+						f.logout = logout;
 
+						function logout( code , k ){
+							Server.post('visitor/logout',{code:code}).then( k , Server.error);
+						}
 						function all( k ){
 							Server.get('visitor/all').then(k , Server.error);
 						}

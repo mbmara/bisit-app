@@ -4,18 +4,55 @@
 		.module('admDashboard')
 		.controller('kioskController',kioskController);
 
-		kioskController.$inject = ['$interval','CompanyFactory','$timeout','Scanner','$scope','visitorFactory','$state','Notification'];
+		kioskController.$inject = ['$interval','CompanyFactory','$timeout','Scanner','$scope','visitorFactory','$state','Notification','UserFactory'];
 
-		function kioskController( $interval,CompanyFactory, $timeout, Scanner, $scope,visitorFactory,$state, Notification){
+		function kioskController( $interval,CompanyFactory, $timeout, Scanner, $scope,visitorFactory,$state, Notification, UserFactory){
 			var kiosk = this;
 
-			kiosk.step = 2;
+			kiosk.step = 1;
 			kiosk.companies = [];
 			kiosk.staffs = [];
 			kiosk.getCompanyStaff = getCompanyStaff;
 			kiosk.loginVisitor = loginVisitor;
+			kiosk.home = home;
+			kiosk.logout = logout;
+			kiosk.visitorLogout = visitorLogout;
+			kiosk.mode = "login";
+			kiosk.logoutVisitor = logoutVisitor;
+			kiosk.reload = reload;
 
+			function logoutVisitor(){
+				visitorFactory.logout(kiosk.data.identifiction_code, function(res){
+					console.log(res);
+					alert("Visito is now logout");
+					reload();
+				});
 
+			}
+			function reload(){
+				window.location.reload();
+			}
+			function visitorLogout(){
+				//kiosk.loadCamera();
+				kiosk.step = 4;
+				kiosk.mode = "logout";
+				$timeout( function(){
+					Scanner.init( new Instascan.Scanner({ video: document.getElementById('preview') }) );
+
+					Scanner.instance.addListener('scan', function (content) {
+						kiosk.data.identifiction_code = content;
+						$scope.$apply();
+					});
+
+				},1000)
+			}
+			function home(){
+				window.location.reload();
+			}
+			function logout(){
+				UserFactory.logout();
+				$state.go("login");
+			}
 			CompanyFactory.getList( function(res){
 				kiosk.companies = res.data.companies;
 			});
@@ -29,6 +66,8 @@
 				visitorFactory.login( kiosk.data, function(res){
 					if(res.data.status){
 						kiosk.step = 1;
+						alert("Visitor has been successfully log In");
+						reload();
 					}else{
 						Notification.showError(res.data.payload);
 					}

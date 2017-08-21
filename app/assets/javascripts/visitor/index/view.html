@@ -74,7 +74,8 @@
     		                    <td class="mail-contact">{{a.purpose}}</td>
     		                    <td class="mail-contact">{{a.staff}}</td>
     		                    <td class="mail-contact">{{(a.time_out) ? 'Logout' : 'On Premise'}}</td>
-    		                    <td class="mail-contact">{{a.created_at | timeAgo}}</td>
+    		                    <td ng-if="!a.elapse" class="mail-contact">{{a.created_at | timeAgo}}</td>
+    		                    <td ng-if="a.elapse" class="mail-contact">{{a.elapse}}</td>
     		                </tr>
 
     	                </tbody>

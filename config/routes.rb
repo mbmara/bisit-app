@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       post 'identification/create', to: 'identification#create'
       get 'identification/all', to: 'identification#index'
 
+      post 'visitor/logout', to: 'visitor#logout'
       post 'visitor/login', to: 'visitor#login'
       get 'visitor/all', to: 'visitor#index'
 

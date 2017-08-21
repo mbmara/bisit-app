@@ -2,15 +2,31 @@
         <div class="clock_wrapper">
             <h2>{{kiosk.clock | date:'MM-dd-yyyy HH:mm:ss a'}}</h2>
         </div>
+        <div class="floating_home">
+          <i ng-click="kiosk.home()" class="fa fa-home"></i>
+        </div>
+        <div class="floating_home2">
+          <i ng-click="kiosk.logout()" class="fa fa-sign-out"></i>
+        </div>
         <div ng-if="kiosk.step==1">
             <div style="font-size:50px;padding:10px">Enter Visitors Name</div>
             <form class="m-t" role="form" ng-submit="search">
                 <div class="form-group">
                     <input type="text" style="color:#000;padding:30px;font-size:30px" class="form-control" required="">
                 </div>
-                <button type="submit" style="padding:20px;font-size:20px" class="btn btn-primary block full-width">Find</button>
-                <br>
-                <a type="submit" style="padding:20px;font-size:20px" ng-click="kiosk.step = 2" class="btn btn-primary block full-width">New</a>
+
+
+                <div class="row">
+                  <div class="col-sm-4">
+                      <button type="button" style="padding:20px;font-size:20px" class="btn btn-primary block full-width">Find</button>
+                  </div>
+                  <div class="col-sm-4">
+                      <a type="button" style="padding:20px;font-size:20px" ng-click="kiosk.step = 2" class="btn btn-primary block full-width">New</a>
+                  </div>
+                  <div class="col-sm-4">
+                      <a type="button" style="padding:20px;font-size:20px" ng-click="kiosk.visitorLogout()" class="btn btn-danger block full-width">Logout</a>
+                  </div>
+                </div>
             </form>
         </div>
 
@@ -87,7 +103,7 @@
                 ng-model="kiosk.data.identifiction_code"
                 class="form-control" required>
             <br>
-            <div class="form-group">
+            <div class="form-group" ng-if="kiosk.mode=='login'">
                 <button
                     class="btn btn-danger"
                     style="padding:20px;font-size:20px;width:200px"
@@ -99,7 +115,18 @@
                     ng-click="kiosk.loginVisitor()">Login Visitor
                 </button>
             </div>
-
+            <div class="form-group" ng-if="kiosk.mode=='logout'">
+                <button
+                    class="btn btn-danger"
+                    style="padding:20px;font-size:20px;width:200px"
+                    ng-click="kiosk.reload()">back
+                </button>
+                <button
+                    class="btn btn-success"
+                    style="padding:20px;font-size:20px;width:200px"
+                    ng-click="kiosk.logoutVisitor()">Log Out
+                </button>
+            </div>
         </div>
 
     </div>

@@ -38,7 +38,8 @@
 	          	url:"/login",
 	          	controller:'loginController',
 	          	templateUrl:"login/view.html",
-	         	controllerAs:'login'
+	         		controllerAs:'login'
+
 			})
 			.state("pagenotfound",{
 	          	url:"/pagenotfound",
