@@ -1,6 +1,6 @@
 <div class="wrapper wrapper-content">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-3" ng-if="company.facilities.length>1">
             <div class="ibox">
                 <div class="ibox-content mailbox-content">
                     <div class="file-manager">
@@ -29,8 +29,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-9 animated fadeInRight">
+
+
+        <div class="{{(company.facilities.length>1) ? 'col-sm-9 animated fadeInRight':'col-sm-12   animated fadeInRight'}}">
             <div ui-view>
+                <div ng-if="company.permission.pcreate && company.facilities.length==1" style="margin-bottom:10px">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCompany">Add New Company</button>
+                </div>
+
                 <div class="mail-box-header">
 
                     <form ng-submit="company.search(company.temp.str)"  class="pull-right mail-search">
@@ -43,6 +49,7 @@
                             </div>
                         </div>
                     </form>
+
                     <h2>
                         Companies ({{company.collections.length}})
 

@@ -13,7 +13,11 @@
 						f.all = all;
 						f.logout = logout;
 						f.info = info;
+						f.find = find;
 
+						function find(str, k ){
+							Server.post('visitor/find',{search:str}).then(k , Server.error );
+						}
 						function info(id, k){
 							Server.post('visitor/info',{id:id}).then( k , Server.error );
 						}

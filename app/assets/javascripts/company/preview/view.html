@@ -59,6 +59,7 @@
                                 <td class="mail-subject">Name</td>
                                 <td class="mail-contact">Position</td>
                                 <td class="mail-contact">Contact</td>
+                                <td></td>
                             </tr>
                             <tr class="read" ng-repeat="a in company_view.data.staffs">
 
@@ -69,7 +70,9 @@
                                 <td class="mail-contact">
                                     {{a.contact}}
                                 </td>
-
+                                <td>
+                                  <button ng-click="company_view.removeStaff(a.id, $index )" type="button" class="btn btn-danger btn-xs">Delete</button>
+                                </td>
                             </tr>
                             <!-- <tr class="read">
                                 <td class="mail-ontact"><a href="mail_detail.html">Facebook</a> <span class="label label-warning pull-right">Clients</span> </td>

@@ -1,7 +1,17 @@
 class Api::V1::CompanyController < ApplicationController
 
     before_action :authorize_request, except:[]
-    before_action only:[:create, :search, :remove, :update] {init_permission(3)}
+    before_action only:[:create, :search, :remove, :update, :removestaff] {init_permission(3)}
+
+
+    def removestaff
+      if !@current_user_permission[0][:pdelete]
+        json_response false,{Account: "is not allowed to delete"}
+        return false
+      end
+      staff = Company.find(params[:company_id]).staffs.where({id:params[:staff_id]}).last.destroy
+      json_response true,"ok"
+    end
 
     def search
       if @current_user.super_admin?
@@ -14,7 +24,7 @@ class Api::V1::CompanyController < ApplicationController
 
     def update
       if !@current_user_permission[0][:pupdate]
-        json_response false,{Account: "is not allowed to delete"}
+        json_response false,{Account: "is not allowed to update"}
         return false
       end
       if @current_user.super_admin?

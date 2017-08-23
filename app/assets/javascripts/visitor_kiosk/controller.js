@@ -22,7 +22,13 @@
 			kiosk.mode = "login";
 			kiosk.logoutVisitor = logoutVisitor;
 			kiosk.reload = reload;
+			kiosk.find = find;
 
+			function find(str){
+				visitorFactory.find( str, function(res){
+					console.log(res);
+				});
+			}
 			function logoutVisitor(){
 				visitorFactory.logout(kiosk.data.identifiction_code, function(res){
 					console.log(res);

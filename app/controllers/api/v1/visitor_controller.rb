@@ -6,6 +6,10 @@ class Api::V1::VisitorController < ApplicationController
 	require 'chikka'
 
 
+	def find
+		@visitors = Profile.where("user_type=?",2).search params[:search]
+	end
+
 	def info
 		@vis = Visitor.find params[:id]
 

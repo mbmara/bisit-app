@@ -17,7 +17,12 @@
 						f.remove = remove;
 						f.update = update;
 						f.search = search;
+						f.removeStaff = removeStaff;
 
+
+						function removeStaff(staff_id, company_id, k ){
+							Server.post('company/staff/remove',{staff_id:staff_id,company_id:company_id}).then( k , Server.error);
+						}
 						function search( str,k ){
 							Server.post('company/search',{search:str}).then( k, Server.error);
 						}
