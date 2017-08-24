@@ -32,11 +32,13 @@ class Api::V1::UserController < ApplicationController
 
   end
   def index
-    @users = User.all.order id: :desc
+
     if @current_user.super_admin?
+      @users = User.all.order id: :desc
       @roles = UserRole.all
       @facilities = Facility.all
     else
+      @users = @current_user.facilities[0].facility_contents
       @roles = UserRole.where("id > ? ",1)
       @facilities = @current_user.facilities
     end
