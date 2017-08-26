@@ -100,6 +100,7 @@
 					canvas = document.getElementById('canvass');
 					context = canvas.getContext('2d');
 					context.drawImage(video, 0, 0, 400, 300);
+					kiosk.data.visitor_img = canvas.toDataURL();
 				},200)
 
 			}
@@ -117,8 +118,10 @@
 				kiosk.step = step;
 			}
 			kiosk.scanQRCode = function(){
-				kiosk.data.visitor_img = canvas.toDataURL();
-
+				if(!kiosk.data.visitor_img){
+					alert("Take photo first");
+					return false;
+				}
 				stream_data.getTracks()[0].stop();
 				kiosk.step = 4;
 				kiosk.qrresult = "";

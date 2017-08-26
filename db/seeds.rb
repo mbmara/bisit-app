@@ -12,32 +12,32 @@ Policy.create([
 		url:"index"
 	},
 	{
-		name:"Facility",
+		name:"Facilities",
 		route:"index.facility",
 		url:"facility"
 	},
 	{
-		name:"Company",
+		name:"Companies",
 		route:"index.company",
 		url:"company"
 	},
 	{
-		name:"User",
+		name:"Users",
 		route:"index.user",
 		url:"user"
 	},
 	{
-		name:"Visitor",
+		name:"Visitors",
 		route:"index.visitor",
 		url:"visitor"
 	},
 	{
-		name:"Identification",
+		name:"Identifications",
 		route:"index.identification",
 		url:"identification"
 	},
 	{
-		name:"Visitor Kiosk",
+		name:"Visitors Kiosk",
 		route:"kiosk",
 		url:"kiosk"
 	}
