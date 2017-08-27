@@ -23,6 +23,7 @@
 			kiosk.logoutVisitor = logoutVisitor;
 			kiosk.reload = reload;
 			kiosk.find = find;
+			kiosk.visitor_info = visitor_info;
 
 			CompanyFactory.getList( function(res){
 				kiosk.facility = UserFactory.facility.name;
@@ -33,6 +34,14 @@
 				kiosk.clock = Date.now();
 			},1000)
 
+			function visitor_info(id){
+				console.log(id);
+				visitorFactory.info( id , function(res){
+
+					kiosk.modal = res.data;
+					$("#visitor_info").modal('show');
+				});
+			}
 			function find(str){
 
 				if(typeof(str)!='undefined' && str.length > 2 ){
