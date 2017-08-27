@@ -7,7 +7,11 @@ class Api::V1::VisitorController < ApplicationController
 
 
 	def find
-		@visitors = Profile.where("user_type=?",2).search params[:search]
+		if params[:search].present? &&  params[:search]!=""
+			@visitors = Profile.where("user_type=?",2).search params[:search]
+		else
+			@visitors=[]
+		end
 	end
 
 	def info

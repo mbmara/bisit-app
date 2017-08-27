@@ -22,6 +22,7 @@
 												UserFactory.profile = res.data.profile;
 												UserFactory.permission = res.data.permission;
 												UserFactory.access = res.data.permission.id;
+												UserFactory.facility = res.data.facility;
 												return res.data;
 										}else{
 											$state.go('login');

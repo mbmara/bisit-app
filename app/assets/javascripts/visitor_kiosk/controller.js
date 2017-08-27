@@ -24,10 +24,23 @@
 			kiosk.reload = reload;
 			kiosk.find = find;
 
+			CompanyFactory.getList( function(res){
+				kiosk.facility = UserFactory.facility.name;
+				kiosk.companies = res.data.companies;
+			});
+			kiosk.clock = Date.now();
+			$interval( function(){
+				kiosk.clock = Date.now();
+			},1000)
+
 			function find(str){
-				visitorFactory.find( str, function(res){
-					console.log(res);
-				});
+
+				if(typeof(str)!='undefined' && str.length > 2 ){
+					visitorFactory.find( str, function(res){
+						kiosk.finder = res.data;
+					});
+				}
+
 			}
 			function logoutVisitor(){
 				visitorFactory.logout(kiosk.data.identifiction_code, function(res){
@@ -38,7 +51,7 @@
 
 			}
 			function reload(){
-				window.location.reload();
+				$state.go('kiosk',{},{reload:true})
 			}
 			function visitorLogout(){
 				//kiosk.loadCamera();
@@ -61,13 +74,7 @@
 				UserFactory.logout();
 				$state.go("login");
 			}
-			CompanyFactory.getList( function(res){
-				kiosk.companies = res.data.companies;
-			});
-			kiosk.clock = Date.now();
-			$interval( function(){
-				kiosk.clock = Date.now();
-			},1000)
+
 
 
 			function loginVisitor(){

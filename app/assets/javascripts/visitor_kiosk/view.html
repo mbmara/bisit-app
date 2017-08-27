@@ -9,16 +9,16 @@
           <i ng-click="kiosk.logout()" class="fa fa-sign-out"></i>
         </div>
         <div ng-if="kiosk.step==1">
-            <div style="font-size:50px;padding:10px">Enter Visitors Name</div>
+            <div style="font-size:50px;padding:10px">{{kiosk.facility}}</div>
             <form class="m-t" role="form" ng-submit="search">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <input type="text" style="color:#000;padding:30px;font-size:30px" class="form-control" ng-model="kiosk.str" required="">
-                </div>
+                </div> -->
 
 
                 <div class="row">
                   <div class="col-sm-4">
-                      <button type="button" style="padding:20px;font-size:20px" class="btn btn-primary block full-width" ng-click="kiosk.find(kiosk.str)">Find</button>
+                      <button type="button" style="padding:20px;font-size:20px" class="btn btn-primary block full-width" ng-click="kiosk.step = 5">Search</button>
                   </div>
                   <div class="col-sm-4">
                       <a type="button" style="padding:20px;font-size:20px" ng-click="kiosk.step = 2" class="btn btn-primary block full-width">New</a>
@@ -129,4 +129,13 @@
             </div>
         </div>
 
+        <div ng-if="kiosk.step==5" class="">
+          <input ng-keyup="kiosk.find(kiosk.str)" type="text" style="color:#000;padding:30px;font-size:30px;margin-bottom:5px" class="form-control" ng-model="kiosk.str" required="">
+          <div class="visitor_name_wrapper" ng-if="kiosk.finder.length>0">
+            <div class="name" ng-repeat="a in kiosk.finder">
+              <h2>{{a.fullname}}</h2>
+            </div>
+          </div>
+
+        </div>
     </div>
