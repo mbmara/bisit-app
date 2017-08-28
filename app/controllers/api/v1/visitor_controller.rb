@@ -62,6 +62,10 @@ class Api::V1::VisitorController < ApplicationController
 			json_response false,{Identification:" does not exist"	}
 			return false
 		end
+		if !idz.in_use
+			json_response false,{Identification:" already logout"	}
+			return false
+		end
 		if idz.present?
 			idz.in_use = false
 			idz.save
