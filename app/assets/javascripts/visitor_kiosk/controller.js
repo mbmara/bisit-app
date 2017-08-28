@@ -86,7 +86,7 @@
 
 			}
 			function reload(){
-				$state.go('kiosk',{},{reload:true})
+				window.location.reload();
 			}
 			function visitorLogout(){
 				//kiosk.loadCamera();
