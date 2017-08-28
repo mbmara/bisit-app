@@ -79,9 +79,13 @@
 			}
 			function logoutVisitor(){
 				visitorFactory.logout(kiosk.data.identifiction_code, function(res){
-					console.log(res);
-					alert("Visito is now logout");
-					reload();
+					if(res.data.status){
+						alert("Visitor is now logout");
+						reload();
+					}else{
+						Notification.showError(res.data.payload)
+					}
+
 				});
 
 			}

@@ -55,10 +55,11 @@ class Api::V1::VisitorController < ApplicationController
 	end
 
 	def logout
-
-
 		idz = Identification.find_by_code params[:code]
-
+		if idz.nil?
+			json_response false,{Invalid:" Identification"}
+			return false
+		end
 		if idz.present?
 			idz.in_use = false
 			idz.save
@@ -67,7 +68,6 @@ class Api::V1::VisitorController < ApplicationController
 		else
 			json_response false,{Code: "Invalid"}
 		end
-
 	end
 
 	def index
