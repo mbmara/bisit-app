@@ -161,7 +161,14 @@
 					// Get access to the camera!
 					if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 						//Not adding `{ audio: true }` since we only want video now
-						navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+						console.log(navigator.mediaDevices);
+						const constraints = {
+				        advanced: [{
+				            facingMode: "environment"
+				        }]
+				    };
+						navigator.mediaDevices.getUserMedia({ video: constraints }).then(function(stream) {
+							console.log(stream);
 							stream_data= stream;
 							video.src = window.URL.createObjectURL(stream_data);
 							video.play();
