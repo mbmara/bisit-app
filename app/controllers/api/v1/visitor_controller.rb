@@ -13,11 +13,11 @@ class Api::V1::VisitorController < ApplicationController
 			json_response false,{Invalid:" identification Code"	}
 			return false
 		end
-		if idz[0].in_use
+		if idz.in_use
 			json_response false,{ Identification:" is in use! Please logout first"	}
 			return false
 		end
-		if idz[0].facility_id != @current_user.facilities[0].id
+		if idz.facility_id != @current_user.facilities[0].id
 			json_response false,{Identification: "Does not belongs to this facility"}
 		end
 
@@ -29,13 +29,15 @@ class Api::V1::VisitorController < ApplicationController
 			log.company_id 	= relogin_params[:company]
 			log.staff_id 	= relogin_params[:staff]
 			log.user_id 	= 1
-			log.facility_id = idz[0].facility_id
+			log.facility_id = idz.facility_id
 			log.visitor_id 	= relogin_params[:visitor_id]
 			log.time_out = 0
 			log.purpose = relogin_params[:purpose]
 			log.identification_id 	= relogin_params[:identifiction_code]
 			log.state = :login
 			log.save
+			idz.in_use = true
+			idz.save
 			json_response true,"ok"
 		else
 			json_response false,{Invalid:" Visitor Records"}
