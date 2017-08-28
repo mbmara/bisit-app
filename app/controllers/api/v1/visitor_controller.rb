@@ -7,7 +7,7 @@ class Api::V1::VisitorController < ApplicationController
 
 
 	def relogin
-		idz = @current_user.facilities[0].identifications.where("code = ?",relogin_params[:identifiction_code])
+		idz = @current_user.facilities[0].identifications.where("code = ?",relogin_params[:identifiction_code]).last
 
 		if !idz.present?
 			json_response false,{Invalid:" identification Code"	}
