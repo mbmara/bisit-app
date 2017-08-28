@@ -14,7 +14,11 @@
 						f.logout = logout;
 						f.info = info;
 						f.find = find;
+						f.relogin = relogin;
 
+						function relogin(data,k){
+							Server.post('visitor/relogin',{visitor:data}).then(k, Server.error)
+						}
 						function find(str, k ){
 							Server.post('visitor/find',{search:str}).then(k , Server.error );
 						}

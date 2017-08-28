@@ -6,6 +6,41 @@ class Api::V1::VisitorController < ApplicationController
 	require 'chikka'
 
 
+	def relogin
+		idz = @current_user.facilities[0].identifications.where("code = ?",relogin_params[:identifiction_code])
+
+		if !idz.present?
+			json_response false,{Invalid:" identification Code"	}
+			return false
+		end
+		if idz[0].in_use
+			json_response false,{ Identification:" is in use! Please logout first"	}
+			return false
+		end
+		if idz[0].facility_id != @current_user.facilities[0].id
+			json_response false,{Identification: "Does not belongs to this facility"}
+		end
+
+		vis = Visitor.find relogin_params[:visitor_id]
+		if vis.present?
+			log = vis.visit_logs.new
+			#create log
+			log = vis.visit_logs.new
+			log.company_id 	= relogin_params[:company]
+			log.staff_id 	= relogin_params[:staff]
+			log.user_id 	= 1
+			log.facility_id = idz[0].facility_id
+			log.visitor_id 	= relogin_params[:visitor_id]
+			log.time_out = 0
+			log.purpose = relogin_params[:purpose]
+			log.identification_id 	= relogin_params[:identifiction_code]
+			log.state = :login
+			log.save
+			json_response true,"ok"
+		else
+			json_response false,{Invalid:" Visitor Records"}
+		end
+	end
 	def find
 		if params[:search].present? &&  params[:search]!=""
 			@visitors = Profile.where("user_type=?",2).search params[:search]
@@ -120,7 +155,9 @@ class Api::V1::VisitorController < ApplicationController
 
 
 	private
-
+	def relogin_params
+		params.require(:visitor).permit(:company, :staff, :purpose, :identifiction_code, :visitor_id)
+	end
 	def visitor_params
 		params.require(:visit).permit(:company, :fname, :lname, :mname, :staff, :identifiction_code, :visitor_img, :purpose)
 	end

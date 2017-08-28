@@ -24,6 +24,8 @@
 			kiosk.reload = reload;
 			kiosk.find = find;
 			kiosk.visitor_info = visitor_info;
+			kiosk.linknewId = linknewId;
+			kiosk.reloginVisitor = reloginVisitor;
 
 			CompanyFactory.getList( function(res){
 				kiosk.facility = UserFactory.facility.name;
@@ -34,8 +36,32 @@
 				kiosk.clock = Date.now();
 			},1000)
 
+			function reloginVisitor(){
+				visitorFactory.relogin( kiosk.data, function(res){
+					if(res.data.status){
+						alert("visitor is now login");
+						reload();
+					}else{
+						Notification.showError(res.data.payload)
+					}
+				})
+
+			}
+			function linknewId(){
+				kiosk.step=7;
+				$timeout( function(){
+					Scanner.init( new Instascan.Scanner({ video: document.getElementById('preview2') }) );
+
+					Scanner.instance.addListener('scan', function (content) {
+						kiosk.data.identifiction_code = content;
+						$scope.$apply();
+					});
+
+				},100)
+			}
 			function visitor_info(id){
-				console.log(id);
+				kiosk.data.visitor_id = id;
+				kiosk.step = 6;
 				visitorFactory.info( id , function(res){
 
 					kiosk.modal = res.data;
@@ -68,7 +94,6 @@
 				kiosk.mode = "logout";
 				$timeout( function(){
 					Scanner.init( new Instascan.Scanner({ video: document.getElementById('preview') }) );
-
 					Scanner.instance.addListener('scan', function (content) {
 						kiosk.data.identifiction_code = content;
 						$scope.$apply();
