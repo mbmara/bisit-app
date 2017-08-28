@@ -55,9 +55,9 @@ class Api::V1::VisitorController < ApplicationController
 	end
 
 	def logout
-		idz = Identification.find_by_code params[:code]
+		idz = @current_user.facilities[0].identifications.where("code = ?",params[:code]).last
 		if idz.nil?
-			json_response false,{Invalid:" Identification"}
+			json_response false,{Identification:" does not exist"	}
 			return false
 		end
 		if idz.present?
@@ -91,17 +91,16 @@ class Api::V1::VisitorController < ApplicationController
 	def login
 		ActiveRecord::Base.transaction do
 			#verify indentification
-			idz = @current_user.facilities[0].identifications.where("code = ?",visitor_params[:identifiction_code])
-
-			if !idz.present?
-				json_response false,{Invalid:" identification Code"	}
+			idz = @current_user.facilities[0].identifications.where("code = ?",visitor_params[:identifiction_code]).last
+			if idz.nil?
+				json_response false,{Identification:" does not exist"	}
 				return false
 			end
-			if idz[0].in_use
+			if idz.in_use
 				json_response false,{ Identification:" is in use! Please logout first"	}
 				return false
 			end
-			if idz[0].facility_id != @current_user.facilities[0].id
+			if idz.facility_id != @current_user.facilities[0].id
 				json_response false,{Identification: "Does not belongs to this facility"}
 			end
 					visit = Visitor.new
@@ -119,16 +118,16 @@ class Api::V1::VisitorController < ApplicationController
 	        log.company_id 	= visitor_params[:company]
 	        log.staff_id 	= visitor_params[:staff]
 	        log.user_id 	= 1
-					log.facility_id = idz[0].facility_id
+					log.facility_id = idz.facility_id
 	        log.visitor_id 	= visit.id
 					log.time_out = 0
 					log.purpose = visitor_params[:purpose]
-	        log.identification_id 	= visitor_params[:identifiction_code]
+	        log.identification_id 	= idz.id
 					log.state = :login
 	        log.save
-					idz[0].in_use = true
+					idz.in_use = true
 
-					idz[0].save
+					idz.save
 	       	data = visitor_params[:visitor_img]
 			image_data = Base64.decode64(data['data:image/png;base64,'.length .. -1])
 
