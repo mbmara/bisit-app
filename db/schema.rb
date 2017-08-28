@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816143841) do
+ActiveRecord::Schema.define(version: 20170828015346) do
 
   create_table "companies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "facility_id"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 20170816143841) do
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "recovery_code"
     t.index ["facility_id"], name: "index_users_on_facility_id"
     t.index ["user_role_id"], name: "index_users_on_user_role_id"
   end

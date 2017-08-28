@@ -1,7 +1,47 @@
 class Api::V1::UserController < ApplicationController
-
-  before_action :authorize_request, except:[:login]
+  require 'securerandom'
+  before_action :authorize_request, except:[:login,:recovery_code,:resetpassword]
   before_action only:[:create] {init_permission(4)}
+
+  def resetpassword
+    if recover_params[:code].empty?
+      json_response false,{Code: "is required"}
+      return false
+    end
+    if recover_params[:password] != recover_params[:password1]
+      json_response false,{Verify:" your password correctly"}
+      return false
+    end
+
+    user = User.find_by_recovery_code  recover_params[:code]
+
+    if user.present?
+      if user.email === recover_params[:email]
+         user.password = to_md5 recover_params[:password]
+         user.recovery_code = ""
+         user.save
+         json_response true, "Password has been successfuly resetted"
+      else
+          json_response false,{Invalid: "recovery code"}
+      end
+    else
+      json_response false,{Invalid: "recovery code"}
+    end
+
+  end
+  def recovery_code
+    user = User.find_by_email recover_params[:email]
+    if user.present?
+        user.recovery_code = "#{SecureRandom.hex(4)}#{Time.zone.now.to_i}"
+        user.save
+        UserMailer.send_code(user).deliver_later
+        json_response true,"ok"
+    else
+      json_response false,{Account: 'cannot be recovered'}
+    end
+
+  end
+
   def authenticate
     @permission = @current_user.user_role
   end
@@ -19,6 +59,11 @@ class Api::V1::UserController < ApplicationController
       json_response false, {Invalid: "Account"}
       return false
     end
+    # p "-----------------"
+    # p "-----------------"
+    # p "-----------------"
+    # p "authentication"
+    # UserMailer.send_code().deliver_later
     token =  JsonWebToken.encode( id:@user.id)
 
     @user.build_user_token if  @user.user_token.nil?
@@ -93,6 +138,10 @@ class Api::V1::UserController < ApplicationController
   end
 
   private
+
+  def recover_params
+    params.require(:email).permit(:email, :password, :code, :password1)
+  end
 
   def user_params
     params.require(:user).permit(:email, :password, :password1, :fname, :lname, :mname, :facility, :role, :contact)

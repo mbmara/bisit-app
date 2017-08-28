@@ -42,6 +42,13 @@
 	         		controllerAs:'login'
 
 			})
+			.state("forgotpass",{
+	          	url:"/forgotpass",
+	          	controller:'forgotpassController',
+	          	templateUrl:"forgotpass/view.html",
+	         		controllerAs:'forgot'
+
+			})
 			.state("pagenotfound",{
 	          	url:"/pagenotfound",
 	          	templateUrl:"pagenotfound/view.html"

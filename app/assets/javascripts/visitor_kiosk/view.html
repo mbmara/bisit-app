@@ -130,6 +130,7 @@
         </div>
 
         <div ng-if="kiosk.step==5" class="">
+          <h3>Search Visitor</h3>
           <input ng-keyup="kiosk.find(kiosk.str)" type="text" style="color:#000;padding:30px;font-size:30px;margin-bottom:5px" class="form-control" ng-model="kiosk.str" required="">
           <div class="visitor_name_wrapper" ng-if="kiosk.finder.length>0">
             <div  ng-click="kiosk.visitor_info(a.visitor_id)" class="name" ng-repeat="a in kiosk.finder">
@@ -154,27 +155,29 @@
             <img class="img" ng-src="./secret_upload/{{kiosk.modal.info.image}}" alt="">
             <h1>{{kiosk.modal.info.fullname}}</h1>
             <hr>
-            <table class="table table-bordered">
-              <tr>
-                <th colspan="4">History</th>
-              </tr>
-              <tr>
-                <th>Company</th>
-                <th>Staff</th>
-                <th>Purpose</th>
-                <th>Date</th>
-              </tr>
-              <tr ng-repeat="a in kiosk.modal.info.log">
-                <td>{{a.company}}</td>
-                <td>{{a.staff}}</td>
-                <td>{{a.purpose}}</td>
-                <td>{{a.created_at | date:'MMMM dd, yyyy'}}</td>
-              </tr>
-            </table>
+            <div class="form-group">
+                <select class="form-control"
+                  ng-change="kiosk.getCompanyStaff(kiosk.data.company)"
+                  ng-model="kiosk.data.company"
+                  ng-options="a.id as a.name for a in kiosk.companies">
+                  <option value="" selected disabled hidden>-Select Company-</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control"
+                  ng-model="kiosk.data.staff"
+                  ng-options="a.id as a.name for a in kiosk.staffs">
+                    <option value="" selected disabled hidden>-Contact Person-</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Purpose</label>
+                <input type="text" class="form-control" ng-model="kiosk.data.purpose">
+            </div>
           </div>
           <div class="modal-footer">
             <a type="button" class="btn btn-default" data-dismiss="modal">Close</a>
-            <button type="submit" class="btn btn-success">Save</button>
+            <button type="submit" class="btn btn-success">NEXT</button>
           </div>
         </form>
         </div>

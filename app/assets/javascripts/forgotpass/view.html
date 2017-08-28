@@ -1,0 +1,36 @@
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div >
+        <div>
+		         <h1 class="logo-name">PB+</h1>
+        </div>
+        <div ng-if="forgot.stage==1">
+          <p>Enter your email address</p>
+          <form class="m-t" ng-submit="forgot.get_code(forgot.data)">
+              <div class="form-group">
+                  <input type="email" ng-model="forgot.data.email" class="form-control" placeholder="Email Address" required/>
+              </div>
+
+              <button type="submit" class="btn btn-primary block full-width m-b">Send Recovery Code</button>
+
+          </form>
+        </div>
+        <div ng-if="forgot.stage==2">
+          <form class="m-t" ng-submit="forgot.resetpass(forgot.data)">
+              <div class="form-group">
+                  <label>Enter Recovery Code</label>
+                  <input type="text" class="form-control" ng-model="forgot.data.code" required/>
+              </div>
+              <div class="form-group">
+                  <label>Enter New Password</label>
+                  <input type="password" class="form-control" ng-model="forgot.data.password" required/>
+              </div>
+              <div class="form-group">
+                  <label>Confirm Password</label>
+                  <input type="password" class="form-control" ng-model="forgot.data.password1" required/>
+              </div>
+              <button type="submit" class="btn btn-primary block full-width m-b">Reset Password</button>
+          </form>
+          <p class="bg-success">Recovery code is sent to your email {{forgot.data.email}}</p>
+        </div>
+    </div>
+</div>

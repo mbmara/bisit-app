@@ -16,9 +16,17 @@
 						f.authenticate = authenticate;
 						f.logout = logout;
 						f.initialize = initialize;
+						f.recovery_code = recovery_code;
+						f.resetPassword = resetPassword;
 
+						function resetPassword(data,k){
+							Server.post('user/resetpassword',{email:data}).then(k , Server.error);
+						}
+						function recovery_code(data, k ){
+							Server.post('user/recovery_code',{email:data}).then( k , Server.error);
+						}
 						function initialize(fn,callback){
-						
+
 							angular.forEach(f.permission.objects, function(data){
 
 								//console.log(data);
