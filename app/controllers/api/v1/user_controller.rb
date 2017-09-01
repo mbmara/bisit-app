@@ -6,11 +6,17 @@ class Api::V1::UserController < ApplicationController
   def search
     filter = {}
     @user_name = search_params[:name]
-      
-    filter[:facility_id] = search_params[:facility] if search_params[:facility].present?
+    if @current_user.super_admin?
+      filter[:facility_id] = search_params[:facility] if search_params[:facility].present?
+    else
+      filter[:facility_id] = @current_user.facilities[0].id
+    end
     filter[:user_role_id] = search_params[:role] if search_params[:role].present?
     @users = User.where(filter)
-    
+    p "--"
+    p "--"
+    p "--"
+    p @users.inspect
   end
 
   def resetpassword

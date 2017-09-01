@@ -16,6 +16,7 @@
 			}
 			var state = $state.current.name.split(".")[1] || "index"
 			UserFactory.initialize(state, function(permission){
+				user.role = UserFactory.role;
 				user.permission = permission;
 				loadUser();
 				user.loadUser = loadUser;

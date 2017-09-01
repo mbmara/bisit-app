@@ -14,7 +14,7 @@
                                 <input type="text" class="form-control" ng-model="user.filter.name">  
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" ng-if="user.data.facilities.length>2">
                             <div class="form-group">
                                 <label>Facility</label>
                                 <select class="form-control" ng-model="user.filter.facility" ng-options="a.id as a.name for a in user.data.facilities">

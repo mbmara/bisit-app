@@ -11,7 +11,7 @@
 
                                     
                                     <a class="btn btn-primary btn-xs" ng-click="identification.addForm()">Add new identifications</a>
-                                    <a class="btn btn-success btn-xs" data-toggle="dropdown"> Facilities <span class="caret"></span> </a>
+                                    <a class="btn btn-success btn-xs" ng-if="identification.facilities.length>2" data-toggle="dropdown"> Facilities <span class="caret"></span> </a>
                                     <ul class="dropdown-menu" id="menu3" aria-labelledby="drop6"> 
                                         <li ng-repeat="adm in identification.facilities">
                                             <a ng-click="identification.byFacility(adm.id)">{{adm.name}}</a>

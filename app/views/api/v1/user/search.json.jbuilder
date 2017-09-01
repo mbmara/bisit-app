@@ -41,10 +41,10 @@ else
   else
     json.users @users do |usr|
       # json.extract! usr, :id
-      json.role usr.user.user_role.name
-      json.facility usr.user.facilities
-      json.created_at usr.user.created_at
-      json.name usr.user.profile.fullname
+      json.role usr.user_role.name
+      json.facility usr.facilities
+      json.created_at usr.created_at
+      json.name usr.profile.fullname
     end
   end
 end

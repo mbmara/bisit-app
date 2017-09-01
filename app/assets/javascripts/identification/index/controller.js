@@ -18,6 +18,7 @@
 				identification.temp.id = id;
 			}
 			UserFactory.initialize(state, function(permission){
+				
 				identification.reload = reload;
 				IdentificationFactory.getAll( function(res){
 					identification.ids = res.data.identifications;
