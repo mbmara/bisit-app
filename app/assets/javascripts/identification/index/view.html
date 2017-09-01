@@ -10,7 +10,7 @@
                         <h5>FACILITIES</h5>
                         <ul class="folder-list m-b-md" style="padding: 0">
                             <li ng-repeat="adm in identification.facilities">
-                                <a>
+                                <a ng-click="identification.byFacility(adm.id)">
                                     <i class="fa fa-building"></i> {{adm.name}}
                                     <span class="label label-warning pull-right">{{adm.count}}</span>
                                 </a>
@@ -55,7 +55,7 @@
                                 <td>Availability</td>
                                 <td>Date Created</td>
                             </tr>
-    	               		<tr class="read" ng-repeat="a in identification.ids">
+    	               		<tr class="read" ng-repeat="a in identification.ids | filter:{facility_id:identification.temp.id}">
     		                    <td>{{a.id}}</td>
                                 <td class="mail-contact"><a>{{a.code}}</a></td>
                                 <td><small class="label label-primary">
