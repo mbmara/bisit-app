@@ -8,13 +8,13 @@
         </div>
         <div class="ibox-content">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <div class="form-group">
                 <label>Visitors Name</label>
                 <input ng-model="visitor.filter.visitor_name" type="text" class="form-control">
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <div class="form-group">
                 <label>Date From</label>
                 <datepicker date-format="yyyy-MM-dd">
@@ -22,7 +22,7 @@
                 </datepicker>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <div class="form-group">
                 <label>Date To</label>
                 <datepicker date-format="yyyy-MM-dd">
@@ -33,7 +33,7 @@
 
           </div>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <div class="form-group">
                 <label>Facility</label>
                 <select class="form-control" ng-model="visitor.filter.facility" ng-options="a.id as a.name for a in visitor.data.facilities">
@@ -41,7 +41,7 @@
                 </select>  
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <div class="form-group">
                 <label>Company</label>
                 <select class="form-control" ng-model="visitor.filter.company" ng-options="a.id as a.name for a in visitor.data.companies | filter:{facility_id:visitor.filter.facility}">
@@ -49,7 +49,7 @@
                 </select>  
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <div class="form-group">
                 <label>Status</label>
                 <select class="form-control" ng-model="visitor.filter.status" ng-options="a.value as a.label for a in visitor.data.states">
