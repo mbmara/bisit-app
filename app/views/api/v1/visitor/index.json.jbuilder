@@ -7,4 +7,4 @@ json.visitors @visitors do |v|
   json.company v.company.name
 end
 json.facilities @facilities, :name, :id	
-json.companies @companies, :name, :id
+json.companies @companies, :name, :id, :facility_id

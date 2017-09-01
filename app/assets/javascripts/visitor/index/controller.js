@@ -25,9 +25,10 @@
 					$("#visitorInfo").modal("show");
 				});
 			}
+			/** Filter Initializer **/
 			visitor.filter={
 				facility:"",
-				company:"",
+				//company:"",
 				status:""
 			}
 			UserFactory.initialize(state, function(permission){
@@ -40,7 +41,7 @@
 						{value:"",label:"All"}
 					]
 					visitor.data.facilities.push({id:"", name:"All"})
-					visitor.data.companies.push({id:"", name:"All"})
+					visitor.data.companies.push({id:"", name:"All",facility_id:""})
 				});
 			});
 

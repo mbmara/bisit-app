@@ -94,7 +94,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label>Company</label>
-                      <select class="form-control" ng-model="visitor.filter.company" ng-options="a.id as a.name for a in visitor.data.companies">
+                      <select class="form-control" ng-model="visitor.filter.company" ng-options="a.id as a.name for a in visitor.data.companies | filter:{facility_id:visitor.filter.facility}">
                         <option value="" selected hidden disabled>-Select Company-</option>
                       </select>  
                     </div>
