@@ -1,81 +1,83 @@
 <div class="wrapper wrapper-content">
     <div class="row">
-        <div class="col-sm-3">
-            <div class="ibox">
-                <div class="ibox-content mailbox-content">
-                    <div class="file-manager">
-                        <a class="btn btn-block btn-primary" data-toggle="modal" data-target="#createUser" ><i class="fa fa-plus"></i> Add New User</a>
-                        <div class="space-25"></div>
-                        <h5>USER ROLES</h5>
-                        <ul class="folder-list m-b-md" style="padding: 0">
-                            <li ng-repeat="adm in user.data.roles">
-                            	<a>
-                            		<i class="fa fa-user-circle-o"></i> {{adm.name}}
-                            		<span class="label label-warning pull-right">{{1}}</span>
-                            	</a>
-                            </li>
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Filter</h5>
+                </div>
+                <div class="ibox-content">
 
-                        </ul>
-                        <h5>FACILITIES</h5>
-                        <ul class="folder-list m-b-md" style="padding: 0">
-                            <li ng-repeat="adm in user.data.facilities">
-                                <a>
-                                    <i class="fa fa-building"></i> {{adm.name}}
-                                    <span class="label label-warning pull-right">{{1}}</span>
-                                </a>
-                            </li>
-
-                        </ul>
-                        <!-- <h5>status</h5>
-                        <ul class="category-list" style="padding: 0">
-                            <li><a href="#"> <i class="fa fa-circle text-navy"></i> Approved</a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-danger"></i> Pendings</a></li>
-                        </ul> -->
-                        <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" ng-model="user.filter.name">  
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Facility</label>
+                                <select class="form-control" ng-model="user.filter.facility" ng-options="a.id as a.name for a in user.data.facilities">
+                                    <option value="" selected hidden disabled>-Select Facility-</option>
+                                </select>  
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Role</label>
+                                <select class="form-control" ng-model="user.filter.role" ng-options="a.id as a.name for a in user.data.roles">
+                                    <option value="" selected hidden disabled>-Select Role-</option>
+                                </select>  
+                            </div>
+                        </div>
+                        
                     </div>
+
+                </div>
+                <div class="ibox-footer text-right">
+                    <button ng-click="user.search(user.filter)" class="btn btn-primary">Search</button>
                 </div>
             </div>
         </div>
-        <div class="col-sm-9 animated fadeInRight">
-            <div ui-view>
-                <div class="mail-box-header">
-                    <form class="pull-right mail-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control input-sm" name="search" placeholder="Search User">
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-sm btn-primary">
-                                    Search
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                    <h2>
-                        <i class="fa fa-user"></i> User ({{user.data.users.length}})
-                    </h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Users ({{user.data.users.length}})</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#createUser" >Add User</a>
+                    </div>
                 </div>
-                <div class="mail-box">
-    				<table class="table table-hover table-mail">
-    	                <tbody>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-condensed issue-tracker">
+                          <tbody>
                             <tr class="unread">
                                 <td>ID</td>
-                                <td class="mail-contact">Person Name</td>
-                                <td class="mail-contact">Role</td>
-                                <td class="mail-contact">Facility</td>
-                                <td class="mail-subject">Date Create</td>
+                                <td>Person Name</td>
+                                <td>Role</td>
+                                <td>Facility</td>
+                                <td>Date Create</td>
                             </tr>
-    	               		<tr class="read" ng-repeat="v in user.data.users">
-    		                    <td>{{v.id}}</td>
-                                <td class="mail-contact"><a>{{v.name}}</a></td>
-                                <td class="mail-contact">{{v.role}}</td>
-    		                    <td class="mail-contact">
+                            <tr class="read" ng-repeat="v in user.data.users">
+                                <td>{{v.id}}</td>
+                                <td><a>{{v.name}}</a></td>
+                                <td>{{v.role}}</td>
+                                <td>
                                     <small class="label label-primary" ng-repeat="c in v.facility">
                                         {{c.name}}
                                     </small>
                                 </td>
-    		                    <td class="mail-subject">{{v.created_at | date:'MMMM dd, yyyy hh:mm:ss a'}}</td>
-    		                </tr>
-    	                </tbody>
-                    </table>
+                                <td class="mail-subject">{{v.created_at | date:'MMMM dd, yyyy hh:mm:ss a'}}</td>
+                            </tr>
+                            <tr>
+                              <td ng-if="user.data.users.length==0" colspan="9" class="text-center">No records</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,32 +85,32 @@
 </div>
 
 <div class="modal fade" id="createUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <form ng-submit="user.create(user.modal)">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">User Information</h4>
-      </div>
-      <div class="modal-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="control-label">User Role:</label>
-                        <select
-                            class="form-control"
-                            ng-model="user.modal.role"
-                            ng-change="user.modal.role"
-                            ng-options="a.id as a.name for a in user.data.roles"
-                            required>
-                            <option value="" disabled selected hidden>-Select Role-</option>
-                        </select>
-                    </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form ng-submit="user.create(user.modal)">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">User Information</h4>
                 </div>
-                <div class="col-md-6" ng-if="user.modal.role!=1 && user.modal.role > 0">
-                    <div class="form-group">
-                        <label class="control-label">Select Facility</label>
-                        <select
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">User Role:</label>
+                                <select
+                                class="form-control"
+                                ng-model="user.modal.role"
+                                ng-change="user.modal.role"
+                                ng-options="a.id as a.name for a in user.data.roles"
+                                required>
+                                <option value="" disabled selected hidden>-Select Role-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6" ng-if="user.modal.role!=1 && user.modal.role > 0">
+                        <div class="form-group">
+                            <label class="control-label">Select Facility</label>
+                            <select
                             class="form-control"
                             ng-model="user.modal.facility"
                             ng-options="a.id as a.name for a in user.data.facilities"
@@ -144,11 +146,11 @@
             <div class="form-group">
                 <label class="control-label">First Name:</label>
                 <input type="text" ng-model="user.modal.fname" class="form-control" required/>
-              </div>
+            </div>
             <div class="form-group">
                 <label class="control-label">Last Name:</label>
                 <input type="text" ng-model="user.modal.lname" class="form-control" required>
-              </div>
+            </div>
             <div class="form-group">
                 <label class="control-label">Middle Name:</label>
                 <input type="text" ng-model="user.modal.mname" class="form-control" required>
@@ -157,12 +159,12 @@
                 <label class="control-label">Contact Number: <small>Must begin 63 not 0 e.g 63915 000 1111</small></label>
                 <input type="text" maxlength="12" minlength="12" ng-model="user.modal.contact" class="form-control" required>
             </div>
-      </div>
-      <div class="modal-footer">
-        <a type="button" class="btn btn-default" data-dismiss="modal">Close</a>
-        <button type="submit" class="btn btn-success">Save</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+            <a type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+            <button type="submit" class="btn btn-success">Save</button>
+        </div>
     </form>
-    </div>
-  </div>
+</div>
+</div>
 </div>

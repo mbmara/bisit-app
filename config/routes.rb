@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post 'user/logout', to:'user#logout'
       post 'user/recovery_code', to: 'user#recovery_code'
       post 'user/resetpassword', to: 'user#resetpassword'
+      post 'user/search', to: 'user#search'
 
       post 'company/create', to: 'company#create'
       get 'company/list', to: 'company#index'

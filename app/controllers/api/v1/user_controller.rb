@@ -3,6 +3,16 @@ class Api::V1::UserController < ApplicationController
   before_action :authorize_request, except:[:login,:recovery_code,:resetpassword]
   before_action only:[:create] {init_permission(4)}
 
+  def search
+    filter = {}
+    @user_name = search_params[:name]
+      
+    filter[:facility_id] = search_params[:facility] if search_params[:facility].present?
+    filter[:user_role_id] = search_params[:role] if search_params[:role].present?
+    @users = User.where(filter)
+    
+  end
+
   def resetpassword
     if recover_params[:code].empty?
       json_response false,{Code: "is required"}
@@ -107,7 +117,7 @@ class Api::V1::UserController < ApplicationController
           return false
         end
       end
-
+      user.facility_id = user_params[:facility] if user_params[:facility].present?
       user.email = user_params[:email]
 
       unless user_params[:password] === user_params[:password1]
@@ -138,7 +148,9 @@ class Api::V1::UserController < ApplicationController
   end
 
   private
-
+  def search_params
+    params.require(:search).permit(:facility, :role, :name)
+  end
   def recover_params
     params.require(:email).permit(:email, :password, :code, :password1)
   end

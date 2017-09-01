@@ -42,7 +42,7 @@
 						{value:1,label:"log Out"},
 						{value:"",label:"All"}
 					]
-					visitor.data.facilities.push({id:"", name:"All"})
+					if(res.data.facilities) visitor.data.facilities.push({id:"", name:"All"})
 					visitor.data.companies.push({id:"", name:"All",facility_id:""})
 				});
 			});

@@ -7,10 +7,12 @@ class Api::V1::VisitorController < ApplicationController
 
 	def search
 		@visitor_name = search_params[:visitor_name]
-
 		filter = {}
-		
-		filter[:facility_id] = search_params[:facility] if search_params[:facility].present?
+		if @current_user.super_admin?
+			filter[:facility_id] = search_params[:facility] if search_params[:facility].present?
+		else
+			filter[:facility_id] = @current_user.facilities[0].id
+		end
 		filter[:company_id] = search_params[:company] if search_params[:company].present?
 		filter[:state] = search_params[:status] if search_params[:status].present?
 		
@@ -26,9 +28,6 @@ class Api::V1::VisitorController < ApplicationController
 		if !search_params[:date_from].present? && !search_params[:date_to].present?
 			@visitors = VisitLog.where(filter)
 		end
-		#end
-		
-		
 		
 	end
 
@@ -115,6 +114,7 @@ class Api::V1::VisitorController < ApplicationController
 
 		else
 			@visitors = @current_user.facilities[0].visit_logs.order id: :desc
+			@companies = @current_user.facilities[0].companies.order id: :desc
 			# @total_visitors  =   @current_user.facilities[0].visit_logs.count
 			# @total_visitors_today =  @current_user.facilities[0].visit_logs.where("created_at BETWEEN ? AND ?",Date.today.beginning_of_day, Date.today.end_of_day).count
 			# @total_visitors_login_today =  @current_user.facilities[0].visit_logs.where("state = ? AND created_at BETWEEN ? AND ?",0,Date.today.beginning_of_day, Date.today.end_of_day).count

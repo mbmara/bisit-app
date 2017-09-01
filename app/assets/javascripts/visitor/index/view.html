@@ -33,7 +33,7 @@
 
           </div>
           <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-4" ng-if="visitor.data.facilities">
               <div class="form-group">
                 <label>Facility</label>
                 <select class="form-control" ng-model="visitor.filter.facility" ng-options="a.id as a.name for a in visitor.data.facilities">
