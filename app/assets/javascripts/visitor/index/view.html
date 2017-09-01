@@ -61,19 +61,23 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label>Visitors Name</label>
-                      <input type="text" class="form-control">
+                      <input ng-model="visitor.filter.visitor_name" type="text" class="form-control">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
                       <label>Date From</label>
-                      <input type="" class="form-control">
+                      <datepicker date-format="yyyy-MM-dd">
+                        <input  ng-model="visitor.filter.date_from" type="text" class="form-control">
+                      </datepicker>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
                       <label>Date To</label>
-                      <input type="" class="form-control">  
+                      <datepicker date-format="yyyy-MM-dd">
+                        <input ng-model="visitor.filter.date_to" type="text" class="form-control">
+                      </datepicker>
                     </div>
                   </div>
                   
@@ -82,7 +86,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label>Facility</label>
-                      <select class="form-control">
+                      <select class="form-control" ng-model="visitor.filter.facility" ng-options="a.id as a.name for a in visitor.data.facilities">
                         <option value="" selected hidden disabled>-Select Facility-</option>
                       </select>  
                     </div>
@@ -90,7 +94,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label>Company</label>
-                      <select class="form-control">
+                      <select class="form-control" ng-model="visitor.filter.company" ng-options="a.id as a.name for a in visitor.data.companies">
                         <option value="" selected hidden disabled>-Select Company-</option>
                       </select>  
                     </div>
@@ -98,7 +102,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label>Status</label>
-                      <select class="form-control">
+                      <select class="form-control" ng-model="visitor.filter.status" ng-options="a.value as a.label for a in visitor.data.states">
                         <option value="" selected hidden disabled>-Select Status-</option>
                       </select>  
                     </div>
@@ -107,7 +111,7 @@
                 
             </div>
             <div class="ibox-footer text-right">
-              <button class="btn btn-primary">Search</button>
+              <button ng-click="visitor.search(visitor.filter)" class="btn btn-primary">Search</button>
             </div>
         </div>
       </div>
@@ -139,7 +143,7 @@
     		                    <td class="mail-contact">Duration</td>
     		                </tr>
                         <tr ng-click="visitor.info(a.visitor_id)" class="read" ng-repeat="a in visitor.data.visitors">
-    		                    <td>{{a.profile}}</td>
+    		                    <td>{{a.fullname}}</td>
                             <td>{{a.facility}}</td>
     		                    <td class="mail-contact">{{a.company}}</td>
     		                    <td class="mail-contact">{{a.purpose}}</td>
@@ -150,7 +154,9 @@
     		                    <td ng-if="!a.elapse" class="mail-contact">{{a.created_at | timeAgo}}</td>
     		                    <td ng-if="a.elapse" class="mail-contact">{{a.elapse}}</td>
     		                </tr>
-
+                        <tr>
+                          <td ng-if="visitor.data.visitors.length==0" colspan="9" class="text-center">No records</td>
+                        </tr>
     	                </tbody>
                     </table>
                 </div>

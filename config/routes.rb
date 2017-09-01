@@ -29,6 +29,8 @@ Rails.application.routes.draw do
       post 'visitor/info', to: 'visitor#info'
       post 'visitor/find', to: 'visitor#find'
       post 'visitor/relogin', to: 'visitor#relogin'
+      post 'visitor/search', to: 'visitor#search'
+
 
       post 'facility/create', to: 'facility#create'
       get 'facility/all', to: 'facility#index'

@@ -5,6 +5,32 @@ class Api::V1::VisitorController < ApplicationController
 	require 'base64'
 	require 'chikka'
 
+	def search
+		@visitor_name = search_params[:visitor_name]
+
+		filter = {}
+		
+		filter[:facility_id] = search_params[:facility] if search_params[:facility].present?
+		filter[:company_id] = search_params[:company] if search_params[:company].present?
+		filter[:state] = search_params[:status] if search_params[:status].present?
+		
+		if search_params[:date_from].present? && search_params[:date_to].present?
+			@visitors = VisitLog.where(filter).where("created_at BETWEEN ? AND ?",Date.parse(search_params[:date_from]).beginning_of_day,Date.parse(search_params[:date_to]).end_of_day)
+		end
+		if search_params[:date_from].present? && !search_params[:date_to].present?
+			@visitors = VisitLog.where(filter).where("created_at > ?",Date.parse(search_params[:date_from]).beginning_of_day)
+		end
+		if !search_params[:date_from].present? && search_params[:date_to].present?
+			@visitors = VisitLog.where(filter).where("created_at < ?",Date.parse(search_params[:date_to]).end_of_day)
+		end
+		if !search_params[:date_from].present? && !search_params[:date_to].present?
+			@visitors = VisitLog.where(filter)
+		end
+		#end
+		
+		
+		
+	end
 
 	def relogin
 		idz = @current_user.facilities[0].identifications.where("code = ?",relogin_params[:identifiction_code]).last
@@ -79,19 +105,23 @@ class Api::V1::VisitorController < ApplicationController
 	def index
 		if @current_user.super_admin?
 			@visitors = VisitLog.all.order id: :desc
-			@total_visitors  =  VisitLog.count
-			@total_visitors_today = VisitLog.where("created_at BETWEEN ? AND ?",Date.today.beginning_of_day, Date.today.end_of_day).count
-			@total_visitors_login_today = VisitLog.where("state = ? AND created_at BETWEEN ? AND ?",0,Date.today.beginning_of_day, Date.today.end_of_day).count
-			@total_visitors_logout_today = VisitLog.where("state = ?  AND created_at BETWEEN ? AND ?",1,Date.today.beginning_of_day, Date.today.end_of_day).count
+			@facilities = Facility.all.order id: :desc	
+			@companies = Company.all.order id: :desc
+
+			# @total_visitors  =  VisitLog.count
+			# @total_visitors_today = VisitLog.where("created_at BETWEEN ? AND ?",Date.today.beginning_of_day, Date.today.end_of_day).count
+			# @total_visitors_login_today = VisitLog.where("state = ? AND created_at BETWEEN ? AND ?",0,Date.today.beginning_of_day, Date.today.end_of_day).count
+			# @total_visitors_logout_today = VisitLog.where("state = ?  AND created_at BETWEEN ? AND ?",1,Date.today.beginning_of_day, Date.today.end_of_day).count
 
 		else
 			@visitors = @current_user.facilities[0].visit_logs.order id: :desc
-			@total_visitors  =   @current_user.facilities[0].visit_logs.count
-			@total_visitors_today =  @current_user.facilities[0].visit_logs.where("created_at BETWEEN ? AND ?",Date.today.beginning_of_day, Date.today.end_of_day).count
-			@total_visitors_login_today =  @current_user.facilities[0].visit_logs.where("state = ? AND created_at BETWEEN ? AND ?",0,Date.today.beginning_of_day, Date.today.end_of_day).count
-			@total_visitors_logout_today =  @current_user.facilities[0].visit_logs.where("state = ?  AND created_at BETWEEN ? AND ?",1,Date.today.beginning_of_day, Date.today.end_of_day).count
+			# @total_visitors  =   @current_user.facilities[0].visit_logs.count
+			# @total_visitors_today =  @current_user.facilities[0].visit_logs.where("created_at BETWEEN ? AND ?",Date.today.beginning_of_day, Date.today.end_of_day).count
+			# @total_visitors_login_today =  @current_user.facilities[0].visit_logs.where("state = ? AND created_at BETWEEN ? AND ?",0,Date.today.beginning_of_day, Date.today.end_of_day).count
+			# @total_visitors_logout_today =  @current_user.facilities[0].visit_logs.where("state = ?  AND created_at BETWEEN ? AND ?",1,Date.today.beginning_of_day, Date.today.end_of_day).count
 
 		end
+
 	end
 
 	def login
@@ -160,6 +190,9 @@ class Api::V1::VisitorController < ApplicationController
 
 
 	private
+	def search_params
+		params.require(:search).permit(:facility, :company, :status, :visitor_name, :date_from, :date_to)
+	end
 	def relogin_params
 		params.require(:visitor).permit(:company, :staff, :purpose, :identifiction_code, :visitor_id)
 	end

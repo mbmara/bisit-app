@@ -18,6 +18,7 @@
     "font-awesome": "^4.7.0",
     "ngstorage": "^0.3.10",
     "angular-notify": "^2.5.1",
-    "angular-timeago": "^0.4.6"
+    "angular-timeago": "^0.4.6",
+    "angularjs-datepicker": "^2.1.17"
   }
 }

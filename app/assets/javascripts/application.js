@@ -7,4 +7,5 @@
 //= require angular-notify
 //= require scanner/qrscanner.js
 //= require angular-timeago
+//= require angularjs-datepicker
 //= require_tree .

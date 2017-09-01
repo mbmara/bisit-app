@@ -1,5 +1,5 @@
 class Profile < ApplicationRecord
-#    belongs_to :visitor
+	
     include SearchCop
 
     validates_presence_of :fname, :lname, :mname
@@ -11,6 +11,11 @@ class Profile < ApplicationRecord
 	  end
 
     def fullname
-        "#{lname} #{fname}"
+        "#{fname} #{mname} #{lname}"
+    end
+    def find_matches(search)
+        str = search.upcase
+        name = "#{fname} #{mname} #{lname}".upcase
+        return name[str] ? true : false    
     end
 end
