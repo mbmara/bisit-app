@@ -29,7 +29,9 @@
 			visitor.filter={
 				facility:"",
 				//company:"",
-				status:""
+				status:"",
+				date_from:"",
+				date_to:""
 			}
 			UserFactory.initialize(state, function(permission){
 				visitorFactory.all( function(res){
