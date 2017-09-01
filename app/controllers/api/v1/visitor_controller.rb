@@ -145,7 +145,7 @@ class Api::V1::VisitorController < ApplicationController
 
 
 			#compose message
-			sms_body = "Hi Staff #{staff.lname} #{staff.fname} Visitor #{profile.fullname} is arriving"
+			sms_body = "Hi Staff #{staff.lname} #{staff.fname} Visitor #{profile.fullname} is arriving."
 
 			client_id = "aa7eb7bbe64144f6d1a4ffeaf56cff5046dc5e0d19def9df029684dd6a871a65"
 			secret_key = "cb131172b1cbcf1705c501dafdfb5c1dee0a25f24a94e8c13a485134b27a3d4c"
