@@ -4,20 +4,24 @@
 		.module('admDashboard')
 		.controller('identificationCreateController',identificationCreateController);
 
-		identificationCreateController.$inject = ['$interval','$timeout','$scope','Scanner','IdentificationFactory','Notification'];
+		identificationCreateController.$inject = ['$interval','$timeout','$scope','Scanner','IdentificationFactory','Notification','$state'];
 
-		function identificationCreateController( $interval, $timeout, $scope,Scanner,IdentificationFactory,Notification){
+		function identificationCreateController( $interval, $timeout, $scope,Scanner,IdentificationFactory,Notification, $state ){
 
 			var identificationCreate = this;
+			identificationCreate.back = back;
+
+
 			IdentificationFactory.getAll( function(res){
-
 				identificationCreate.facilities = res.data.facilities;
-
 			});
 			identificationCreate.data={
 				serial:""
 			};
 
+			function back(){
+				$state.go("index.identification",{},{reload:true});
+			}
 			identificationCreate.newSerial = function(){
 				IdentificationFactory.create(identificationCreate.data, function(res){
 					if(res.data.status){

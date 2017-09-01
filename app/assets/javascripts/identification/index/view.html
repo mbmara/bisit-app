@@ -1,73 +1,82 @@
 <div class="wrapper wrapper-content">
     <div class="row">
-        <div class="col-sm-3">
-            <div class="ibox">
-                <div class="ibox-content mailbox-content">
-                    <div class="file-manager">
-                        <a class="btn btn-block btn-primary compose-mail" ng-click="identification.addForm()">Add New Identification</a>
+        
+        <div ui-view>
+            <div class="col-sm-12 animated fadeInRight">
+                <div ui-view>
+                    <div class="ibox">
+                            <div class="ibox-title">
+                                <h5>Identifications</h5>
+                                <div class="ibox-tools">
 
-                        <div class="space-25"></div>
-                        <h5>FACILITIES</h5>
-                        <ul class="folder-list m-b-md" style="padding: 0">
-                            <li ng-repeat="adm in identification.facilities">
-                                <a ng-click="identification.byFacility(adm.id)">
-                                    <i class="fa fa-building"></i> {{adm.name}}
-                                    <span class="label label-warning pull-right">{{adm.count}}</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <!-- <h5>status</h5>
-                        <ul class="category-list" style="padding: 0">
-                            <li><a href="#"> <i class="fa fa-circle text-navy"></i> Available</a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-danger"></i> In-use</a></li>
-                        </ul> -->
+                                    
+                                    <a class="btn btn-primary btn-xs" ng-click="identification.addForm()">Add new identifications</a>
+                                    <a class="btn btn-success btn-xs" data-toggle="dropdown"> Facilities <span class="caret"></span> </a>
+                                    <ul class="dropdown-menu" id="menu3" aria-labelledby="drop6"> 
+                                        <li ng-repeat="adm in identification.facilities">
+                                            <a ng-click="identification.byFacility(adm.id)">{{adm.name}}</a>
+                                        </li> 
+                                    </ul> 
 
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-9 animated fadeInRight">
-            <div ui-view>
-                <div class="mail-box-header">
-                    <h2>
-                        Identification ({{identification.ids.length}})
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-condensed issue-tracker">
+                                        <tbody>
+                                            <tr class="unread">
+                                                <td>#</td>
+                                                <td>Code</td>
+                                                <td>Facility</td>
+                                                <td>Date Created</td>
+                                            </tr>
+                                            <tr class="read" ng-repeat="a in identification.ids | filter:{facility_id:identification.temp.id}">
+                                                <td ng-if="a.in_use">
+                                                    <span class="label label-warning">In Use</span>
+                                                </td>
+                                                <td ng-if="!a.in_use">
+                                                    <span class="label label-primary">Available</span>
+                                                </td>
+                                                <td>{{a.code}}</td>
+                                                <td>{{a.facility}}</td>
+                                                <td class="mail-subject"><a>{{a.created_at | date:'MMMM dd, yyyy hh:mm:ss a'}}</a></td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <td>
+                                                    
+                                                </td>
+                                                <td class="issue-info">
+                                                    <a href="#">
+                                                        ISSUE-23
+                                                    </a>
 
-                    </h2>
-                    <div class="mail-tools tooltip-demo m-t-md">
-                        <!-- <div class="btn-group pull-right">
-                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
-                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+                                                    <small>
+                                                        This is issue with the coresponding note
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    Adrian Novak
+                                                </td>
+                                                <td>
+                                                    12.02.2015 10:00 am
+                                                </td>
+                                                <td>
+                                                   
+                                                </td>
+                                                <td class="text-right">
+                                                    <button class="btn btn-white btn-xs"> Tag</button>
+                                                    <button class="btn btn-white btn-xs"> Mag</button>
+                                                    <button class="btn btn-white btn-xs"> Rag</button>
+                                                </td>
+                                            </tr> -->
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
-                        </div> -->
-                        <button ng-click="identification.reload()" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> Refresh</button>
-
-                    </div>
-                </div>
-                <div class="mail-box">
-    				<table class="table table-hover table-mail">
-    	                <tbody>
-                            <tr class="unread">
-                                <td>ID</td>
-                                <td>Code</td>
-                                <td>Facility</td>
-                                <td>Status</td>
-                                <td>Availability</td>
-                                <td>Date Created</td>
-                            </tr>
-    	               		<tr class="read" ng-repeat="a in identification.ids | filter:{facility_id:identification.temp.id}">
-    		                    <td>{{a.id}}</td>
-                                <td class="mail-contact"><a>{{a.code}}</a></td>
-                                <td><small class="label label-primary">
-                                    {{a.facility}}
-                                </small>
-                                </td>
-                                <td class="mail-contact"><a >{{a.status}}</a></td>
-    		                    <td class="mail-contact"><a>{{(a.in_use) ? "No" : "Yes" }}</a></td>
-    		                    <td class="mail-subject"><a>{{a.created_at | date:'MMMM dd, yyyy hh:mm:ss a'}}</a></td>
-    		                </tr>
-    	                </tbody>
-                    </table>
+                        </div>
                 </div>
             </div>
         </div>
