@@ -19,7 +19,19 @@
 		f.recovery_code = recovery_code;
 		f.resetPassword = resetPassword;
 		f.search = search;
+		f.remove = remove;
+		f.info = info;
+		f.update = update;
 
+		function update(user, k ){
+			Server.post('user/update/'+user.id,{user:user}).then(k, Server.error);
+		}
+		function info( id , k ){
+			Server.get('user/info/'+id).then( k , Server.error)
+		}
+		function remove( id , k ){
+			Server.post('user/remove',{id:id}).then(k , Server.error);
+		}
 		function search(search, k ){
 			Server.post('user/search',{search:search}).then(k , Server.error)
 		}

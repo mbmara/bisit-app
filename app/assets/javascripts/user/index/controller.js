@@ -9,6 +9,11 @@
 		function userController(UserFactory,Notification,$state){
 			var user = this;
 			user.search = search;
+			user.remove = remove;
+			user.info = info;
+			user.update = update;
+
+			user.mode = "create";
 
 			user.filter={
 				facility:"",
@@ -23,6 +28,28 @@
 				user.create = create;
 			});
 
+			function update(user ){
+				UserFactory.update( user , function(res){
+					console.log(res);
+				});
+				
+			}
+			function info( id ){
+				user.mode ="update";
+				UserFactory.info( id , function(res){
+					$("#createUser").modal("show");
+					user.modal = res.data.user;
+				});
+			}
+			function remove( id , index ){
+				UserFactory.remove( id , function(res){
+					if(res.data.status){
+						user.data.users.splice( index, 1 );
+					}else{
+						alert("failed to delete");
+					}
+				});
+			}
 			function search(search){
 				UserFactory.search( search , function(res){
 					user.data.users =  res.data.users;

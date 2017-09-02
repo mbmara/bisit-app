@@ -1,7 +1,31 @@
 class Api::V1::UserController < ApplicationController
   require 'securerandom'
   before_action :authorize_request, except:[:login,:recovery_code,:resetpassword]
-  before_action only:[:create] {init_permission(4)}
+  before_action only:[:create, :remove] {init_permission(4)}
+
+  def update
+    if @current_user.super_admin?
+      user = User.find params[:id] 
+      
+      json_response true,user
+    end 
+  end
+
+  def info
+    @user = User.find params[:id]
+  end
+  def remove
+    if @current_user.super_admin?
+      if !@current_user_permission[0][:pdelete]
+        json_response false,{Account: "is not allowed to create"}
+        return false
+      end
+      user = User.find params[:id]
+      user.profile.delete
+      user.delete
+      json_response true,"Deleted"
+    end
+  end
 
   def search
     filter = {}
@@ -138,7 +162,7 @@ class Api::V1::UserController < ApplicationController
         profile.fname = user_params[:fname]
         profile.lname = user_params[:lname]
         profile.mname = user_params[:mname]
-        profile.mobile = user_params[:contact]
+        profile.mobile = user_params[:mobile]
         profile.user_type = :user
         if profile.save
           json_response true,"Create Success"
@@ -162,7 +186,7 @@ class Api::V1::UserController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password1, :fname, :lname, :mname, :facility, :role, :contact)
+    params.require(:user).permit(:email, :password, :password1, :fname, :lname, :mname, :facility, :role, :mobile)
   end
 
   def login_params

@@ -10,7 +10,10 @@ Rails.application.routes.draw do
       post 'user/recovery_code', to: 'user#recovery_code'
       post 'user/resetpassword', to: 'user#resetpassword'
       post 'user/search', to: 'user#search'
-
+      post 'user/remove', to: 'user#remove'
+      get   'user/info/:id', to: 'user#info'
+      post 'user/update/:id', to:'user#update'
+      
       post 'company/create', to: 'company#create'
       get 'company/list', to: 'company#index'
       get 'company/detail/:id', to: 'company#detail'
