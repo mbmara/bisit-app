@@ -6,8 +6,22 @@ class Api::V1::UserController < ApplicationController
   def update
     if @current_user.super_admin?
       user = User.find params[:id] 
+      if user_params[:password].present?
+        if user_params[:password] === user_params[:password1]
+          user.password = to_md5 user_params[:password]
+        end
+        user.user_role_id = user_params[:role]
+        user.save
+        profile = user.profile
+        profile.fname = user_params[:fname]
+        profile.mname = user_params[:mname]
+        profile.lname = user_params[:lname]
+        profile.mobile = user_params[:mobile]
+
+        profile.save
+        json_response true,"updated"
+      end
       
-      json_response true,user
     end 
   end
 

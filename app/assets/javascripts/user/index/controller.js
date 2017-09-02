@@ -30,7 +30,9 @@
 
 			function update(user ){
 				UserFactory.update( user , function(res){
-					console.log(res);
+					user.modal ={};
+					user.mode="create";
+					$("#createUser").modal("hide");
 				});
 				
 			}
