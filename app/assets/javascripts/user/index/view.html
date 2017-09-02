@@ -107,6 +107,7 @@
                                 ng-model="user.modal.role"
                                 ng-change="user.modal.role"
                                 ng-options="a.id as a.name for a in user.data.roles"
+                                ng-disabled="user.mode=='update'"
                                 required>
                                 <option value="" disabled selected hidden>-Select Role-</option>
                             </select>
