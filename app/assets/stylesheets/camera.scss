@@ -1,7 +1,6 @@
 .camera_wrapper{
-	height:300px;
-	width:400px;
-	background:green;
+	min-height:262px;
+	width:350px;
 	margin:20px auto;
 }
 .id_preview_wrapper{
@@ -11,8 +10,16 @@
 	margin:auto;
 }
 #canvass{
-	height:300px;
-	width:400px;
+	height:262px;
+	width:350px;
 	position: absolute;
 	background: #000;
+}
+.poto_preview{
+	height:262px;
+	width:350px;
+	background: #000;	
+}
+.camera_container{
+	overflow:hidden;
 }

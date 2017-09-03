@@ -1,0 +1,50 @@
+.receptionist_wrapper{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100vh;
+	color:orange;
+	.center_display{
+		width: 600px;
+		height: 300px;
+		margin: auto;
+		margin-top: calc(50vh - 150px);
+	}
+	.quick_touch_icon_wrapper{
+		width:100%;
+		box-sizing:border-box;
+		height:200px;
+	}
+	.quick_touch{
+		width:200px;
+		height:200px;
+		padding:20px;
+		.quick_button{
+			width:160px;
+			height:160px;
+			background:orange;
+			color:#000;
+			padding-top:30px;
+			border-radius:5px;
+		}
+	}
+	.navigation_wrapper{
+		width:100%;
+		height:80px;
+		background:rgba(0,0,0,0.2);
+		position:absolute;
+		bottom:0;
+		padding:10px;
+
+	}
+	.home_btn{
+	    height: 60px;
+	    width: 60px;
+	    font-size: 32px;
+	    color: #000;
+	}
+	.clock_counter{
+		font-size: 32px;
+	}
+}

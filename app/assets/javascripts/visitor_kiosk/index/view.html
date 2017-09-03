@@ -1,1 +1,156 @@
-<h1>design home kiosk</h1>
+<div class="receptionist_wrapper">
+	
+	<div class="center_display">
+		<h1 class="text-center" style="font-weight: bold">{{kiosk_index.facility}}</h1>
+		<div ng-if="kiosk_index.stage == 1" class="quick_touch_icon_wrapper">
+			<div class="quick_touch pull-left">
+				<div class="quick_button text-center">
+					<i class="fa fa-5x fa-search"></i>
+					<br>
+					<br>
+					<p>Search Visitors</p>
+				</div>
+			</div>
+			<div class="quick_touch pull-left">
+				<div class="quick_button text-center" ng-click="kiosk_index.new_visitor()">
+					<i class="fa fa-5x fa-user-plus"></i>
+					<br>
+					<br>
+					<p>Log In Visitor</p>
+				</div>
+			</div>
+			<div class="quick_touch pull-left">
+				<div class="quick_button text-center">
+					<i class="fa fa-5x fa-sign-out"></i>
+					<br>
+					<br>
+					<p>Log Out Visitors</p>
+				</div>
+			</div>
+		</div>
+		<div ng-if="kiosk_index.stage ==2" class="new_visitor_wrapper">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>First Name</label>
+						<input type="text" ng-model="kiosk_index.visitor.fname" class="form-control">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Last Name</label>
+						<input type="text" ng-model="kiosk_index.visitor.lname" class="form-control">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Middle Name</label>
+						<input type="text" ng-model="kiosk_index.visitor.mname" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Company</label>
+						<select class="form-control" ng-model="kiosk_index.visitor.company"
+							ng-options="a.id as a.name for a in kiosk_index.companies"
+							ng-change="kiosk_index.getCompanyStaff(kiosk_index.visitor.company)"
+						>
+							<option value="" hidden disabled selected>-Select Company-</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Contact Person</label>
+						<select class="form-control" ng-model="kiosk_index.visitor.staff"
+							ng-options="a.id as a.name for a in kiosk_index.staffs"
+						>
+							<option value="" hidden disabled selected>-Select Staff-</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Purpose</label>
+						<input type="text" class="form-control" ng-model="kiosk_index.visitor.purpose">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<button ng-click="kiosk_index.openCamera()" class="btn btn-success btn-block">Take Photo of Visitor</button>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<button ng-click="kiosk_index.loadQrCamera()" class="btn btn-success btn-block">Attach Identification</button>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<button class="btn btn-danger btn-block" ng-click="kiosk_index.cancel_visitor()">Cancel Visitor</button>
+					</div>
+				</div>
+				
+			</div>
+			<div class="row">
+				<div class="col-sm-12 text-center">
+					<button class="btn btn-primary">LOGIN VISITOR</button>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="navigation_wrapper">
+		<button class="home_btn pull-left" ui-sref="index"><i class="fa fa-home"></i></button>
+		<p class="clock_counter pull-right"><i class="fa fa-clock-o"></i> {{kiosk_index.clock | date:'hh:mm:ss a'}}</p>
+	</div>
+</div>
+
+
+<div class="modal fade" id="takePicture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content text-center">
+        	<br>
+        	<button class="btn btn-info" ng-click="kiosk_index.loadOtherCam(a)" ng-repeat="a in kiosk_index.devices">Camera {{$index+1}}</button>
+           <div class="camera_wrapper text-center">
+                <div class="camera_container text-center">
+                	<img class="poto_preview" ng-if="kiosk_index.visitor.visitor_img" ng-src="{{kiosk_index.visitor.visitor_img}}">
+                    <canvas id="canvass" height="262" width="350" style="visibility: hidden"></canvas>
+                    <video ng-if="!kiosk_index.visitor.visitor_img" id="video" height="262" width="350" autoplay></video>
+                </div>
+            </div>
+            <div class="form-group">
+            	<button class="btn btn-danger" ng-click="kiosk_index.cancelCamera()">Cancel</button>
+            	<button ng-if="kiosk_index.visitor.visitor_img" class="btn btn-primary" ng-click="kiosk_index.reTake()">Retake</button>
+            	<button ng-if="!kiosk_index.visitor.visitor_img" class="btn btn-primary" ng-click="kiosk_index.takePicture()">Capture</button>
+            	<button class="btn btn-success" ng-click="kiosk_index.confirm()">Confirm</button>
+            </div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="qrCamera" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content text-center">
+        	<br>
+        	<button class="btn btn-info" ng-click="kiosk_index.loadOtherQrCam($index)" ng-repeat="a in kiosk_index.qrcams">Camera {{$index+1}}</button>
+           <div class="camera_wrapper text-center">
+                <div class="camera_container text-center">
+                	<video id="qrcam" height="262" width="350" autoplay></video>
+                </div>
+                <div class="form-group">
+	            	<input type="text" ng-model="kiosk_index.visitor.identifiction_code" class="form-control">
+	            </div>
+            </div>
+            
+            <div class="form-group">
+            	<button class="btn btn-danger" ng-click="kiosk_index.cancelQRCamera()">Cancel</button>
+            	
+            	<button class="btn btn-success" ng-click="kiosk_index.confirmQrCode()">Confirm</button>
+            </div>
+		</div>
+	</div>
+</div>

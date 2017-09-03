@@ -35,28 +35,7 @@
                     k(f.devices);
                     
                 }
-                // function getStream() {
-                  
-
-                //   var constraints = {
-                   
-                //     video: {
-                //       optional: [{
-                //         sourceId: videoSelect.value
-                //       }]
-                //     }
-                //   };
-
-                //   navigator.mediaDevices.getUserMedia(constraints).
-                //     then(gotStream).catch(handleError);
-                // }
-                // function gotStream(stream) {
-                //   window.stream = stream; // make stream available to console
-                //   videoElement.srcObject = stream;
-                // }
-                // function handleError(error) {
-                //   console.log('Error: ', error);
-                // }
+                
             }
             function init( obj ){
             	f.running = true;

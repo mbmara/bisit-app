@@ -9,7 +9,7 @@
 		function loginController(UserFactory,Notification,$state, Server){
 			var login = this;
 			login.data={
-				email:"tearhear18@gmail.com",
+				email:"admin@yahoo.com",
 				password:"123123"
 			}
 			login.user = user;

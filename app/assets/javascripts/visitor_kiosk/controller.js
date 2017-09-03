@@ -198,8 +198,9 @@
 				$timeout( function(){
 					canvas = document.getElementById('canvass');
 					context = canvas.getContext('2d');
-					context.drawImage(video, 0, 0, 400, 300);
+					context.drawImage(video, 0, 0, 350, 262);
 					kiosk.data.visitor_img = canvas.toDataURL();
+					Scanner.stopCamera();
 				},200)
 
 			}
@@ -221,7 +222,7 @@
 					alert("Take photo first");
 					return false;
 				}
-				stream_data.getTracks()[0].stop();
+				
 				kiosk.step = 4;
 				kiosk.qrresult = "";
 				$timeout( function(){

@@ -9,9 +9,9 @@
 			$stateProvider
 				.state("kiosk",{
 					url:"/kiosk",
-					controller:'kioskController',
-					templateUrl:"visitor_kiosk/view.html",
-					controllerAs:'kiosk',
+					controller:'kioskIndexController',
+					templateUrl:"visitor_kiosk/index/view.html",
+					controllerAs:'kiosk_index',
 					resolve:{
 						UserAuth:['UserFactory','$state',function(UserFactory, $state ){
 							return UserFactory.authenticate().then( function(res){
