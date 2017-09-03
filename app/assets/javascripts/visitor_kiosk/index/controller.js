@@ -5,9 +5,9 @@
 		.module('admDashboard')
 		.controller('kioskIndexController', kioskIndexController);
 
-		kioskIndexController.$inject=['UserFactory','CompanyFactory','$state','UserAuth','$interval','$timeout','Scanner','$scope'];
+		kioskIndexController.$inject=['UserFactory','visitorFactory','CompanyFactory','$state','UserAuth','$interval','$timeout','Scanner','$scope','Notification'];
 
-		function kioskIndexController( UserFactory, CompanyFactory,$state,UserAuth, $interval, $timeout, Scanner, $scope ){
+		function kioskIndexController( UserFactory,visitorFactory, CompanyFactory,$state,UserAuth, $interval, $timeout, Scanner, $scope,Notification ){
 			
 			var kiosk_index = this, video;
 			kiosk_index.stage = 1;
@@ -25,7 +25,7 @@
 			kiosk_index.cancelQRCamera = cancelQRCamera;
 			kiosk_index.loadOtherQrCam = loadOtherQrCam;
 			kiosk_index.confirmQrCode = confirmQrCode;
-
+			kiosk_index.loginVisitor = loginVisitor;
 
 			CompanyFactory.getList( function(res){
 				kiosk_index.facility = UserFactory.facility.name;
@@ -36,6 +36,26 @@
 				kiosk_index.clock = Date.now();
 			},1000)
 
+			function loginVisitor(){
+				visitorFactory.login( kiosk_index.visitor, function(res){
+					if(angular.isUndefined(kiosk_index.visitor.visitor_img)){
+						Notification.error("visitor photo is missing");
+						return false;
+					}
+					if(angular.isUndefined(kiosk_index.visitor.identifiction_code)){
+						Notification.error("visitor identificaion missing");
+						return false;
+					}
+					if(res.data.status){
+						kiosk.step = 1;
+						alert("Visitor has been successfully log In");
+						reload();
+					}else{
+						Notification.showError(res.data.payload);
+					}
+
+				});
+			}
 			function confirmQrCode(){
 				qrcamera.stop();
 				$("#qrCamera").modal("hide");	
@@ -141,7 +161,7 @@
 				var constraints = {
                     video: {
                       optional: [{
-                        sourceId: kiosk_index.devices[0]
+                        sourceId: (kiosk_index.devices.length>1) ? kiosk_index.devices[1] : kiosk_index.devices[0]
                       }]
                     }
                 };

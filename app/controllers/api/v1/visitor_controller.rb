@@ -127,7 +127,7 @@ class Api::V1::VisitorController < ApplicationController
 	def login
 		ActiveRecord::Base.transaction do
 			#verify indentification
-			idz = @current_user.facilities[0].identifications.where("code = ?",visitor_params[:identification_code]).last
+			idz = @current_user.facilities[0].identifications.where("code = ?",visitor_params[:identifiction_code]).last
 			if idz.nil?
 				json_response false,{Identification:" does not exist"	}
 				return false
