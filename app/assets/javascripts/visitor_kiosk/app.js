@@ -7,6 +7,12 @@
 		function routes($stateProvider){
 
 			$stateProvider
+				.state('kiosk.logout',{
+					url:"/logout",
+					controller:'logoutKioskController',
+					templateUrl:'visitor_kiosk/logout/view.html',
+					controllerAs:'kiosk_logout'
+				})
 				.state("kiosk",{
 					url:"/kiosk",
 					controller:'kioskIndexController',

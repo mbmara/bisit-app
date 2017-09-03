@@ -16,7 +16,11 @@
 			f.find = find;
 			f.relogin = relogin;
 			f.search = search;
+			f.verify = verify;
 
+			function verify( code , k ){
+				Server.post('visitor/verify',{code:code}).then(k , Server.error );
+			}
 			function search(filter,k){
 				Server.post('visitor/search',{search:filter}).then(k, Server.error);
 			}

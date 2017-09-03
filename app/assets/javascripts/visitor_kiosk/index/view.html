@@ -1,117 +1,118 @@
 <div class="receptionist_wrapper">
-	
-	<div class="center_display">
-		<h1 class="text-center" style="font-weight: bold">{{kiosk_index.facility}}</h1>
-		<div ng-if="kiosk_index.stage == 1" class="quick_touch_icon_wrapper">
-			<div class="quick_touch pull-left">
-				<div class="quick_button text-center">
-					<i class="fa fa-5x fa-search"></i>
-					<br>
-					<br>
-					<p>Search Visitors</p>
-				</div>
-			</div>
-			<div class="quick_touch pull-left">
-				<div class="quick_button text-center" ng-click="kiosk_index.new_visitor()">
-					<i class="fa fa-5x fa-user-plus"></i>
-					<br>
-					<br>
-					<p>Log In Visitor</p>
-				</div>
-			</div>
-			<div class="quick_touch pull-left">
-				<div class="quick_button text-center">
-					<i class="fa fa-5x fa-sign-out"></i>
-					<br>
-					<br>
-					<p>Log Out Visitors</p>
-				</div>
-			</div>
-		</div>
-		<div ng-if="kiosk_index.stage ==2" class="new_visitor_wrapper">
-			<form ng-submit="kiosk_index.loginVisitor()">
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="form-group">
-							<label>First Name</label>
-							<input type="text" ng-model="kiosk_index.visitor.fname" class="form-control" required>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<label>Last Name</label>
-							<input type="text" ng-model="kiosk_index.visitor.lname" class="form-control" required>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<label>Middle Name</label>
-							<input type="text" ng-model="kiosk_index.visitor.mname" class="form-control" required>
-						</div>
+	<div ui-view>
+		<div class="center_display">
+			<h1 class="text-center" style="font-weight: bold">{{kiosk_index.facility}}</h1>
+			<div ng-if="kiosk_index.stage == 1" class="quick_touch_icon_wrapper">
+				<div class="quick_touch pull-left">
+					<div class="quick_button text-center">
+						<i class="fa fa-5x fa-search"></i>
+						<br>
+						<br>
+						<p>Search Visitors</p>
 					</div>
 				</div>
+				<div class="quick_touch pull-left">
+					<div class="quick_button text-center" ng-click="kiosk_index.new_visitor()">
+						<i class="fa fa-5x fa-user-plus"></i>
+						<br>
+						<br>
+						<p>Log In Visitor</p>
+					</div>
+				</div>
+				<div class="quick_touch pull-left">
+					<div class="quick_button text-center" ng-click="kiosk_index.logout_visitor()">
+						<i class="fa fa-5x fa-sign-out"></i>
+						<br>
+						<br>
+						<p>Log Out Visitors</p>
+					</div>
+				</div>
+			</div>
+			<div ng-if="kiosk_index.stage ==2" class="new_visitor_wrapper">
+				<form ng-submit="kiosk_index.loginVisitor()">
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>First Name</label>
+								<input type="text" ng-model="kiosk_index.visitor.fname" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>Last Name</label>
+								<input type="text" ng-model="kiosk_index.visitor.lname" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>Middle Name</label>
+								<input type="text" ng-model="kiosk_index.visitor.mname" class="form-control" required>
+							</div>
+						</div>
+					</div>
 
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="form-group">
-							<label>Company</label>
-							<select class="form-control" ng-model="kiosk_index.visitor.company"
-								ng-options="a.id as a.name for a in kiosk_index.companies"
-								ng-change="kiosk_index.getCompanyStaff(kiosk_index.visitor.company)"
-								required
-							>
-								<option value="" hidden disabled selected>-Select Company-</option>
-							</select>
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>Company</label>
+								<select class="form-control" ng-model="kiosk_index.visitor.company"
+									ng-options="a.id as a.name for a in kiosk_index.companies"
+									ng-change="kiosk_index.getCompanyStaff(kiosk_index.visitor.company)"
+									required
+								>
+									<option value="" hidden disabled selected>-Select Company-</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>Contact Person</label>
+								<select class="form-control" ng-model="kiosk_index.visitor.staff"
+									ng-options="a.id as a.name for a in kiosk_index.staffs"
+									required
+								>
+									<option value="" hidden disabled selected>-Select Staff-</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>Purpose</label>
+								<input type="text" class="form-control" ng-model="kiosk_index.visitor.purpose" required>
+							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<label>Contact Person</label>
-							<select class="form-control" ng-model="kiosk_index.visitor.staff"
-								ng-options="a.id as a.name for a in kiosk_index.staffs"
-								required
-							>
-								<option value="" hidden disabled selected>-Select Staff-</option>
-							</select>
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<a ng-click="kiosk_index.openCamera()" class="btn btn-success btn-block">Take Photo of Visitor</a>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<a ng-click="kiosk_index.loadQrCamera()" class="btn btn-success btn-block">Attach Identification</a>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<a class="btn btn-danger btn-block" ng-click="kiosk_index.cancel_visitor()">Cancel Visitor</a>
+							</div>
+						</div>
+						
+					</div>
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<button type="submit" class="btn btn-primary" >LOGIN VISITOR</button>
 						</div>
 					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<label>Purpose</label>
-							<input type="text" class="form-control" ng-model="kiosk_index.visitor.purpose" required>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="form-group">
-							<a ng-click="kiosk_index.openCamera()" class="btn btn-success btn-block">Take Photo of Visitor</a>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<a ng-click="kiosk_index.loadQrCamera()" class="btn btn-success btn-block">Attach Identification</a>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<a class="btn btn-danger btn-block" ng-click="kiosk_index.cancel_visitor()">Cancel Visitor</a>
-						</div>
-					</div>
-					
-				</div>
-				<div class="row">
-					<div class="col-sm-12 text-center">
-						<button type="submit" class="btn btn-primary" >LOGIN VISITOR</button>
-					</div>
-				</div>
-			</form>
+				</form>
+			</div>
+			
 		</div>
-		
-	</div>
-	<div class="navigation_wrapper">
-		<button class="home_btn pull-left" ui-sref="index"><i class="fa fa-home"></i></button>
-		<p class="clock_counter pull-right"><i class="fa fa-clock-o"></i> {{kiosk_index.clock | date:'hh:mm:ss a'}}</p>
+		<div class="navigation_wrapper">
+			<button class="home_btn pull-left" ui-sref="index"><i class="fa fa-home"></i></button>
+			<p class="clock_counter pull-right"><i class="fa fa-clock-o"></i> {{kiosk_index.clock | date:'hh:mm:ss a'}}</p>
+		</div>
 	</div>
 </div>
 

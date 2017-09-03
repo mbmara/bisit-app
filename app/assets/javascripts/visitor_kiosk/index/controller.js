@@ -26,6 +26,7 @@
 			kiosk_index.loadOtherQrCam = loadOtherQrCam;
 			kiosk_index.confirmQrCode = confirmQrCode;
 			kiosk_index.loginVisitor = loginVisitor;
+			kiosk_index.logout_visitor = logout_visitor;
 
 			CompanyFactory.getList( function(res){
 				kiosk_index.facility = UserFactory.facility.name;
@@ -36,6 +37,9 @@
 				kiosk_index.clock = Date.now();
 			},1000)
 
+			function logout_visitor(){
+				$state.go("kiosk.logout")
+			}
 			function loginVisitor(){
 				visitorFactory.login( kiosk_index.visitor, function(res){
 					if(angular.isUndefined(kiosk_index.visitor.visitor_img)){

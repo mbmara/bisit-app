@@ -5,6 +5,37 @@ class Api::V1::VisitorController < ApplicationController
 	require 'base64'
 	require 'chikka'
 
+	def verify
+		if @current_user.super_admin?
+			json_response false,"Account not appropriate"
+		else
+			idz = @current_user.facilities[0].identifications.where("code = ?",params[:code]).last
+		end
+		if idz.present?
+			logs = idz.visit_logs.last
+			if logs.present?
+				if logs.state == "login"
+					img = Visitor.find logs.visitor_id
+					res = {}
+					res[:name]  = logs.profile.fullname
+					res[:image] = img.image
+					res[:staff] = logs.staff.fullname
+					res[:company] = logs.company.name
+					json_response true,res
+
+				else
+					json_response false,{Visitor: " is already logout"}
+				end
+			else
+				json_response false,{Code:" is not use"}
+			end
+		else
+			json_response false,{Code: " Does not exist"}
+		end
+		
+
+	end
+
 	def search
 		@visitor_name = search_params[:visitor_name]
 		filter = {}
