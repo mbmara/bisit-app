@@ -54,12 +54,13 @@
 				$("#qrCamera").modal("show");
 				
 				$timeout( function(){
-					qrcamera = new Instascan.Scanner({ video: document.getElementById('qrcam') });
+					qrcamera = new Instascan.Scanner({ video: document.getElementById('qrcam') ,mirror:false,backgroundScan:false});
 				
 					Instascan.Camera.getCameras().then(function (cameras) {
 						kiosk_index.qrcams = cameras;
 						if (cameras.length > 0) {
-				          qrcamera.start(cameras[0]);
+							(cameras.length>1) ? qrcamera.start(cameras[1]) : qrcamera.start(cameras[0]);
+				          	
 				        } else {
 				          console.error('No cameras found.');
 				        }
