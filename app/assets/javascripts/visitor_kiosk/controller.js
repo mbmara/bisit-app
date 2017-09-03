@@ -9,6 +9,33 @@
 		function kioskController( $interval,CompanyFactory, $timeout, Scanner, $scope,visitorFactory,$state, Notification, UserFactory){
 			var kiosk = this;
 
+			kiosk.devices  = [];
+			Scanner.enumDeviceCamera( function(devices){
+				kiosk.devices  = devices;
+				
+			});	//initialize camera
+			
+			kiosk.loadAlterCamera = function(index){
+				Scanner.stopCamera();
+				
+				var constraints = {
+                   
+                    video: {
+                      optional: [{
+                        sourceId: kiosk.devices[index]
+                      }]
+                    }
+                };
+                $timeout( function(){
+                	video  = document.getElementById('video');
+                	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+						window.stream = stream;
+						video.src = window.URL.createObjectURL(stream);
+						video.play();
+					},500);
+                })
+
+			}
 			//initial data
 			kiosk.data={};
 			kiosk.step = 1;
@@ -35,6 +62,12 @@
 			$interval( function(){
 				kiosk.clock = Date.now();
 			},1000)
+			
+				
+			
+			
+
+
 
 			function reloginVisitor(){
 				visitorFactory.relogin( kiosk.data, function(res){
@@ -138,6 +171,27 @@
 			kiosk.canvass = false;
 
 			var video,canvas,context,stream_data;
+			kiosk.loadCamera = function(){
+
+				kiosk.step=3;
+				var constraints = {
+                   
+                    video: {
+                      optional: [{
+                        sourceId: kiosk.devices[0]
+                      }]
+                    }
+                };
+                $timeout( function(){
+                	video  = document.getElementById('video');
+                	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+						window.stream = stream;
+						video.src = window.URL.createObjectURL(stream);
+						video.play();
+					},500);
+                })
+               
+			}
 			kiosk.capture = function(){
 				kiosk.canvass = true;
 
@@ -180,32 +234,6 @@
 
 				},1000)
 			}
-			kiosk.loadCamera = function(){
-
-				kiosk.step=3;
-				$timeout( function(){
-					// Grab elements, create settings, etc.
-					video = document.getElementById('video');
-
-					// Get access to the camera!
-					if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-						//Not adding `{ audio: true }` since we only want video now
-						console.log(navigator.mediaDevices);
-						const constraints = {
-				        advanced: [{
-				            facingMode: "environment"
-				        }]
-				    };
-						navigator.mediaDevices.getUserMedia({ video: constraints }).then(function(stream) {
-							console.log(stream);
-							stream_data= stream;
-							video.src = window.URL.createObjectURL(stream_data);
-							video.play();
-						});
-
-					}
-				},100)
-
-			}
+			
 		}
 })();

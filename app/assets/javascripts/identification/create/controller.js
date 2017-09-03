@@ -11,7 +11,7 @@
 			var identificationCreate = this;
 			identificationCreate.back = back;
 
-
+			
 			IdentificationFactory.getAll( function(res){
 				identificationCreate.facilities = res.data.facilities;
 			});

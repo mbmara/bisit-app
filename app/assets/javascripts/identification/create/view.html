@@ -10,7 +10,7 @@
     <div class="ibox-content text-center">
     	<h4>QR Scanner</h4>
         <video style="width: 400px !important;background:green" id="preview"></video>
-        <div class="form-group">
+        <div class="form-group" ng-if="identification.access==1">
           <select style="width: 400px !important;margin:auto" class="form-control" ng-model="identificationCreate.data.facility" ng-options="a.id as a.name for a in identificationCreate.facilities">
             <option value="" selected hidden disabled>-Select Facility-</option>
           </select>

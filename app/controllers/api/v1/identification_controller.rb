@@ -19,14 +19,17 @@ class Api::V1::IdentificationController < ApplicationController
 	end
 
     def create
-			if !@current_user_permission[0][:pcreate]
-				json_response false,{Account: "is not allowed to create"}
-				return false
-			end
 
-    	ids = Facility.find(identification_params[:facility]).identifications.new
+		if !@current_user_permission[0][:pcreate]
+			json_response false,{Account: "is not allowed to create"}
+			return false
+		end
+		if @current_user.super_admin?
+			ids = Facility.find(identification_params[:facility]).identifications.new
+    	else	
+			ids = Facility.find(@current_user.facilities[0].id).identifications.new
+    	end
     	ids.code = identification_params[:serial]
-
     	if ids.save
     		json_response true,"created"
     	else

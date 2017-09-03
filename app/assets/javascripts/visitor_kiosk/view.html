@@ -81,6 +81,7 @@
           </form>
         </div>
         <div ng-if="kiosk.step==3">
+            <button ng-repeat="a in kiosk.devices" ng-click="kiosk.loadAlterCamera($index)">Camera-{{$index}}</button>
             <div class="camera_wrapper text-center">
                 <div class="camera_container">
                     <canvas id="canvass" height="300" width="400" ng-if="kiosk.canvass"></canvas>

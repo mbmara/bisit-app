@@ -22,6 +22,7 @@
 			var state = $state.current.name.split(".")[1] || "index"
 			UserFactory.initialize(state, function(permission){
 				user.role = UserFactory.role;
+				user.access = UserFactory.access;
 				user.permission = permission;
 				loadUser();
 				user.loadUser = loadUser;
@@ -75,6 +76,7 @@
 				UserFactory.getList( function(res){
 					user.data = res.data;
 					user.data.facilities.push({id:"",name:"All"});
+					user.roles_backup = angular.copy(res.data.roles);
 					user.data.roles.push({id:"",name:"All"});
 				});
 			}

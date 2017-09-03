@@ -106,14 +106,14 @@
                                 class="form-control"
                                 ng-model="user.modal.role"
                                 ng-change="user.modal.role"
-                                ng-options="a.id as a.name for a in user.data.roles"
+                                ng-options="a.id as a.name for a in user.roles_backup"
                                 ng-disabled="user.mode=='update'"
                                 required>
                                 <option value="" disabled selected hidden>-Select Role-</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6" ng-if="user.modal.role!=1 && user.modal.role > 0" >
+                    <div class="col-md-6" ng-if="user.modal.role!=1 && user.modal.role==1" >
                         <div class="form-group">
                             <label class="control-label">Select Facility</label>
                             <select
