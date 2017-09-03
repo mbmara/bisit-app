@@ -27,6 +27,7 @@
 			kiosk_index.confirmQrCode = confirmQrCode;
 			kiosk_index.loginVisitor = loginVisitor;
 			kiosk_index.logout_visitor = logout_visitor;
+			kiosk_index.search_visitor = search_visitor;
 
 			CompanyFactory.getList( function(res){
 				kiosk_index.facility = UserFactory.facility.name;
@@ -39,6 +40,9 @@
 
 			function logout_visitor(){
 				$state.go("kiosk.logout")
+			}
+			function search_visitor(){
+				$state.go("kiosk.search")
 			}
 			function loginVisitor(){
 				visitorFactory.login( kiosk_index.visitor, function(res){
@@ -75,7 +79,7 @@
 			var qrcamera;
 			function loadQrCamera(){
 
-				$("#qrCamera").modal("show");
+				$("#qrCamera2").modal("show");
 				
 				$timeout( function(){
 					qrcamera = new Instascan.Scanner({ video: document.getElementById('qrcam') ,mirror:false,backgroundScan:false});

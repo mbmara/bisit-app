@@ -13,6 +13,12 @@
 					templateUrl:'visitor_kiosk/logout/view.html',
 					controllerAs:'kiosk_logout'
 				})
+				.state('kiosk.search',{
+					url:"/search",
+					controller:'searchKioskController',
+					templateUrl:'visitor_kiosk/search/view.html',
+					controllerAs:'kiosk_search'
+				})
 				.state("kiosk",{
 					url:"/kiosk",
 					controller:'kioskIndexController',

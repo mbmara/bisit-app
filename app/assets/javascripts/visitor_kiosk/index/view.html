@@ -4,7 +4,7 @@
 			<h1 class="text-center" style="font-weight: bold">{{kiosk_index.facility}}</h1>
 			<div ng-if="kiosk_index.stage == 1" class="quick_touch_icon_wrapper">
 				<div class="quick_touch pull-left">
-					<div class="quick_button text-center">
+					<div class="quick_button text-center" ng-click="kiosk_index.search_visitor()">
 						<i class="fa fa-5x fa-search"></i>
 						<br>
 						<br>

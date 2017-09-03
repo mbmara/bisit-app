@@ -1,0 +1,79 @@
+<div class="logout_wrapper">
+	<div class="row">
+		<div class="col-md-6 text-center">
+			<form ng-submit="kiosk_search.find()">
+				<div class="input-group">
+					<input type="text" placeholder="Search" class="form-control" ng-model="kiosk_search.data.name"> 
+					<span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary"> Find</button> 
+                    </span>
+                </div>
+			</form>
+			<br>
+			<table class="table table-bordered text-left">
+				<tr ng-repeat="a in kiosk_search.result">
+					<td>{{a.fullname}}</td>
+					<td width="10">
+						<button class="btn btn-primary" ng-click="kiosk_search.view(a.visitor_id)">View</button>
+					</td>
+				</tr>
+				<tr ng-if="kiosk_search.data.length==0">
+					<td colspan="2" class="text-center">No Data</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-6" ng-if="kiosk_search.visitor_info">
+			<div class="id_wrapper text-center">
+				<img ng-src="./secret_upload/{{kiosk_search.visitor_info.info.image}}" height="200px">
+				<h1>{{kiosk_search.visitor_info.info.fullname}}</h1>
+				
+				<table class="table table-bordered text-left">
+					<tr>
+						<td>Company</td>
+						<td>Contact</td>
+						<td>Purpose</td>
+						<td>Date</td>
+					</tr>
+					<tr ng-repeat="a in kiosk_search.visitor_info.info.log">
+						<td>{{a.company}}</td>
+						<td>{{a.staff}}</td>
+						<td>{{a.purpose}}</td>
+						<td>{{a.created_at | date:'MMMM dd, yyyy'}}</td>
+					</tr>
+					
+				</table>
+				<p ng-if="kiosk_search.process"><i class="fa fa-spinner fa-spin fa-fw"></i>Processing login...</p>
+				<button class="btn btn-success" ng-click="kiosk_search.loadQrCamera()">Attach Identification</button>
+				<button ng-if="!kiosk_search.process" class="btn btn-primary" ng-click="kiosk_search.relogin()">RELOGIN</button>
+			</div>
+		</div>
+	</div>	
+</div>
+<div class="navigation_wrapper">
+	<button class="home_btn pull-left" ui-sref="kiosk"><i class="fa fa-arrow-left"></i></button>
+	
+</div>
+
+
+<div class="modal fade" id="qrCamera2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content text-center">
+        	<br>
+        	<button class="btn btn-info" ng-click="kiosk_search.loadOtherQrCam($index)" ng-repeat="a in kiosk_search.qrcams">Camera {{$index+1}}</button>
+           <div class="camera_wrapper text-center">
+                <div class="camera_container text-center">
+                	<video id="qrcam2" height="262" width="350" autoplay></video>
+                </div>
+                <div class="form-group">
+	            	<input type="text" ng-model="kiosk_search.visitor.identifiction_code" class="form-control">
+	            </div>
+            </div>
+            
+            <div class="form-group">
+            	<button class="btn btn-danger" ng-click="kiosk_search.cancelQRCamera()">Cancel</button>
+            	
+            	<button class="btn btn-success" ng-click="kiosk_search.confirmQrCode()">Confirm</button>
+            </div>
+		</div>
+	</div>
+</div>
