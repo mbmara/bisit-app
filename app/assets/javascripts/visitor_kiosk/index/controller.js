@@ -28,7 +28,8 @@
 			kiosk_index.loginVisitor = loginVisitor;
 			kiosk_index.logout_visitor = logout_visitor;
 			kiosk_index.search_visitor = search_visitor;
-
+			
+			kiosk_index.process = false;
 			CompanyFactory.getList( function(res){
 				kiosk_index.facility = UserFactory.facility.name;
 				kiosk_index.companies = res.data.companies;
@@ -45,7 +46,9 @@
 				$state.go("kiosk.search")
 			}
 			function loginVisitor(){
+				kiosk_index.process = true;
 				visitorFactory.login( kiosk_index.visitor, function(res){
+					kiosk_index.process = false;
 					if(angular.isUndefined(kiosk_index.visitor.visitor_img)){
 						Notification.error("visitor photo is missing");
 						return false;
@@ -55,9 +58,8 @@
 						return false;
 					}
 					if(res.data.status){
-						kiosk.step = 1;
-						alert("Visitor has been successfully log In");
-						reload();
+						Notification.showSuccess("Visitor is now login");
+						kiosk_index.visitor={};
 					}else{
 						Notification.showError(res.data.payload);
 					}
@@ -79,7 +81,7 @@
 			var qrcamera;
 			function loadQrCamera(){
 
-				$("#qrCamera2").modal("show");
+				$("#qrCamera").modal("show");
 				
 				$timeout( function(){
 					qrcamera = new Instascan.Scanner({ video: document.getElementById('qrcam') ,mirror:false,backgroundScan:false});

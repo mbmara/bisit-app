@@ -23,7 +23,7 @@
 						Notification.showSuccess("Visitor successfuly logout");
 						kiosk_logout.process = false;
 						delete kiosk_logout.visitor_info;
-						delete kiosk_logout.visitor.identifiction_code;
+						kiosk_logout.visitor={};
 
 					}else{
 						Notification.showError(res.data.payload)

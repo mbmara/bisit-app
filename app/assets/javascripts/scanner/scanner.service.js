@@ -24,9 +24,10 @@
                 }   
             }
             function enumDeviceCamera( k ){
-                var camera = [];
+               
                 navigator.mediaDevices.enumerateDevices().then(gotDevices); //.then(getStream).catch(handleError);
                 function gotDevices(deviceInfos) {
+                    f.devices = [];
                     angular.forEach(deviceInfos, function(data){
                         if (data.kind === 'videoinput') {
                             f.devices.push(data.deviceId);

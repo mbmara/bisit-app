@@ -14,6 +14,8 @@ class Api::V1::VisitorController < ApplicationController
 		if idz.present?
 			logs = idz.visit_logs.last
 			if logs.present?
+				p "---"
+				p logs
 				if logs.state == "login"
 					img = Visitor.find logs.visitor_id
 					res = {}
@@ -79,6 +81,10 @@ class Api::V1::VisitorController < ApplicationController
 
 		vis = Visitor.find relogin_params[:visitor_id]
 		if vis.present?
+			if vis.visit_logs.last.state=="login"
+				json_response false,{Visitor:" is still log In"}
+				return false
+			end
 			log = vis.visit_logs.new
 			#create log
 			log = vis.visit_logs.new
@@ -91,10 +97,13 @@ class Api::V1::VisitorController < ApplicationController
 			log.purpose = relogin_params[:purpose]
 			log.identification_id 	= relogin_params[:identifiction_code]
 			log.state = :login
-			log.save
-			idz.in_use = true
-			idz.save
-			json_response true,"ok"
+			if log.save
+				idz.in_use = true
+				idz.save
+				json_response true,"ok"
+			else
+				json_response false,log.errors
+			end
 		else
 			json_response false,{Invalid:" Visitor Records"}
 		end

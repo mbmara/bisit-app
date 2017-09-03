@@ -5,6 +5,8 @@ class VisitLog < ApplicationRecord
 	belongs_to :staff, class_name:"Profile", primary_key:"staff_id",foreign_key: "staff_id"
 	belongs_to :company
 	belongs_to :facility
+
+	validates_presence_of :purpose, :company_id, :staff_id, :identification_id
 	#has_one :person_name, class_name:"Gcc::PersonName", primary_key: "Id", foreign_key: "PersonId"
 	enum state: [:login, :logout]
 	def logout

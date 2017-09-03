@@ -102,7 +102,8 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-12 text-center">
-							<button type="submit" class="btn btn-primary" >LOGIN VISITOR</button>
+							<p ng-if="kiosk_index.process"><i class="fa fa-spinner fa-spin fa-fw"></i>Processing login...</p>
+							<button ng-if="!kiosk_index.process" type="submit" class="btn btn-primary" >LOGIN VISITOR</button>
 						</div>
 					</div>
 				</form>

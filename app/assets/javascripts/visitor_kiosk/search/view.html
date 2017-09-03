@@ -1,6 +1,6 @@
 <div class="logout_wrapper">
 	<div class="row">
-		<div class="col-md-6 text-center">
+		<div class="col-sm-6 text-center">
 			<form ng-submit="kiosk_search.find()">
 				<div class="input-group">
 					<input type="text" placeholder="Search" class="form-control" ng-model="kiosk_search.data.name"> 
@@ -22,7 +22,7 @@
 				</tr>
 			</table>
 		</div>
-		<div class="col-md-6" ng-if="kiosk_search.visitor_info">
+		<div class="col-sm-6" ng-if="kiosk_search.visitor_info">
 			<div class="id_wrapper text-center">
 				<img ng-src="./secret_upload/{{kiosk_search.visitor_info.info.image}}" height="200px">
 				<h1>{{kiosk_search.visitor_info.info.fullname}}</h1>
@@ -43,8 +43,8 @@
 					
 				</table>
 				<p ng-if="kiosk_search.process"><i class="fa fa-spinner fa-spin fa-fw"></i>Processing login...</p>
-				<button class="btn btn-success" ng-click="kiosk_search.loadQrCamera()">Attach Identification</button>
-				<button ng-if="!kiosk_search.process" class="btn btn-primary" ng-click="kiosk_search.relogin()">RELOGIN</button>
+				<!-- <button class="btn btn-success" ng-click="kiosk_search.loadQrCamera()">Attach Identification</button> -->
+				<button ng-if="!kiosk_search.process" class="btn btn-primary" ng-click="kiosk_search.relogin()">Relogin Visitor</button>
 			</div>
 		</div>
 	</div>	
@@ -55,9 +55,10 @@
 </div>
 
 
-<div class="modal fade" id="qrCamera2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+<div class="modal fade" id="reloginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content text-center">
+        <div class="modal-content text-center" style="padding: 20px">
         	<br>
         	<button class="btn btn-info" ng-click="kiosk_search.loadOtherQrCam($index)" ng-repeat="a in kiosk_search.qrcams">Camera {{$index+1}}</button>
            <div class="camera_wrapper text-center">
@@ -69,11 +70,50 @@
 	            </div>
             </div>
             
-            <div class="form-group">
+            <!-- <div class="form-group">
             	<button class="btn btn-danger" ng-click="kiosk_search.cancelQRCamera()">Cancel</button>
             	
             	<button class="btn btn-success" ng-click="kiosk_search.confirmQrCode()">Confirm</button>
-            </div>
+            </div> -->
+        	<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Company</label>
+						<select class="form-control" ng-model="kiosk_search.visitor.company"
+							ng-options="a.id as a.name for a in kiosk_index.companies"
+							ng-change="kiosk_index.getCompanyStaff(kiosk_search.visitor.company)"
+							required
+						>
+							<option value="" hidden disabled selected>-Select Company-</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Contact Person</label>
+						<select class="form-control" ng-model="kiosk_search.visitor.staff"
+							ng-options="a.id as a.name for a in kiosk_index.staffs"
+							required
+						>
+							<option value="" hidden disabled selected>-Select Staff-</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Purpose</label>
+						<input type="text" class="form-control" ng-model="kiosk_search.visitor.purpose" required>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<button  ng-click="kiosk_search.approve_relogin()" class="btn btn-primary">Re Login Visitor</button>
+						<button ng-click="kiosk_search.cancel_relogin()" class="btn btn-danger">Cancel</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
