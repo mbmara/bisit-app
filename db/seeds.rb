@@ -40,6 +40,16 @@ Policy.create([
 		name:"Visitors Kiosk",
 		route:"kiosk",
 		url:"kiosk"
+	},
+	{
+		name:"Self Assesment",
+		route:"self-assesment",
+		url:"self-assesment"
+	},
+	{
+		name:"Visitor List",
+		route:"visitor-list",
+		url:"visitor-list"
 	}
 ])
 p "-- CREATING INITIAL USER--"
@@ -68,4 +78,6 @@ PolicyContent.create([
 		#{user_role_id:3,policy_id:5,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
 		#{user_role_id:3,policy_id:6,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
 		{user_role_id:3,policy_id:7,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
+		{user_role_id:3,policy_id:8,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
+		{user_role_id:3,policy_id:9,pcreate:1,pread:1,pupdate:1,pdelete:1,generated_by:'system'},
 ])

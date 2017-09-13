@@ -8,10 +8,11 @@ class VisitLog < ApplicationRecord
 
 	validates_presence_of :purpose, :company_id, :staff_id, :identification_id
 	#has_one :person_name, class_name:"Gcc::PersonName", primary_key: "Id", foreign_key: "PersonId"
-	enum state: [:login, :logout]
+	enum state: [:login, :logout, :pending]
 	def logout
-    self.update_columns(time_out: Time.zone.now,state: :logout)
-  end
+    	
+    	self.update_columns(time_out: Time.zone.now,state: :logout)
+  	end
 	def time_diff_to
 		#((time_out.to_time - created_at.to_time)/1.hour.second).to_i
 		distance_of_time_in_words(time_out,created_at)

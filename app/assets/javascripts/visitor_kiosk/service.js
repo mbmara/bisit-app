@@ -10,6 +10,7 @@
             var f = {};
 
             f.login = login;
+            f.login2 = login2;
 			f.all = all;
 			f.logout = logout;
 			f.info = info;
@@ -42,7 +43,9 @@
             function login( data, k ){
                 Server.post('visitor/login',{visit:data}).then(k ,Server.error);
             }
-
+            function login2(data, k ){
+            	Server.post('visitor/login2',{visit:data}).then(k ,Server.error);	
+            }
 
             return f;
         }

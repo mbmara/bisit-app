@@ -42,7 +42,7 @@
 			Server.post('user/recovery_code',{email:data}).then( k , Server.error);
 		}
 		function initialize(fn,callback){
-
+			
 			angular.forEach(f.permission.objects, function(data){
 
 				//console.log(data);

@@ -1,0 +1,33 @@
+.public_wrapper{
+	width:80%;
+	overflow:hidden;
+	margin: auto;
+	box-sizing: border-box;
+	margin-top: 150px;
+
+	label{
+		color: #fefefe;
+	}
+}
+.navigation_wrapper2{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+.home_btn{
+	padding: 10px;
+	border-radius: 0;
+	margin:20px;
+}
+.logo_wrapper_public{
+	width: 100%;
+	margin: auto;
+	background: red;
+	height: 100vh;
+	background: url(../images/bisit_app.png) no-repeat top center;	
+	background-size: contain;
+	position: absolute;	
+	opacity: 0.1;
+	top: 0;
+}
