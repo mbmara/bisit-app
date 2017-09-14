@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>Visitors</h5>
+        </div>
+        <div class="ibox-content">
+
+          <div class="table-responsive">
+            <table class="table table-hover table-condensed issue-tracker">
+              <tbody>
+                <tr class="unread">
+                  <td>Visitor Name</td>
+                  <td>Facility</td>
+                  <td>Company</td>
+                  <td>Purpose</td>
+                  <td>Contact Person</td>
+                  <td>Time In</td>
+                  <td>Duration</td>
+                  <td></td>
+                </tr>
+                <tr ng-repeat="a in visitorList.collections">
+                  <td>{{a.fullname}}</td>
+                  <td>{{a.facility}}</td>
+                  <td>{{a.company}}</td>
+                  <td>{{a.purpose}}</td>
+                  <td>{{a.staff}}</td>
+                  <td>{{a.created_at | date:'MMM dd, yyyy hh:mm:ss a'}}</td>
+                  <td>{{a.created_at | timeAgo}}</td>
+                  <td>
+                  	<button class="btn btn-primary btn-xs" ng-click="visitorList.info(a.visitor_id)">View</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td ng-if="visitorList.collections.length==0" colspan="9" class="text-center">No records</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<div class="modal fade" id="visitorInformationA" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content text-center">
+          <div class="row">
+            <div class="col-md-12">
+              <br>
+              <img ng-src="./secret_upload/{{visitorList.data.info.image}}" height="200px">
+              <br>
+              <h1>{{visitorList.data.info.fullname}}</h1>
+             <table class="table table-bordered">
+               <tr>
+                 <td>asas</td>
+                 <td>asas</td>
+                 <td>asas</td>
+                 <td>asas</td>
+               </tr>
+             </table>
+            </div>
+          </div>
+          
+        </div>
+    </div>
+</div>

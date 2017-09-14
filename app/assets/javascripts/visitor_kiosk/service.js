@@ -18,7 +18,11 @@
 			f.relogin = relogin;
 			f.search = search;
 			f.verify = verify;
+			f.quelist = quelist;
 
+			function quelist( k ){
+				Server.get('visitor/quelist').then( k , Server.error );
+			}
 			function verify( code , k ){
 				Server.post('visitor/verify',{code:code}).then(k , Server.error );
 			}

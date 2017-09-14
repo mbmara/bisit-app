@@ -48,7 +48,7 @@ Policy.create([
 	},
 	{
 		name:"Visitor List",
-		route:"visitor-list",
+		route:"index.visitor-list",
 		url:"visitor-list"
 	}
 ])

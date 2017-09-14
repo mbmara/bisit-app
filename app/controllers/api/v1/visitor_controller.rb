@@ -5,6 +5,11 @@ class Api::V1::VisitorController < ApplicationController
 	require 'base64'
 	require 'chikka'
 
+
+	def quelist
+		@visitors = VisitLog.where("state=?",2)
+	end
+
 	def verify
 		if @current_user.super_admin?
 			json_response false,"Account not appropriate"
