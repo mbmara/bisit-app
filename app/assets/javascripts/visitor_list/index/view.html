@@ -52,19 +52,57 @@
               <br>
               <h1>{{visitorList.data.info.fullname}}</h1>
               <div class="col-sm-12">
-                <table class="table table-bordered">
+                <table class="table table-bordered text-left">
                  <tr>
-                   <td>asas</td>
-                   <td>asas</td>
-                   <td>asas</td>
-                   <td>asas</td>
+                   <th>Company</th>
+                   <td>{{visitorList.data.info.log[0].company}}</td>
+                 </tr>
+                 <tr>
+                   <th>Contact Person</th>
+                   <td>{{visitorList.data.info.log[0].staff}}</td>
+                 </tr>
+                 <tr>
+                   <th>Purpose</th>
+                   <td>{{visitorList.data.info.log[0].purpose}}</td>
+                 </tr>
+                 <tr ng-if="visitorList.data.info.identifiction_code">
+                   <th>ID</th>
+                   <td>{{visitorList.data.info.identifiction_code}}</td>
                  </tr>
                </table> 
+               <div class="form-group">
+                 <button class="btn btn-primary" ng-click="visitorList.attachId()">Attach Identification</button>
+                 <button class="btn btn-success" ng-click="visitorList.approve()">Login Visitor</button>
+                 <button class="btn btn-danger" ng-click="visitorList.deny()">Deny</button>
+               </div>
               </div>
-               
+            
             </div>
           </div>
           
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="qrCamera99" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content text-center">
+          <br>
+          <button class="btn btn-info" ng-click="kiosk_index.loadOtherQrCam($index)" ng-repeat="a in kiosk_index.qrcams">Camera {{$index+1}}</button>
+           <div class="camera_wrapper text-center">
+                <div class="camera_container text-center">
+                  <video id="qrcam99" height="262" width="350" autoplay></video>
+                </div>
+                <div class="form-group">
+                <input type="text" ng-model="visitorList.data.info.identifiction_code" class="form-control">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <button class="btn btn-danger" ng-click="visitorList.cancelQRCamera()">Cancel</button>
+              
+              <button class="btn btn-success" ng-click="visitorList.confirmQrCode()">Confirm</button>
+            </div>
+    </div>
+  </div>
 </div>

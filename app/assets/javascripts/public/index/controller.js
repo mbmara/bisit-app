@@ -128,11 +128,12 @@
 			var timer;
 
 			function submitVisitorProfile(){
-				public_kiosk.step = 0;
+				
 				if(angular.isUndefined(public_kiosk.visitor.visitor_img)){
 					Notification.error("visitor photo is missing");
 					return false;
 				}
+				public_kiosk.step = 0;
 				visitorFactory.login2( public_kiosk.visitor, function(res){
 					if(res.data.status){
 						public_kiosk.step = 2;
