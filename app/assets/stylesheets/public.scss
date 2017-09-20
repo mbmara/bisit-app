@@ -30,4 +30,10 @@
 	position: absolute;	
 	opacity: 0.1;
 	top: 0;
+	z-index:-1;
+}
+.customer_notification{
+	background:#fff;
+	border:5px solid #000;
+	padding:20px;
 }

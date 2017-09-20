@@ -7,14 +7,22 @@
 		publicKioskController.$inject = ['UserFactory','$state','$timeout','Scanner','CompanyFactory','Notification','visitorFactory'];
 
 		function publicKioskController(UserFactory, $state, $timeout, Scanner, CompanyFactory,Notification,visitorFactory){
+            
             var public_kiosk = this,qrcamera,video;
-
+            public_kiosk.step = 1;
             public_kiosk.cancelCamera = cancelCamera;
             public_kiosk.getCompanyStaff = getCompanyStaff;
             public_kiosk.takePicture = takePicture;
             public_kiosk.confirm = confirm;
             public_kiosk.reTake = reTake;
             public_kiosk.loadOtherCam = loadOtherCam;
+            public_kiosk.dismiss = dismiss;
+
+            function dismiss(){
+            	$timeout.cancel( timer );
+            	public_kiosk.visitor={};
+            	public_kiosk.step = 1;
+            }
             
             var state = $state.current.name.split(".")[1] || "self-assesment"
             
@@ -97,7 +105,7 @@
 				var constraints = {
                     video: {
                       optional: [{
-                        sourceId: (public_kiosk.devices.length>1) ? public_kiosk.devices[1] : public_kiosk.devices[0]
+                        sourceId: public_kiosk.devices[0]
                       }]
                     }
                 };
@@ -115,6 +123,8 @@
 			function cancel(){
 				public_kiosk.visitor ={};
 			}
+			var timer;
+
 			function submitVisitorProfile(){
 				
 				if(angular.isUndefined(public_kiosk.visitor.visitor_img)){
@@ -122,7 +132,16 @@
 					return false;
 				}
 				visitorFactory.login2( public_kiosk.visitor, function(res){
-					console.log(res);
+					if(res.data.status){
+						public_kiosk.step = 2;
+						timer = $timeout( function(){
+							public_kiosk.visitor={};
+							public_kiosk.step = 1;
+							
+						},15000)
+					}else{
+						alert("Registration failed!. Please contact customer service");
+					}
 				});
 				
 			}

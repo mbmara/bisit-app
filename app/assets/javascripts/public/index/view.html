@@ -2,80 +2,87 @@
 <!-- <img src="./images/bisit_app.png" class="text-center" height="500px" style="margin:20px;opacity: 0.1;position: absolute"> -->
 
 <div class="public_wrapper">
-	<div class="row">
-		<div class="col-sm-12 text-center">
-			<h1 style="font-weight: bold;color:#fefefe">Self Assesment Kiosk</h1>
-			
-			<br>
+	<div ng-if="public_kiosk.step===2" class="customer_notification text-center">
+		<h3>Thank You</h3>
+		<p>Please wait for your name to be called from one of our customer representative</p>
+		<button type="button" class="btn btn-success" ng-click="public_kiosk.dismiss()">OK</button>
+	</div>
+	<div ng-if="public_kiosk.step===1">
+		<div class="row">
+			<div class="col-sm-12 text-center">
+				<h1 style="font-weight: bold;color:#fefefe">Self Assesment Kiosk</h1>
+				
+				<br>
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label>First Name</label>
+					<input type="text" ng-model="public_kiosk.visitor.fname" class="form-control" required>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label>Last Name</label>
+					<input type="text" ng-model="public_kiosk.visitor.lname" class="form-control" required>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label>Middle Name</label>
+					<input type="text" ng-model="public_kiosk.visitor.mname" class="form-control" required>
+				</div>
+			</div>
 		</div>
 
-	</div>
-	<div class="row">
-		<div class="col-sm-4">
-			<div class="form-group">
-				<label>First Name</label>
-				<input type="text" ng-model="public_kiosk.visitor.fname" class="form-control" required>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label>Company</label>
+					<select class="form-control" ng-model="public_kiosk.visitor.company"
+					ng-options="a.id as a.name for a in public_kiosk.companies"
+					ng-change="public_kiosk.getCompanyStaff(public_kiosk.visitor.company)"
+					required
+					>
+					<option value="" hidden disabled selected>-Select Company-</option>
+				</select>
 			</div>
 		</div>
 		<div class="col-sm-4">
 			<div class="form-group">
-				<label>Last Name</label>
-				<input type="text" ng-model="public_kiosk.visitor.lname" class="form-control" required>
-			</div>
-		</div>
-		<div class="col-sm-4">
-			<div class="form-group">
-				<label>Middle Name</label>
-				<input type="text" ng-model="public_kiosk.visitor.mname" class="form-control" required>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-sm-4">
-			<div class="form-group">
-				<label>Company</label>
-				<select class="form-control" ng-model="public_kiosk.visitor.company"
-				ng-options="a.id as a.name for a in public_kiosk.companies"
-				ng-change="public_kiosk.getCompanyStaff(public_kiosk.visitor.company)"
+				<label>Contact Person</label>
+				<select class="form-control" ng-model="public_kiosk.visitor.staff"
+				ng-options="a.id as a.name for a in public_kiosk.staffs"
 				required
 				>
-				<option value="" hidden disabled selected>-Select Company-</option>
+				<option value="" hidden disabled selected>-Select Staff-</option>
 			</select>
 		</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="form-group">
-			<label>Contact Person</label>
-			<select class="form-control" ng-model="public_kiosk.visitor.staff"
-			ng-options="a.id as a.name for a in public_kiosk.staffs"
-			required
-			>
-			<option value="" hidden disabled selected>-Select Staff-</option>
-		</select>
-	</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="form-group">
-			<label>Purpose</label>
-			<input type="text" class="form-control" ng-model="public_kiosk.visitor.purpose" required>
-		</div>
-	</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-4">
-			
 		</div>
 		<div class="col-sm-4">
 			<div class="form-group">
-				<a ng-click="public_kiosk
-				.openCamera()" class="btn btn-success btn-block">Take Photo</a>
+				<label>Purpose</label>
+				<input type="text" class="form-control" ng-model="public_kiosk.visitor.purpose" required>
 			</div>
 		</div>
-		<div class="col-sm-4">
-			
 		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<a ng-click="public_kiosk
+					.openCamera()" class="btn btn-success btn-block">Take Photo</a>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				
+			</div>
 
+		</div>
 	</div>
 </div>
 <div class="navigation_wrapper2">
