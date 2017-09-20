@@ -7,6 +7,11 @@
 		<p>Please wait for your name to be called from one of our customer representative</p>
 		<button type="button" class="btn btn-success" ng-click="public_kiosk.dismiss()">OK</button>
 	</div>
+	<div ng-if="public_kiosk.step===0" class="customer_notification text-center">
+		<h3>Please Wait</h3>
+		<img src="./images/103.gif">
+		
+	</div>
 	<div ng-if="public_kiosk.step===1">
 		<div class="row">
 			<div class="col-sm-12 text-center">
@@ -87,7 +92,7 @@
 </div>
 <div class="navigation_wrapper2">
 	<button class="btn btn-danger home_btn" ng-click="public_kiosk.cancel()"> CANCEL </button>
-	<button class="btn btn-success home_btn pull-right" ng-click="public_kiosk.submitVisitorProfile()"> CONTINUE </button>
+	<button ng-show="public_kiosk.step==1" class="btn btn-success home_btn pull-right" ng-click="public_kiosk.submitVisitorProfile()"> CONTINUE </button>
 </div>
 <div class="modal fade" id="takePicture2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
