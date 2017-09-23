@@ -1,0 +1,26 @@
+<div class="webCameraWrapper">
+	<div class="form-group">
+		<button class="btn btn-default" ng-repeat="a in $ctrl.webcam.devices" ng-click="$ctrl.webcam.switchDevice($index)">Camera {{$index+1}}</button>
+	</div>
+	<div class="webcamContainer">
+		<img ng-src="{{$ctrl.webcam.visitor_img}}" height="262" width="350" ng-if="$ctrl.webcam.preview">
+		<canvas id="webcanvass" height="262" width="350" style="display: none"></canvas>
+		<video id="webcamera" height="262" width="350" autoplay ng-hide="$ctrl.webcam.preview"></video>	
+	</div>
+	<div class="row">
+		<div class="col-md">
+			<div class="col-sm-4">
+				<button class="btn btn-block btn-danger" ng-click="$ctrl.webcam.cancel()">Cancel</button>
+			</div>
+			<div class="col-sm-4" ng-if="!$ctrl.webcam.preview">
+				<button ng-click="$ctrl.webcam.capture()" class="btn btn-block btn-primary">Capture</button>
+			</div>
+			<div class="col-sm-4" ng-if="$ctrl.webcam.preview">
+				<button ng-click="$ctrl.webcam.retake()" class="btn btn-block btn-primary">Retake</button>
+			</div>
+			<div class="col-sm-4">
+				<button class="btn btn-block btn-success" ng-click="$ctrl.webcam.confirm()">Confirm</button>
+			</div>
+		</div>
+	</div>
+</div>

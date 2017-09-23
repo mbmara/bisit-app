@@ -5,6 +5,33 @@ class Api::V1::VisitorController < ApplicationController
 	require 'base64'
 	require 'chikka'
 
+	def approve
+		idz = @current_user.facilities[0].identifications.where("code = ?",approve_params[:identifiction_code]).last
+		if idz.nil?
+			json_response false,{Identification:" does not exist"	}
+			return false
+		end
+		if idz.in_use
+			json_response false,{ Identification:" is in use! Please logout first"	}
+			return false
+		end
+		if idz.facility_id != @current_user.facilities[0].id
+			json_response false,{Identification: "Does not belongs to this facility"}
+		end
+		log = VisitLog.find approve_params[:id]
+
+		log.state = :login
+		log.identification_id 	= idz.id
+		log.save
+		if log.save
+			idz.in_use = true
+			idz.save
+			json_response true,"ok"
+		else
+			json_response false,log.errors
+		end
+		json_response true,"ok"	
+	end
 
 	def quelist
 		@visitors = VisitLog.where("state=?",2)
@@ -282,6 +309,9 @@ class Api::V1::VisitorController < ApplicationController
 
 
 	private
+	def approve_params
+		params.require(:visitor).permit(:id, :identifiction_code);
+	end
 	def search_params
 		params.require(:search).permit(:facility, :company, :status, :visitor_name, :date_from, :date_to)
 	end

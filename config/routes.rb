@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       post 'visitor/search', to: 'visitor#search'
       post 'visitor/verify', to: 'visitor#verify'
       get 'visitor/quelist', to: 'visitor#quelist'
+      post 'visitor/approve', to: 'visitor#approve'
 
       post 'facility/create', to: 'facility#create'
       get 'facility/all', to: 'facility#index'

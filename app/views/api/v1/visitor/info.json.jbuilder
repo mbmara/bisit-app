@@ -1,5 +1,5 @@
 json.info do
-  json.extract! @vis, :image
+  json.extract! @vis, :image, :id
   json.extract! @vis.profile, :fullname
   json.log @vis.visit_logs do |bb|
     json.extract! bb, :purpose, :created_at

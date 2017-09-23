@@ -19,7 +19,12 @@
 			f.search = search;
 			f.verify = verify;
 			f.quelist = quelist;
+			f.approve = approve;
 
+
+			function approve(data, k ){
+				Server.post('visitor/approve',{visitor:data}).then( k );
+			}
 			function quelist( k ){
 				Server.get('visitor/quelist').then( k , Server.error );
 			}

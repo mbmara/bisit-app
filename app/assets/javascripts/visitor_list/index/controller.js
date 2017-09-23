@@ -4,10 +4,14 @@
 		.module('admDashboard')
 		.controller('visitorListController',visitorListController);
 
-		visitorListController.$inject = ['Notification','$state','UserFactory','visitorFactory','$timeout','$scope'];
+		visitorListController.$inject = ['Notification','$state','UserFactory','visitorFactory','$timeout','$scope','QRCamera'];
 
-		function visitorListController(Notification,$state, UserFactory,visitorFactory,$timeout, $scope ){
+		function visitorListController(Notification,$state, UserFactory,visitorFactory,$timeout, $scope,QRCamera){
             var visitorList = this;
+            
+            visitorList.qr_cam = true;
+
+
             visitorList.attachId = attachId;
             visitorList.approve = approve;
             visitorList.deny = deny;
@@ -20,10 +24,16 @@
             visitorList.confirmQrCode = confirmQrCode;
             visitorList.cancelQrCode = cancelQrCode;
 
+            QRCamera.cancel = function(){
+              visitorList.qr_cam = false;
+            }
+            QRCamera.confirm = function( code ){
+              alert( code );
+            }
 
             // delete qr code
             function cancelQrCode(){
-                  
+                  qrcamera.stop();
                   $("#qrCamera99").modal("hide");
                   $("#visitorInformationA").modal("show");
                   delete visitorList.info.identifiction_code;
@@ -32,6 +42,7 @@
             }
             //attach code
             function confirmQrCode(){
+                  qrcamera.stop();
                   if(visitorList.data.info.identifiction_code){
                         $("#qrCamera99").modal("hide");
                         $("#visitorInformationA").modal("show");      
@@ -69,7 +80,17 @@
             }
 
             function approve(){
-                  alert("not yet implemented");
+              if(visitorList.data.info.identifiction_code){
+                var payload={
+                  id:visitorList.data.info.id,
+                  identifiction_code:visitorList.data.info.identifiction_code
+                }
+                visitorFactory.approve( payload ,  function(res){
+                  console.log(res);
+                })
+              }else{
+                  alert("Please attach Identification Card");
+              }
             }
 
             function deny(){

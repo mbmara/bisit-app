@@ -8,7 +8,7 @@ class VisitLog < ApplicationRecord
 
 	validates_presence_of :purpose, :company_id, :staff_id, :identification_id
 	#has_one :person_name, class_name:"Gcc::PersonName", primary_key: "Id", foreign_key: "PersonId"
-	enum state: [:login, :logout, :pending]
+	enum state: [:login, :logout, :pending, :rejected]
 	def logout
     	
     	self.update_columns(time_out: Time.zone.now,state: :logout)

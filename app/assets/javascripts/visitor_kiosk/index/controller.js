@@ -28,7 +28,7 @@
 			kiosk_index.loginVisitor = loginVisitor;
 			kiosk_index.logout_visitor = logout_visitor;
 			kiosk_index.search_visitor = search_visitor;
-			
+
 			kiosk_index.process = false;
 			CompanyFactory.getList( function(res){
 				kiosk_index.facility = UserFactory.facility.name;
@@ -38,6 +38,7 @@
 			$interval( function(){
 				kiosk_index.clock = Date.now();
 			},1000)
+
 
 			function logout_visitor(){
 				$state.go("kiosk.logout")

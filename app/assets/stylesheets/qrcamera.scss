@@ -1,0 +1,50 @@
+qr-camera{
+	height: 100%;
+	width: 100%;
+	background: rgba(0,0,0,0.6);
+	position: fixed;
+	top: 0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index: 9999;
+
+	.qrCameraWrapper{
+		width: 500px;
+		height: 360px;
+		background:#fff;
+		border:1px solid #000;
+		margin:auto;
+		position: absolute;
+  		top: 0; left: 0; bottom: 0; right: 0;
+	}
+}
+
+web-camera{
+	height: 100%;
+	width: 100%;
+	background: rgba(0,0,0,0.6);
+	position: fixed;
+	top: 0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index: 9999;
+
+	.webCameraWrapper{
+		width: 394px;
+		height: 392px;
+		background:#fff;
+		border:1px solid #000;
+		margin:auto;
+		position: absolute;
+  		top: 0; left: 0; bottom: 0; right: 0;
+  		padding: 20px;
+  		.webcamContainer{
+  			width: 350px;
+  			height: 262px;
+  			background:green;
+  			margin:0 auto 10px;
+  		}
+	}
+}

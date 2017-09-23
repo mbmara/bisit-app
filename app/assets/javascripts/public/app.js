@@ -7,11 +7,17 @@
 		function routes($stateProvider){
 
 			$stateProvider
-				.state('self-assesment',{
-					url:"/self-assesment",
+				.state('self-assesment.new_visitor',{
+					url:"/new_visitor",
 					controller:'publicKioskController',
 					templateUrl:'public/index/view.html',
-					controllerAs:'public_kiosk',
+					controllerAs:'public_kiosk'
+				})
+				.state('self-assesment',{
+					url:"/self-assesment",
+					controller:'mainSelfAssesController',
+					templateUrl:'public/main/view.html',
+					controllerAs:'public_main_kiosk',
 					resolve:{
 						UserAuth:['UserFactory','$state',function(UserFactory, $state ){
 							return UserFactory.authenticate().then( function(res){
