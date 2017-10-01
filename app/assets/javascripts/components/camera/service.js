@@ -22,14 +22,18 @@
     			initialize:initialize,
     			config:{ 
     				defaultPosition:0
-    			}
+    			},
+                destroy:destroy
 
     		},
     		stream,
             snapshot,
             video;
     		return f;
-
+            function destroy(){
+                f.prototype.visitor_img = null;
+                f.prototype.preview = false;
+            }
             function switchDevice( index ){
                 stopCamera();
                 open( index );
@@ -66,6 +70,7 @@
                 });
             }
     		function initialize( onReady ){
+                //delete f.prototype.visitor_img;
                 f.prototype.devices.length = 0;
 				navigator.mediaDevices.enumerateDevices().then(gotDevices); //.then(getStream).catch(handleError);
                 function gotDevices(deviceInfos) {

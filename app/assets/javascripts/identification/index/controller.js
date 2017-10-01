@@ -4,10 +4,12 @@
 		.module('admDashboard')
 		.controller('identificationController',identificationController);
 
-		identificationController.$inject = ['$interval','$timeout','$state','IdentificationFactory','FacilityFactory','UserFactory'];
+		identificationController.$inject = ['$state','IdentificationFactory','FacilityFactory','UserFactory','QRCamera','Notification'];
 
-		function identificationController( $interval, $timeout, $state,IdentificationFactory,FacilityFactory, UserFactory){
-			var identification = this;
+		function identificationController( $state,IdentificationFactory,FacilityFactory, UserFactory,QRCamera,Notification){
+			var identification = this,params={};
+			identification.qrcamera_window = false;
+
 			var state = $state.current.name.split(".")[1] || "index"
 			identification.byFacility = byFacility;
 
@@ -23,8 +25,23 @@
 				IdentificationFactory.getAll( function(res){
 					identification.ids = res.data.identifications;
 					identification.facilities = res.data.facilities;
-					identification.facilities.push({id:"",name:"All"})
+					params.facility = identification.facilities[0].id;
 				});
+				QRCamera.confirm = function(data){
+					params.serial = data;
+					identification.qrcamera_window = false;
+					IdentificationFactory.create(params, function(res){
+						if(res.data.status){
+							Notification.showSuccess(res.data.payload);
+							reload();
+						}else{
+							Notification.showError(res.data.payload);
+						}
+					})
+				}
+				QRCamera.cancel = function(){
+					identification.qrcamera_window = false;
+				}
 			});
 
 			function reload(){
@@ -33,8 +50,6 @@
 					identification.facilities = res.data.facilities;
 				});
 			}
-			identification.addForm = function(){
-				$state.go("index.identification.create");
-			}
+			
 		}
 })();

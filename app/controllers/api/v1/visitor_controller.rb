@@ -5,6 +5,13 @@ class Api::V1::VisitorController < ApplicationController
 	require 'base64'
 	require 'chikka'
 
+	def reject
+		log = VisitLog.find approve_params[:id]
+		log.state = :rejected
+		log.save
+		json_response true,"ok"
+	end
+
 	def approve
 		idz = @current_user.facilities[0].identifications.where("code = ?",approve_params[:identifiction_code]).last
 		if idz.nil?
@@ -30,7 +37,7 @@ class Api::V1::VisitorController < ApplicationController
 		else
 			json_response false,log.errors
 		end
-		json_response true,"ok"	
+		
 	end
 
 	def quelist
@@ -46,11 +53,11 @@ class Api::V1::VisitorController < ApplicationController
 		if idz.present?
 			logs = idz.visit_logs.last
 			if logs.present?
-				p "---"
-				p logs
 				if logs.state == "login"
 					img = Visitor.find logs.visitor_id
 					res = {}
+					res[:id] = logs.id
+					res[:purpose] = logs.purpose
 					res[:name]  = logs.profile.fullname
 					res[:image] = img.image
 					res[:staff] = logs.staff.fullname

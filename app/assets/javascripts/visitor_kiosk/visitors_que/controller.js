@@ -4,10 +4,10 @@
   .module('admDashboard')
   .controller('visitorsqueController', visitorsqueController);
 
-  visitorsqueController.$inject=['visitorFactory','$timeout','VisitorInfo','QRCamera'];
+  visitorsqueController.$inject=['visitorFactory','$timeout','VisitorInfo','QRCamera','Notification'];
 
-  function visitorsqueController(visitorFactory, $timeout,VisitorInfo,QRCamera){
-    var visitors_que = this,timer;
+  function visitorsqueController(visitorFactory, $timeout,VisitorInfo,QRCamera,Notification){
+    var visitors_que = this,timer,params={};
 
     visitors_que.qrcamera_window    = false;
     visitors_que.visitorInfo_window = false;
@@ -15,14 +15,41 @@
 
     VisitorInfo.close = function(){
       visitors_que.visitorInfo_window = false;
+      getList();
     }
     VisitorInfo.attach = function(){
       visitors_que.visitorInfo_window = false; 
       visitors_que.qrcamera_window    = true;
     }
+    VisitorInfo.reject = function( id ){
+      params.id = id;
+      visitorFactory.reject( params ,  function(res){
+        if(res.data.status){
+          visitors_que.visitorInfo_window = false;
+          Notification.showSuccess("Visitor is rejected");
+          getList();
+        }else{
+          Notification.showError(res.data.payload);
+        }
+      })
+    }
     VisitorInfo.approve = function( id ){
-      console.log( id );
-      visitors_que.visitorInfo_window = false; 
+      params.id = id;
+      if(params.identifiction_code){
+        visitors_que.visitorInfo_window = false;
+        visitorFactory.approve( params ,  function(res){
+          if(res.data.status){
+            Notification.showSuccess("Visitor is now login");
+            getList();
+          }else{
+            Notification.showError(res.data.payload);
+          }
+        })
+      }else{
+        alert("Please Attach Identification");
+      }
+       
+      
     }
     QRCamera.cancel = function(){
       visitors_que.visitorInfo_window = true; 
@@ -31,7 +58,7 @@
     QRCamera.confirm = function(data){
       visitors_que.visitorInfo_window = true; 
       visitors_que.qrcamera_window    = false;
-      console.log(data);  
+      params.identifiction_code = data;
     }
 
 
@@ -125,9 +152,7 @@
 //       id:visitors_que.data.info.id,
 //       identifiction_code:visitors_que.data.info.identifiction_code
 //     }
-//     visitorFactory.approve( payload ,  function(res){
-//       console.log(res);
-//     })
+
 //   }else{
 //     alert("Please attach Identification Card");
 //   }

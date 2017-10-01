@@ -27,8 +27,8 @@
     			if( typeof( f.approve )=='function' ) f.approve(f.initialize.data.id);
     			
     		}
-    		function reject(){
-    			if( typeof( f.reject )=='function' ) f.reject();
+    		function reject( ){
+    			if( typeof( f.reject )=='function' ) f.reject( f.initialize.data.id );
     			
     		}
     		function close(){

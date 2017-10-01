@@ -8,9 +8,7 @@
                             <div class="ibox-title">
                                 <h5>Identifications</h5>
                                 <div class="ibox-tools">
-
-                                    
-                                    <a class="btn btn-primary btn-xs" ng-click="identification.addForm()">Add new identifications</a>
+                                    <a class="btn btn-primary btn-xs" ng-if="identification.access==2" ng-click="identification.qrcamera_window = true">Add new identifications</a>
                                     <a class="btn btn-success btn-xs" ng-if="identification.facilities.length>2" data-toggle="dropdown"> Facilities <span class="caret"></span> </a>
                                     <ul class="dropdown-menu" id="menu3" aria-labelledby="drop6"> 
                                         <li ng-repeat="adm in identification.facilities">
@@ -54,3 +52,5 @@
         </div>
     </div>
 </div>
+
+<qr-camera ng-if="identification.qrcamera_window"></qr-camera>

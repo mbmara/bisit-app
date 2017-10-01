@@ -20,8 +20,11 @@
 			f.verify = verify;
 			f.quelist = quelist;
 			f.approve = approve;
+			f.reject = reject;
 
-
+			function reject( data, k ){
+				Server.post('visitor/reject',{visitor:data}).then( k );
+			}
 			function approve(data, k ){
 				Server.post('visitor/approve',{visitor:data}).then( k );
 			}

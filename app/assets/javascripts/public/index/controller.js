@@ -48,6 +48,7 @@
             }
 
             function dismiss(){
+            	WebCamera.destroy();
             	$state.go("self-assesment");
             }
 			
@@ -69,6 +70,7 @@
 				public_kiosk.step = 0;
 				visitorFactory.login2( public_kiosk.visitor, function(res){
 					if(res.data.status){
+						WebCamera.destroy();
 						public_kiosk.step = 2;
 						timer = $timeout( function(){
 							$state.go("self-assesment");

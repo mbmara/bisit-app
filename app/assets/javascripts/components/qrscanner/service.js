@@ -23,7 +23,7 @@
     	}
 
     	function init( onReady ){
-    		
+    		f.prototype.code = null;
 			$timeout( function(){
 				f.prototype.qrcamera = new Instascan.Scanner({ video: document.getElementById('qrcam') ,mirror:false,backgroundScan:false});
 			
