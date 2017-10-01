@@ -4,10 +4,12 @@
     	.module('admDashboard')
     	.controller("visitorInfoController", visitorInfoController);
 
-    	visitorInfoController.$inject = [];
+    	visitorInfoController.$inject = ["VisitorInfo"];
 
-    	function visitorInfoController(){
+    	function visitorInfoController( VisitorInfo ){
 
+    		var vm = this;
+    		vm.visitorinfo = VisitorInfo.initialize;
     		
     	}
 })()

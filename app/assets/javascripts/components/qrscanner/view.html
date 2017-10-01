@@ -1,13 +1,16 @@
 <div class="qrCameraWrapper">
 	<button class="btn btn-info" ng-click="kiosk_index.loadOtherQrCam($index)" ng-repeat="a in kiosk_index.qrcams">Camera {{$index+1}}</button>
-		<div class="camera_wrapper text-center">
-	    <div class="camera_container text-center" style="height: 218px;width: 350px;background: green">
+	<div class="camera_wrapper text-center">
+	    <div class="camera_container text-center" style="height: 218px;width: 350px;background: green;margin:10px auto;overflow: hidden">
 	    	<video  id="qrcam" height="218" width="350" autoplay></video>
 	    </div>
 	    <br>
-	    <div class="form-group">
-	    	<input type="text" ng-model="$ctrl.qrcam.code" class="form-control">
+	    <div class="col-sm-12">
+	    	<div class="form-group">
+		    	<input type="text" ng-model="$ctrl.qrcam.code" class="form-control">
+		    </div>	
 	    </div>
+	    
 	</div>
 
 	<div class="form-group text-center">

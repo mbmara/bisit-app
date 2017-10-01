@@ -25,7 +25,8 @@
 	<!-- <button class="home_btn2 pull-left" ui-sref="kiosk" style="margin-left:10px"><i class="fa fa-search"></i></button> -->
 	<p style="width:200px" class="clock_counter pull-right"><i class="fa fa-user-circle"></i> {{visitors_que.collections.length}}</p>
 </div>
-<qr-camera></qr-camera>
+<qr-camera ng-if="visitors_que.qrcamera_window"></qr-camera>
+<visitor-info ng-if="visitors_que.visitorInfo_window"></visitor-info>
 <!-- <div class="floatingSearchWindow">
 	<form role="form" class="form-inline">
         <div class="form-group">

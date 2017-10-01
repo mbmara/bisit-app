@@ -1,3 +1,46 @@
 <div class="qrCameraWrapper">
-	<h1>Sample</h1>
+	<div class="left_content pull-left">
+		<img height="200px" ng-src="./secret_upload/{{$ctrl.visitorinfo.data.image}}">	
+	</div>
+	<div class="right_content pull-right">
+		<div class="plate">
+			<span>Visitor Name:</span>
+			<p style="padding-left: 10px" ng-bind="::$ctrl.visitorinfo.data.fullname"></p>
+		</div>
+
+		<div class="plate">
+			<span>Company to visit:</span>
+			<p style="padding-left: 10px" ng-bind="::$ctrl.visitorinfo.data.company"></p>
+		</div>
+
+		<div class="plate">
+			<span>Contact Person:</span>
+			<p style="padding-left: 10px" ng-bind="::$ctrl.visitorinfo.data.staff"></p>
+		</div>
+		
+		<div class="plate">
+			<span>Purpose:</span>
+			<p style="padding-left: 10px" ng-bind="::$ctrl.visitorinfo.data.purpose"></p>
+		</div>
+		
+	</div>
+	<div class="clearfix"></div>
+	<div class="bottom_content">
+		<div class="row">
+			<div class="col-xs-3">
+				<button class="btn btn-primary b-r-xs btn-block" ng-click="$ctrl.visitorinfo.attach()">ATTACH ID</button>		
+			</div>	
+			<div class="col-xs-3">
+				<button class="btn btn-success b-r-xs btn-block" ng-click="$ctrl.visitorinfo.approve()">APPROVE</button>		
+			</div>
+			<div class="col-xs-3">
+				<button class="btn btn-danger b-r-xs btn-block" ng-click="$ctrl.visitorinfo.reject()">REJECT</button>		
+			</div>
+			<div class="col-xs-3">
+				<button class="btn btn-danger b-r-xs btn-block" ng-click="$ctrl.visitorinfo.close()">CLOSE</button>		
+			</div>			
+		</div>
+		
+		<!-- <button class="btn btn-success b-r-xs pull-right" style="width:270px">APPROVE</button> -->
+	</div>
 </div>

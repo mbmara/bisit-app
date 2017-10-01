@@ -1,3 +1,58 @@
+visitor-info{
+	height: 100%;
+	width: 100%;
+	background: rgba(0,0,0,0.6);
+	position: fixed;
+	top: 0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index: 999;
+	.qrCameraWrapper{
+		width: 500px;
+		height: 262px;
+		background:#fff;
+		border:1px solid #000;
+		margin:auto;
+		position: absolute;
+  		top: 0; left: 0; bottom: 0; right: 0;
+  		padding :10px;
+  		.left_content{
+  			width: 200px;
+  			min-height: 200px;
+  			background: orange;
+  		}	
+  		.right_content{
+  			width: 270px;
+  			min-height: 200px;
+  			//background: orange;
+  			font-size: 16px;
+  			color: #333;
+
+  			.plate{
+				//border:1px solid #eee;
+				background: #eee;
+				padding: 3px;
+				margin-bottom: 6px;
+  				span{
+	  				font-size: 12px;
+	  				display: block;
+	  				color: #888;
+	  			}
+	  			p{
+	  				margin:0;
+	  			}
+  			}	
+  			
+  		}
+  		.bottom_content{
+  			height: 34px;
+  			overflow: hidden;
+  		}
+	}
+
+
+}
 qr-camera{
 	height: 100%;
 	width: 100%;
@@ -10,13 +65,14 @@ qr-camera{
 	z-index: 9999;
 
 	.qrCameraWrapper{
-		width: 500px;
+		width: 382px;
 		height: 360px;
 		background:#fff;
 		border:1px solid #000;
 		margin:auto;
 		position: absolute;
   		top: 0; left: 0; bottom: 0; right: 0;
+  		
 	}
 }
 
