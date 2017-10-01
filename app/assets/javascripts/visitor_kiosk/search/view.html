@@ -1,6 +1,6 @@
 <div class="logout_wrapper">
 	<div class="row">
-		<div class="col-sm-6 text-center">
+		<div class="col-sm-4 text-center">
 			<form ng-submit="kiosk_search.find()">
 				<div class="input-group">
 					<input type="text" placeholder="Search" class="form-control" ng-model="kiosk_search.data.name"> 
@@ -22,7 +22,7 @@
 				</tr>
 			</table>
 		</div>
-		<div class="col-sm-6" ng-if="kiosk_search.visitor_info">
+		<div class="col-sm-8" ng-if="kiosk_search.visitor_info">
 			<div class="id_wrapper text-center">
 				<img ng-src="./secret_upload/{{kiosk_search.visitor_info.info.image}}" height="200px">
 				<h1>{{kiosk_search.visitor_info.info.fullname}}</h1>
