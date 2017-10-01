@@ -5,9 +5,9 @@
 		.module('admDashboard')
 		.controller('kioskIndexController', kioskIndexController);
 
-		kioskIndexController.$inject=['UserFactory','visitorFactory','CompanyFactory','$state','UserAuth','$interval','$timeout','Scanner','$scope','Notification'];
+		kioskIndexController.$inject=['UserFactory','visitorFactory','CompanyFactory','$state','UserAuth','$interval','$timeout','$scope','Notification'];
 
-		function kioskIndexController( UserFactory,visitorFactory, CompanyFactory,$state,UserAuth, $interval, $timeout, Scanner, $scope,Notification ){
+		function kioskIndexController( UserFactory,visitorFactory, CompanyFactory,$state,UserAuth, $interval, $timeout, $scope,Notification ){
 			
 			var kiosk_index = this, video;
 			kiosk_index.stage = 1;
@@ -109,9 +109,7 @@
 			}
 
 			kiosk_index.devices  = [];
-			Scanner.enumDeviceCamera( function(devices){
-				kiosk_index.devices  = devices;
-			});	//initialize camera
+			
 			kiosk_index.visitor = {};
 			function getCompanyStaff( id ){
 				CompanyFactory.getStaff(id, function(res){

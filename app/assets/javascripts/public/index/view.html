@@ -1,6 +1,6 @@
 <div class="logo_wrapper_public"></div>
 <!-- <img src="./images/bisit_app.png" class="text-center" height="500px" style="margin:20px;opacity: 0.1;position: absolute"> -->
-
+<form ng-submit="public_kiosk.submitVisitorProfile()">
 <div class="public_wrapper">
 	<div ng-if="public_kiosk.step===2" class="customer_notification text-center">
 		<h3>Thank You</h3>
@@ -21,6 +21,7 @@
 			</div>
 
 		</div>
+		
 		<div class="row">
 			<div class="col-sm-4">
 				<div class="form-group">
@@ -90,7 +91,8 @@
 	</div>
 </div>
 <div class="navigation_wrapper2">
-	<button class="btn btn-danger home_btn" ui-sref="self-assesment"> CANCEL </button>
-	<button ng-show="public_kiosk.step==1" class="btn btn-success home_btn pull-right" ng-click="public_kiosk.submitVisitorProfile()"> CONTINUE </button>
+	<a class="btn btn-danger home_btn" ui-sref="self-assesment"> CANCEL </a>
+	<button type="submit" ng-show="public_kiosk.step==1" class="btn btn-success home_btn pull-right" > CONTINUE </button>
 </div>
+</form>
 <web-camera ng-if="public_kiosk.camera"></web-camera>	

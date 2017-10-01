@@ -34,6 +34,7 @@
 				date_to:""
 			}
 			UserFactory.initialize(state, function(permission){
+				
 				visitorFactory.all( function(res){
 					
 					visitor.data = res.data;

@@ -5,7 +5,8 @@
 //= require ngstorage
 //= require angular-ui-router
 //= require angular-notify
-//= require scanner/qrscanner.js
 //= require angular-timeago
 //= require angularjs-datepicker
+//= require scanner/qrscanner
+//= require boot.js
 //= require_tree .
