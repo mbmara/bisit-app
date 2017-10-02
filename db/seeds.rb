@@ -27,9 +27,9 @@ Policy.create([
 		url:"user"
 	},
 	{
-		name:"Visitors",
-		route:"index.visitor",
-		url:"visitor"
+		name:"Reports",
+		route:"index.report",
+		url:"report"
 	},
 	{
 		name:"Identifications",

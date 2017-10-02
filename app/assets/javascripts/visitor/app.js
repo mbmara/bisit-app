@@ -7,8 +7,8 @@
 		function routes($stateProvider){
 
 			$stateProvider
-				.state("index.visitor",{
-					url:"visitor",
+				.state("index.report",{
+					url:"report",
 					controller:'visitorController',
 					templateUrl:"visitor/index/view.html",
 					controllerAs:'visitor'
