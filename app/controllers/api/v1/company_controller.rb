@@ -8,6 +8,7 @@ class Api::V1::CompanyController < ApplicationController
       com.notification = params[:notification]
       com.save
       json_response true,"Updated"
+      
     end
 
     def removestaff

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+
+      get 'statistics', to: 'facility#statistic'
+
       post 'user/create', to: 'user#create'
       get 'user/list', to: 'user#index'
       get 'user/roles', to: 'user#roles'

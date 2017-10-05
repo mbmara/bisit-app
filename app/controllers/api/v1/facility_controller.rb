@@ -1,6 +1,8 @@
 class Api::V1::FacilityController < ApplicationController
 
-
+	def statistic
+		json_response true,"ok"
+	end
 	def index
 		@facilities = Facility.all.order id: :desc	
 	end
