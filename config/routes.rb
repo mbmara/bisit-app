@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       post 'company/update', to: 'company#update'
       post 'company/search', to:'company#search'
       post 'company/staff/remove', to: 'company#removestaff'
-
+      post 'company/update_notification/:id', to:'company#update_notification'
       post 'identification/create', to: 'identification#create'
       get 'identification/all', to: 'identification#index'
 

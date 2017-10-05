@@ -3,6 +3,12 @@ class Api::V1::CompanyController < ApplicationController
     before_action :authorize_request, except:[]
     before_action only:[:create, :search, :remove, :update, :removestaff] {init_permission(3)}
 
+    def update_notification
+      com = Company.find params[:id]
+      com.notification = params[:notification]
+      com.save
+      json_response true,"Updated"
+    end
 
     def removestaff
       if !@current_user_permission[0][:pdelete]

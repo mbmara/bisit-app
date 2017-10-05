@@ -14,24 +14,27 @@
             f.getDetail  = getDetail;
             f.addStaff = addStaff;
             f.getStaff = getStaff;
-						f.remove = remove;
-						f.update = update;
-						f.search = search;
-						f.removeStaff = removeStaff;
+			f.remove = remove;
+			f.update = update;
+			f.search = search;
+			f.removeStaff = removeStaff;
+            f.updateNotification = updateNotification;
 
-
-						function removeStaff(staff_id, company_id, k ){
-							Server.post('company/staff/remove',{staff_id:staff_id,company_id:company_id}).then( k , Server.error);
-						}
-						function search( str,k ){
-							Server.post('company/search',{search:str}).then( k, Server.error);
-						}
-						function update(data, k){
-							Server.post('company/update',{company:data}).then( k , Server.error);
-						}
-						function remove( id, k ){
-							Server.post('company/remove',{id:id}).then( k , Server.error);
-						}
+            function updateNotification(id,notif, k ){
+                Server.post('company/update_notification/'+id,{notification:notif}).then( k , Server.error );
+            }
+			function removeStaff(staff_id, company_id, k ){
+				Server.post('company/staff/remove',{staff_id:staff_id,company_id:company_id}).then( k , Server.error);
+			}
+			function search( str,k ){
+				Server.post('company/search',{search:str}).then( k, Server.error);
+			}
+			function update(data, k){
+				Server.post('company/update',{company:data}).then( k , Server.error);
+			}
+			function remove( id, k ){
+				Server.post('company/remove',{id:id}).then( k , Server.error);
+			}
             function getStaff(id,k){
                 Server.post('company/staff',{id:id}).then(k,Server.error)
             }

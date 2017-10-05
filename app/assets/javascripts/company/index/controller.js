@@ -14,8 +14,8 @@
 						UserFactory.initialize(state, function(permission){
 							company.access_level = UserFactory.access;
 							company.list = list;
-	            company.collections = [];
-	            company.loadCompany= loadCompany;
+				            company.collections = [];
+				            company.loadCompany= loadCompany;
 							company.permission = permission;
 							company.remove = remove;
 							company.addtag = addtag;

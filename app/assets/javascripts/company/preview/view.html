@@ -40,6 +40,7 @@
                     </tr>
                 </tbody>
             </table>
+
         </div>
 
 
@@ -47,6 +48,16 @@
     </div>
     <div class="row">
         <div class="col-md-6">
+            <div class="ibox" ng-if="company.access_level==1">
+                <div class="ibox-title">
+                    Notification Setting
+                </div>
+                <div class="ibox-content">
+                    <select class="form-control" ng-change="company_view.changeNotification()" ng-options="a.id as a.name for a in company_view.notifications" ng-model="company_view.data.notification">
+                        <option value="" hidden selected disabled>-Select Notification-</option>
+                    </select>
+                </div>
+            </div>
             <div class="ibox">
                 <div class="ibox-title">
                     <h5>Staff</h5>
