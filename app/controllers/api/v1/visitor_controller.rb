@@ -38,18 +38,23 @@ class Api::V1::VisitorController < ApplicationController
 			if log.company.notification === 0
 				
 				UserMailer.notify_staff(log).deliver_later
+				json_response true,"ok"
 			else
+				begin
+					sms_body = "Hi Staff #{log.staff.fullname}, Visitor #{log.profile.fullname} is arriving."
+
+					client_id = "8797a590b66cd3300345f0ba75834c756c9cffd764a467637886a5cee92ae044"
+					secret_key = "5e8ebdf79c587e9d547b972b5d99f080a70bf1d0119845f6afab642361dfcc50"
+					shortcode = "292906528"
+					client = Chikka::Client.new(client_id:client_id, secret_key:secret_key, shortcode:shortcode)
+					client.send_message(message:sms_body, mobile_number:log.staff.mobile)
+
+				rescue 
+					json_response true,"ok"
+				end
 				
-				sms_body = "Hi Staff #{log.staff.fullname}, Visitor #{log.profile.fullname} is arriving."
-
-				client_id = "aa7eb7bbe64144f6d1a4ffeaf56cff5046dc5e0d19def9df029684dd6a871a65"
-				secret_key = "cb131172b1cbcf1705c501dafdfb5c1dee0a25f24a94e8c13a485134b27a3d4c"
-				shortcode = "2929024482"
-				client = Chikka::Client.new(client_id:client_id, secret_key:secret_key, shortcode:shortcode)
-				client.send_message(message:sms_body, mobile_number:log.staff.mobile)
-
 			end
-			json_response true,"ok"
+			
 		else
 			json_response false,log.errors
 		end
