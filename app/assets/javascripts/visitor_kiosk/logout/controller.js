@@ -31,16 +31,18 @@
 			}
 			QRCamera.cancel = function(){
 				kiosk_logout.qrcamera_window = true;
+				kiosk_logout.infoWindow = false;
 				$state.go("kiosk");
 			}
 			function cancel(){
 				kiosk_logout.qrcamera_window = true;
+				kiosk_logout.infoWindow = false;
 				$state.go("kiosk");
 			}
 
 			function abort(){
 				kiosk_logout.qrcamera_window = true;
-				kiosk_logout.infoWindow = true
+				kiosk_logout.infoWindow = false
 			}
 			function logout(){
 				visitorFactory.logout(params.code, function(res){
@@ -49,7 +51,7 @@
 						delete params.code;
 						kiosk_logout.visitor_info = {};
 						kiosk_logout.qrcamera_window = true;
-						kiosk_logout.infoWindow = true;
+						kiosk_logout.infoWindow = false;
 						
 					}else{
 						Notification.showError(res.data.payload)
