@@ -48,9 +48,9 @@ class Api::V1::VisitorController < ApplicationController
 					shortcode = "292906528"
 					client = Chikka::Client.new(client_id:client_id, secret_key:secret_key, shortcode:shortcode)
 					client.send_message(message:sms_body, mobile_number:log.staff.mobile)
-
-				rescue 
 					json_response true,"ok"
+				rescue 
+					json_response false,{Chikka:"failed to send, check balance"}
 				end
 				
 			end
