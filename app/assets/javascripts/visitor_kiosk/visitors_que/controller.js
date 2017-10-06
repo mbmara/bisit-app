@@ -40,7 +40,7 @@
         visitorFactory.approve( params ,  function(res){
           if(res.data.status){
             Notification.showSuccess("Visitor is now login");
-            //getList();
+            getList();
           }else{
             Notification.showError(res.data.payload);
           }
