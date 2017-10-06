@@ -40,7 +40,7 @@ class Api::V1::VisitorController < ApplicationController
 				UserMailer.notify_staff(log).deliver_later
 				json_response true,"ok"
 			else
-#				begin
+				begin
 					sms_body = "Hi Staff #{log.staff.fullname}, Visitor #{log.profile.fullname} is arriving."
 
 					client_id = "8797a590b66cd3300345f0ba75834c756c9cffd764a467637886a5cee92ae044"
@@ -49,9 +49,10 @@ class Api::V1::VisitorController < ApplicationController
 					client = Chikka::Client.new(client_id:client_id, secret_key:secret_key, shortcode:shortcode)
 					client.send_message(message:sms_body, mobile_number:log.staff.mobile)
 
-#				rescue 
-#					json_response true,"ok"
-#				end
+					json_response true,"ok"
+				rescue 
+					json_response false,{Chikka:"failed to send, check balance"}
+				end
 				
 			end
 			
