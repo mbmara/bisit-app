@@ -29,11 +29,11 @@ class Api::V1::VisitorController < ApplicationController
 		log = VisitLog.find approve_params[:id]
 
 		
-		#log.state = :login
+		log.state = :login
 		log.identification_id 	= idz.id
 		log.save
 		if log.save
-			#idz.in_use = true
+			idz.in_use = true
 			idz.save
 			if log.company.notification === 0
 				
