@@ -42,7 +42,7 @@ Rails.application.routes.draw do
       get 'visitor/quelist', to: 'visitor#quelist'
       post 'visitor/approve', to: 'visitor#approve'
       post 'visitor/reject', to: 'visitor#reject'
-
+      post 'visitor/forcelogout', to:'visitor#forcelogout'
       post 'facility/create', to: 'facility#create'
       get 'facility/all', to: 'facility#index'
     end

@@ -5,6 +5,16 @@ class Api::V1::VisitorController < ApplicationController
 	require 'base64'
 	require 'chikka'
 
+	def forcelogout
+		visitor = Visitor.find(params[:id]).visit_logs.last
+		visitor.state = :logout
+		visitor.save
+		v = Identification.find(visitor.identification_id)
+		v.in_use = false
+		v.save
+		json_response true,"ok"
+	end
+
 	def reject
 		log = VisitLog.find approve_params[:id]
 		log.state = :rejected
@@ -139,31 +149,32 @@ class Api::V1::VisitorController < ApplicationController
 			json_response false,{Identification: "Does not belongs to this facility"}
 		end
 
-		vis = Visitor.find relogin_params[:visitor_id]
+		vis = Visitor.find relogin_params[:id]
 		if vis.present?
 			if vis.visit_logs.last.state=="login"
 				json_response false,{Visitor:" is still log In"}
 				return false
 			end
-			log = vis.visit_logs.new
-			#create log
-			log = vis.visit_logs.new
-			log.company_id 	= relogin_params[:company]
-			log.staff_id 	= relogin_params[:staff]
-			log.user_id 	= 1
-			log.facility_id = idz.facility_id
-			log.visitor_id 	= relogin_params[:visitor_id]
-			log.time_out = 0
-			log.purpose = relogin_params[:purpose]
-			log.identification_id 	= relogin_params[:identifiction_code]
-			log.state = :login
-			if log.save
-				idz.in_use = true
-				idz.save
-				json_response true,"ok"
-			else
-				json_response false,log.errors
-			end
+			json_response true,"aloha"
+			# log = vis.visit_logs.new
+			# #create log
+			# log = vis.visit_logs.new
+			# log.company_id 	= relogin_params[:company]
+			# log.staff_id 	= relogin_params[:staff]
+			# log.user_id 	= 1
+			# log.facility_id = idz.facility_id
+			# log.visitor_id 	= relogin_params[:visitor_id]
+			# log.time_out = 0
+			# log.purpose = relogin_params[:purpose]
+			# log.identification_id 	= relogin_params[:identifiction_code]
+			# log.state = :login
+			# if log.save
+			# 	idz.in_use = true
+			# 	idz.save
+			# 	json_response true,"ok"
+			# else
+			# 	json_response false,log.errors
+			# end
 		else
 			json_response false,{Invalid:" Visitor Records"}
 		end
@@ -254,19 +265,7 @@ class Api::V1::VisitorController < ApplicationController
 		  f.write image_data
 		end
 
-		staff = Profile.find_by_staff_id visitor_params[:staff]
-
-
-		#compose message
-		sms_body = "Hi Staff #{staff.lname} #{staff.fname} Visitor #{profile.fullname} is arriving."
-
-		client_id = "aa7eb7bbe64144f6d1a4ffeaf56cff5046dc5e0d19def9df029684dd6a871a65"
-		secret_key = "cb131172b1cbcf1705c501dafdfb5c1dee0a25f24a94e8c13a485134b27a3d4c"
-		shortcode = "2929024482"
-
-		#client = Chikka::Client.new(client_id:client_id, secret_key:secret_key, shortcode:shortcode)
-		#client.send_message(message:sms_body, mobile_number:staff.mobile)
-
+	
 		json_response true,"You are now registered"
 	end
 

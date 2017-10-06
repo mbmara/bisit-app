@@ -1,10 +1,6 @@
 json.array! @visitors do |v|
-  json.extract! v, :visitor_id, :fullname
-  # next if v.visitor.nil?
-  # json.info v.visitor
-  # json.log v.visitor.visit_logs do |v|
-  #   json.staff v.staff.fullname
-  #   json.facility v.facility.name
-  #   json.company v.company.name
-  # end
+	next if !Visitor.find(v.visitor_id).visit_logs.last.present?
+	next if Visitor.find(v.visitor_id).visit_logs.last.state==2
+  	json.extract! v, :visitor_id, :fullname
+
 end

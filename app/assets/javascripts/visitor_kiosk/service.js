@@ -21,6 +21,7 @@
 			f.quelist = quelist;
 			f.approve = approve;
 			f.reject = reject;
+			f.forceLogout = forceLogout;
 
 			function reject( data, k ){
 				Server.post('visitor/reject',{visitor:data}).then( k );
@@ -48,6 +49,9 @@
 			}
 			function logout( code , k ){
 				Server.post('visitor/logout',{code:code}).then( k , Server.error);
+			}
+			function forceLogout( id, k ){
+				Server.post('visitor/forcelogout',{id:id}).then( k , Server.error);	
 			}
 			function all( k ){
 				Server.get('visitor/all').then(k , Server.error);
