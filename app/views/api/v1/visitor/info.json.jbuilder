@@ -4,4 +4,5 @@ json.info do
   json.extract! @vis.visit_logs.last, :purpose
   json.company @vis.visit_logs.last.company.name
   json.staff @vis.visit_logs.last.staff.fullname
+  json.status @vis.visit_logs.last.state
 end
