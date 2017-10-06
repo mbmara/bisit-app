@@ -47,7 +47,7 @@
 
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="ibox" ng-if="company.access_level==1">
                 <div class="ibox-title">
                     Notification Setting
@@ -64,39 +64,45 @@
                     <a data-toggle="modal" data-target="#createStaff" class="btn btn-primary btn-xs pull-right" >Add Staff</a>
                 </div>
                 <div class="ibox-content mail-box">
-                    <table class="table table-hover table-mail">
-                        <tbody>
-                            <tr class="unread" >
-                                <td class="mail-subject">Name</td>
-                                <td class="mail-contact">Position</td>
-                                <td class="mail-contact">Contact</td>
-                                <td></td>
-                            </tr>
-                            <tr class="read" ng-repeat="a in company_view.data.staffs">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-mail">
+                            <tbody>
+                                <tr class="unread" >
+                                    <td class="mail-subject">Name</td>
+                                    <td class="mail-contact">Position</td>
+                                    <td class="mail-contact">Contact</td>
+                                    <td class="mail-contact">Email</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="read" ng-repeat="a in company_view.data.staffs">
 
-                                <td class="mail-subject">{{a.name}}</td>
-                                <td class="mail-contact">
-                                    {{a.position}}
-                                </td>
-                                <td class="mail-contact">
-                                    {{a.contact}}
-                                </td>
-                                <td>
-                                  <button ng-click="company_view.removeStaff(a.id, $index )" type="button" class="btn btn-danger btn-xs">Delete</button>
-                                </td>
-                            </tr>
-                            <!-- <tr class="read">
-                                <td class="mail-ontact"><a href="mail_detail.html">Facebook</a> <span class="label label-warning pull-right">Clients</span> </td>
-                                <td class="mail-subject"><a href="mail_detail.html">Many desktop publishing packages and web page editors.</a></td>
-                                <td class=""></td>
-                                <td class="text-right mail-date">Jan 16</td>
-                            </tr> -->
-                        </tbody>
-                    </table>
+                                    <td class="mail-subject">{{a.name}}</td>
+                                    <td class="mail-contact">
+                                        {{a.position}}
+                                    </td>
+                                    <td class="mail-contact">
+                                        {{a.contact}}
+                                    </td>
+                                    <td class="mail-contact">
+                                        {{a.email_address}}
+                                    </td>
+                                    <td>
+                                      <button ng-click="company_view.removeStaff(a.id, $index )" type="button" class="btn btn-danger btn-xs">Delete</button>
+                                    </td>
+                                </tr>
+                                <!-- <tr class="read">
+                                    <td class="mail-ontact"><a href="mail_detail.html">Facebook</a> <span class="label label-warning pull-right">Clients</span> </td>
+                                    <td class="mail-subject"><a href="mail_detail.html">Many desktop publishing packages and web page editors.</a></td>
+                                    <td class=""></td>
+                                    <td class="text-right mail-date">Jan 16</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="ibox">
                 <div class="ibox-title">
                     <h5>Visitors Activity</h5>
@@ -144,24 +150,28 @@
 
             <div class="form-group">
       			<label class="control-label">Position:</label>
-      			<input type="text" ng-model="company_view.staff.position" class="form-control"></input>
+      			<input type="text" ng-model="company_view.staff.position" class="form-control" required></input>
             </div>
             <div class="form-group">
       			<label class="control-label">First Name:</label>
-      			<input type="text" ng-model="company_view.staff.fname" class="form-control"></input>
+      			<input type="text" ng-model="company_view.staff.fname" class="form-control" required></input>
               </div>
             <div class="form-group">
       			<label class="control-label">Last Name:</label>
-      			<input type="text" ng-model="company_view.staff.lname" class="form-control"></input>
+      			<input type="text" ng-model="company_view.staff.lname" class="form-control" required></input>
               </div>
             <div class="form-group">
       			<label class="control-label">Middle Name:</label>
-      			<input type="text" ng-model="company_view.staff.mname" class="form-control"></input>
+      			<input type="text" ng-model="company_view.staff.mname" class="form-control" required></input>
       		</div>
       		<div class="form-group">
       			<label class="control-label">Contact Number: <small>Must begin 63 not 0 e.g 63915 000 1111</small></label>
       			<input type="text" ng-model="company_view.staff.contact" class="form-control"></input>
       		</div>
+            <div class="form-group">
+                <label class="control-label">Email Address:</label>
+                <input type="email" ng-model="company_view.staff.email_address" class="form-control" required></input>
+            </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

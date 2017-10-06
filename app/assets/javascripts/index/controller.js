@@ -9,7 +9,6 @@
 
 		function indexController( UserFactory, $state,UserAuth){
 			var index = this;
-			console.log( " index " );
 			
 		}
 

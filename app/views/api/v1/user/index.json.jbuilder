@@ -9,6 +9,7 @@ if @current_user.super_admin?
 else
   json.users @users do |usr|
     # json.extract! usr, :id
+    next if usr.user_id.nil?
     json.role usr.user.user_role.name
     json.facility usr.user.facilities
     json.created_at usr.user.created_at

@@ -11,7 +11,7 @@
             var vm = this;
             
             BodyFactory.statistics( function(res){
-            	console.log( res );
+            	vm.data = res.data.payload;
             });
 
 		}

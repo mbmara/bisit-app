@@ -1,8 +1,7 @@
 class Api::V1::CompanyController < ApplicationController
 
     before_action :authorize_request, except:[]
-    before_action only:[:create, :search, :remove, :update, :removestaff] {init_permission(3)}
-
+    
     def update_notification
       com = Company.find params[:id]
       com.notification = params[:notification]
@@ -61,9 +60,25 @@ class Api::V1::CompanyController < ApplicationController
     end
     def addstaff
         ActiveRecord::Base.transaction do
-            comStaff = Company.find(staff_params[:company_id]).staffs.new
-            comStaff.position = staff_params[:position]
+            if @current_user.super_admin?
+              
+              comStaff = Company.find(staff_params[:company_id]).staffs.new
+              comStaff.position = staff_params[:position]
+              comStaff.facility_id = comStaff.facility_id
 
+            else
+              fac = @current_user.facilities.last
+              comStaff = Company.find(staff_params[:company_id]).staffs.new
+              
+              if fac.id != comStaff.facility_id
+                json_response false,{Unauthrorized:" Access of Facility"}
+                return false
+              end
+              comStaff.facility_id = comStaff.facility_id
+              comStaff.position = staff_params[:position]
+
+            end
+            comStaff.email_address = staff_params[:email_address]
             if comStaff.save
                 prof = comStaff.build_profile
                 prof.user_id = 0
@@ -78,6 +93,8 @@ class Api::V1::CompanyController < ApplicationController
                     json_response false,prof.errors
                     raise ActiveRecord::Rollback
                 end
+            else
+              json_response false,comStaff.errors
             end
         end
     end
@@ -149,7 +166,7 @@ class Api::V1::CompanyController < ApplicationController
     end
 
     def staff_params
-        params.require(:staff).permit( :position, :fname, :lname, :mname , :contact, :company_id )
+        params.require(:staff).permit( :position, :fname, :lname, :mname , :contact, :company_id, :email_address )
     end
     def company_params
         params.require(:company).permit(:id,:name, :floor, :unit_number, :website,:description, :facility_id)

@@ -18,7 +18,7 @@
 					UserAuth:['UserFactory','$state',function(UserFactory, $state ){
 						return UserFactory.authenticate().then( function(res){
 							if(res.data.status){
-								console.log(res.data);
+								
 								UserFactory.role = res.data.user_role;
 								UserFactory.profile = res.data.profile;
 								UserFactory.permission = res.data.permission;

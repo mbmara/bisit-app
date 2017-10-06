@@ -137,7 +137,7 @@ class Api::V1::UserController < ApplicationController
       @roles = UserRole.all
       @facilities = Facility.all
     else
-      @users = @current_user.facilities[0].facility_contents
+      @users = @current_user.facilities.last.facility_contents
       @roles = UserRole.where("id > ? ",1)
       @facilities = @current_user.facilities
     end
@@ -151,17 +151,12 @@ class Api::V1::UserController < ApplicationController
       user = User.new
       user.user_role_id = user_params[:role]
 
-      if user_params[:role] != 1
-        if user_params[:facility].present?
-          fc = user.facility_contents.new
-          fc.facility_id = user_params[:facility]
-          fc.save
-        else
-          json_response false,{Facility:" is Required"}
-          return false
-        end
-      end
-      user.facility_id = user_params[:facility] if user_params[:facility].present?
+      
+      fc = user.facility_contents.new
+      fc.facility_id = user_params[:facility] || @current_user.facilities.last.id
+      fc.save
+        
+      user.facility_id = fc.facility_id
       user.email = user_params[:email]
 
       unless user_params[:password] === user_params[:password1]

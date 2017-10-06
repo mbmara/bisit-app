@@ -1,58 +1,87 @@
 <div ui-view>
 	<div class="wrapper wrapper-content">
 		<div class="row">
-                    <div class="col-lg-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <span class="label label-success pull-right">Today</span>
-                                <h5>Visitors</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins">{{$ctrl.test}}</h1>
-                                
-                                <small>Total income</small>
-                            </div>
-                        </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-right">Today</span>
+                        <h5>Visitors</h5>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <span class="label label-info pull-right">Today</span>
-                                <h5>Log In Visitors</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins">275,800</h1>
-                                
-                                <small>New orders</small>
-                            </div>
-                        </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{$ctrl.data.visitors_total_today}}</h1>
+                        
+                        <small>Total</small>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <span class="label label-primary pull-right">Today</span>
-                                <h5>Log Out Visitors</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins">106,120</h1>
-                                
-                                <small>New visits</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <span class="label label-danger pull-right">All</span>
-                                <h5>Total Visitors</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins">80,600</h1>
-                                
-                                <small>In first month</small>
-                            </div>
-                        </div>
+                </div>
             </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-info pull-right">Today</span>
+                        <h5>Log In Visitors</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{$ctrl.data.visitors_login_today}}</h1>
+                        <small>Total</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-primary pull-right">Today</span>
+                        <h5>Log Out Visitors</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{$ctrl.data.visitors_logout_today}}</h1>
+                        
+                        <small>Total</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-right">All</span>
+                        <h5>Total Visitors</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{$ctrl.data.visitors_all}}</h1>
+                        
+                        <small>Total</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-right">All</span>
+                        <h5>Companies</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{$ctrl.data.companies_total}}</h1>
+                        
+                        <small>Total</small>
+                    </div>
+                </div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-right">All</span>
+                        <h5>Users</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{$ctrl.data.users_total}}</h1>
+                        
+                        <small>Total</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <h1>CHart</h1>    
+            </div>
+            
         </div>
 	</div>
 </div>
