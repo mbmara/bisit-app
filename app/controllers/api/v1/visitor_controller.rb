@@ -46,7 +46,7 @@ class Api::V1::VisitorController < ApplicationController
 				secret_key = "cb131172b1cbcf1705c501dafdfb5c1dee0a25f24a94e8c13a485134b27a3d4c"
 				shortcode = "2929024482"
 				client = Chikka::Client.new(client_id:client_id, secret_key:secret_key, shortcode:shortcode)
-				client.send_message(message:sms_body, mobile_number:staff.mobile)
+				client.send_message(message:sms_body, mobile_number:log.staff.mobile)
 
 			end
 			json_response true,"ok"
