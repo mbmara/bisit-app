@@ -12,6 +12,7 @@ class Api::V1::FacilityController < ApplicationController
 			data[:visitors_all] = VisitLog.count
 			data[:companies_total] = Company.count
 			data[:users_total] = User.count
+			data[:facilities] = Facility.count
  			
 		else
 			fac = @current_user.facilities.last

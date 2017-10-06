@@ -68,9 +68,11 @@ class Api::V1::CompanyController < ApplicationController
 
             else
               fac = @current_user.facilities.last
-              comStaff = Company.find(staff_params[:company_id]).staffs.new
-              
-              if fac.id != comStaff.facility_id
+              _company = Company.find staff_params[:company_id]
+              comStaff = _company.staffs.new
+            
+
+              if fac.id != _company.facility_id
                 json_response false,{Unauthrorized:" Access of Facility"}
                 return false
               end

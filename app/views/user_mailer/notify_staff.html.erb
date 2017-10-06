@@ -1,0 +1,9 @@
+<h3>Hello <%=@log.staff.fullname%>,</h3>
+<br>
+<p>----------------------------------------------------</p>
+<p>Visitor <%=@log.profile.fullname %> just arrive.</p>
+<p>login time <%= @log.created_at.to_formatted_s(:long_ordinal)%>
+<p>----------------------------------------------------</p>	
+<br>
+<br>
+<p>System Generated</p>

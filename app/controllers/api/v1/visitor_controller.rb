@@ -24,15 +24,31 @@ class Api::V1::VisitorController < ApplicationController
 		end
 		if idz.facility_id != @current_user.facilities[0].id
 			json_response false,{Identification: "Does not belongs to this facility"}
+			return false
 		end
 		log = VisitLog.find approve_params[:id]
 
-		log.state = :login
+		
+		#log.state = :login
 		log.identification_id 	= idz.id
 		log.save
 		if log.save
-			idz.in_use = true
+			#idz.in_use = true
 			idz.save
+			if log.company.notification === 0
+				
+				UserMailer.notify_staff(log).deliver_later
+			else
+				
+				sms_body = "Hi Staff #{log.staff.fullname}, Visitor #{log.profile.fullname} is arriving."
+
+				client_id = "aa7eb7bbe64144f6d1a4ffeaf56cff5046dc5e0d19def9df029684dd6a871a65"
+				secret_key = "cb131172b1cbcf1705c501dafdfb5c1dee0a25f24a94e8c13a485134b27a3d4c"
+				shortcode = "2929024482"
+				client = Chikka::Client.new(client_id:client_id, secret_key:secret_key, shortcode:shortcode)
+				client.send_message(message:sms_body, mobile_number:staff.mobile)
+
+			end
 			json_response true,"ok"
 		else
 			json_response false,log.errors
@@ -157,7 +173,6 @@ class Api::V1::VisitorController < ApplicationController
 
 	def info
 		@vis = Visitor.find params[:id]
-
 	end
 
 	def logout
@@ -307,9 +322,7 @@ class Api::V1::VisitorController < ApplicationController
 			secret_key = "cb131172b1cbcf1705c501dafdfb5c1dee0a25f24a94e8c13a485134b27a3d4c"
 			shortcode = "2929024482"
 
-			#client = Chikka::Client.new(client_id:client_id, secret_key:secret_key, shortcode:shortcode)
-			#client.send_message(message:sms_body, mobile_number:staff.mobile)
-
+			
 			json_response true,"visitor is now login"
 		end
 	end
