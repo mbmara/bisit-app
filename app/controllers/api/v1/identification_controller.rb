@@ -1,7 +1,7 @@
 class Api::V1::IdentificationController < ApplicationController
 
 	before_action :authorize_request, except:[:login]
-  before_action only:[:index, :create] {init_permission(6)}
+    before_action only:[:index, :create] {init_permission(6)}
 
 	def index
 		if !@current_user_permission[0][:pread]

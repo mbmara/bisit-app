@@ -75,6 +75,7 @@
 			function  loadUser(){
 				UserFactory.getList( function(res){
 					user.data = res.data;
+					user.facilities_back = angular.copy(res.data.facilities);
 					user.data.facilities.push({id:"",name:"All"});
 					user.roles_backup = angular.copy(res.data.roles);
 					user.data.roles.push({id:"",name:"All"});

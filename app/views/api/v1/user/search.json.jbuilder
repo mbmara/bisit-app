@@ -21,11 +21,12 @@ if @user_name.present?
   else
     json.users @users do |usr|
       # json.extract! usr, :id
-      if usr.user.profile.find_matches(@user_name)
-        json.role usr.user.user_role.name
-        json.facility usr.user.facilities
-        json.created_at usr.user.created_at
-        json.name usr.user.profile.fullname
+      
+      if usr.profile.find_matches(@user_name)
+        json.role usr.user_role.name
+        json.facility usr.facilities
+        json.created_at usr.created_at
+        json.name usr.profile.fullname
       end
     end
   end

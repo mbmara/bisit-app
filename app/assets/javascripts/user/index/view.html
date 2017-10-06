@@ -119,7 +119,7 @@
                             <select
                             class="form-control"
                             ng-model="user.modal.facility"
-                            ng-options="a.id as a.name for a in user.data.facilities"
+                            ng-options="a.id as a.name for a in user.facilities_back"
                             ng-disabled="user.mode=='update'"
                             >
                             <option value="" hidden selected disabled>-Select Facility-</option>

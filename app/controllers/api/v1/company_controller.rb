@@ -135,11 +135,12 @@ class Api::V1::CompanyController < ApplicationController
               end
               fac = Facility.find facilities[0][:id]
               company = fac.companies.new
-            end
 
-            if !@current_user_permission[0][:pcreate]
-              json_response false,{Account: "is not allowed to create"}
-              return false
+              # if !@current_user_permission[0][:pcreate]
+              #   json_response false,{Account: "is not allowed to create"}
+              #   return false
+              # end
+
             end
 
             company.name = company_params[:name]
