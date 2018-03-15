@@ -1,7 +1,9 @@
 class Api::V1::FacilityController < ApplicationController
 
 	before_action :authorize_request, except:[]
-    before_action only:[:create, :search, :remove, :update, :removestaff] {init_permission(3)}
+    before_action only:[:create, :search, :remove, :update, :removestaff] do 
+    	init_permission(3)
+    end
     
 	def statistic
 		data ={};

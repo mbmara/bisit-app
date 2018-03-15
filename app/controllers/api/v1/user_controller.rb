@@ -1,7 +1,9 @@
 class Api::V1::UserController < ApplicationController
   require 'securerandom'
   before_action :authorize_request, except:[:login,:recovery_code,:resetpassword]
-  before_action only:[:create, :remove] {init_permission(4)}
+  before_action only:[:create, :remove] do 
+    init_permission(4)
+  end
 
   def update
     if @current_user.super_admin?
