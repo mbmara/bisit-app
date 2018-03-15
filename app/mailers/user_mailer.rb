@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
 	end
 	def notify_staff log 
 		@log = log
-		user = User.find(log.staff_id)
-		mail(to: user.email, subject: 'New Visitor')
+		user = Staff.find(log.staff_id)
+		mail(to: user.email_address, subject: 'New Visitor')
 	end
 end
