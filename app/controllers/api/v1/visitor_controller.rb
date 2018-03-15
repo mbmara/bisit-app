@@ -51,14 +51,11 @@ class Api::V1::VisitorController < ApplicationController
 				json_response true,"ok"
 			else
 				begin
+					require 'aws-sdk'
+					sns = Aws::SNS::Client.new(region: 'ap-southeast-1', access_key_id: 'AKIAJWPZQDLAGGYU3TGQ', secret_access_key: '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')
 					sms_body = "Hi Staff #{log.staff.fullname}, Visitor #{log.profile.fullname} is arriving."
-
-					client_id = "8797a590b66cd3300345f0ba75834c756c9cffd764a467637886a5cee92ae044"
-					secret_key = "5e8ebdf79c587e9d547b972b5d99f080a70bf1d0119845f6afab642361dfcc50"
-					shortcode = "292906528"
-					client = Chikka::Client.new(client_id:client_id, secret_key:secret_key, shortcode:shortcode)
-					client.send_message(message:sms_body, mobile_number:log.staff.mobile)
-
+					sns.publish({phone_number: log.staff.mobile, message: sms_body})
+					
 					json_response true,"ok"
 				rescue 
 					json_response false,{Chikka:"failed to send, check balance"}

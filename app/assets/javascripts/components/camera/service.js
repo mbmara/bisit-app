@@ -70,18 +70,23 @@
                 });
             }
     		function initialize( onReady ){
+                console.log("ss");
                 //delete f.prototype.visitor_img;
                 f.prototype.devices.length = 0;
 				navigator.mediaDevices.enumerateDevices().then(gotDevices); //.then(getStream).catch(handleError);
                 function gotDevices(deviceInfos) {
+                    
                     angular.forEach(deviceInfos, function(data){
                         if (data.kind === 'videoinput') {
                             f.prototype.devices.push(data.deviceId);
                         }
                     })
-                    
+                    $timeout( function(){
+                      onReady( f.prototype );     
+                    });    
                 }
-                onReady( f.prototype );	
+
+                
                 
     		}
     		function open( deviceId ){
