@@ -11,7 +11,7 @@ class Profile < ApplicationRecord
 	  end
 
     def fullname
-        "#{lname} #{mname} #{fname}"
+        "#{fname} #{mname} #{lname}"
     end
     def find_matches(search)
         str = search.upcase
