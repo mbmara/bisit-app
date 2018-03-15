@@ -36,15 +36,14 @@
     VisitorInfo.approve = function( id ){
       params.id = id;
       if(params.identifiction_code){
-        //visitors_que.visitorInfo_window = false;
+        visitors_que.visitorInfo_window = false;
         visitorFactory.approve( params ,  function(res){
-          console.log(res);
-          // if(res.data.status){
-          //   Notification.showSuccess("Visitor is now login");
-          //   getList();
-          // }else{
-          //   Notification.showError(res.data.payload);
-          // }
+          if(res.data.status){
+            Notification.showSuccess("Visitor is now login");
+            getList();
+          }else{
+            Notification.showError(res.data.payload);
+          }
         })
       }else{
         alert("Please Attach Identification");
